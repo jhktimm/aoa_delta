@@ -1,0 +1,5 @@
+#~ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -std=gnu++11")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic -std=gnu++17")
+#set (CMAKE_CXX_STANDARD 11)
+add_executable(txt2bit txt2bit.cpp)
+add_executable(open_example open_example.cpp)

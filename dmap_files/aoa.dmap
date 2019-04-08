@@ -1,0 +1,28 @@
+@LOAD_LIB /usr/lib/libChimeraTK-DeviceAccess-DoocsBackend.so
+
+oven      (sharedMemoryDummy?map=oven.map)
+#dote	  (doocs:XFEL.RF/LLRF.CONTROLLER/MAIN.M12.A19.L3/FS)
+# dote      (doocs:XFEL.RF/LLRF.CONTROLLER/MAIN.M12.A19.L3)
+
+#dote (doocs:XFEL.RF/LLRF.CONTROLLER/C2.M1.A19.L3)
+#dote (doocs:XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M1.A19.L3)
+
+#flash
+#dote (doocs:FLASH.RF/LLRF.CONTROLLER/C2.M1.ACC45)
+#mdote (doocs:FLASH.RF/LLRF.CONTROLLER/MAIN.ACC45)
+#dote (doocs:FLASH.RF/LLRF.CONTROLLER/C2.M1.ACC45/PROBE.AMPL)
+
+cavity (doocs:XFEL.RF/LLRF.CONTROLLER/C1.M1.A17.L3)
+mainmodule (doocs:XFEL.RF/LLRF.CONTROLLER/MAIN.M12.A20.L3)
+
+xdote (doocs:XFEL.RF/LLRF.CONTROLLER/C1.M1.A20.L3)
+#xmdote (doocs:XFEL.RF/LLRF.CONTROLLER/MAIN.M12.A20.L3)
+#xdote (doocs:XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M1.A20.L3)
+xmdote (doocs:XFEL.RF/LLRF.CONTROLLER/MAIN.M12.A20.L3)
+
+xdote2 (doocs:XFEL.RF/LLRF.CONTROLLER/C2.M1.A20.L3)
+
+#XFEL.RF/LLRF.CONTROLLER/VS.A2.L1/AMPL.TD
+#dote 	   (doocs:XFEL.RF/LLRF.CONTROLLER/VS.A2.L1)
+
+#Dummy0  sdm://./dummy=cavitydummytest.map  cavitydummytest.map
