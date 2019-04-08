@@ -1,12 +1,12 @@
 # aoa_delta
 
-mkdir build
+    mkdir build
 
-cd build
+    cd build
 
-cmake ..
+    cmake ..
 
-make
+    make
 
 
 #to test with a data set
