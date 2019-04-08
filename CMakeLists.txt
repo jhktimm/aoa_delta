@@ -45,7 +45,12 @@ add_executable(daq_aoa src/main.cpp)
   # copy config files for 2nd example
   FILE( COPY ${CMAKE_SOURCE_DIR}/dmap_files/aoa.dmap DESTINATION ${PROJECT_BINARY_DIR})
   FILE( COPY ${CMAKE_SOURCE_DIR}/aoa_app.conf DESTINATION ${PROJECT_BINARY_DIR})
+  
 #end aos
 
 include_directories(daqsnap/)
 add_subdirectory(daqsnap)
+
+
+EXECUTE_PROCESS(COMMAND mkdir {PROJECT_BINARY_DIR}/../workdir)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/.)
