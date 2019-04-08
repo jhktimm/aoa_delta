@@ -1,0 +1,34 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="173,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S2T54U3">yk</span> = f_CavityMeasurementNonAdditiveNoiseFcn(<span class="var type1" id="S3T95U6">xk</span>,<span class="var type1" id="S4T54U7">vk</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="173,2" id="srcline2"> 2</a></span><span class="line"><span class="comment">% vdpMeasurementNonAdditiveNoiseFcn Example measurement function for discrete</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">% time nonlinear state estimators with non-additive measurement noise.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,4" id="srcline4"> 4</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,5" id="srcline5"> 5</a></span><span class="line"><span class="comment">% yk = vdpNonAdditiveMeasurementFcn(xk,vk)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,6" id="srcline6"> 6</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,7" id="srcline7"> 7</a></span><span class="line"><span class="comment">% Inputs:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,8" id="srcline8"> 8</a></span><span class="line"><span class="comment">%    xk - x[k], states at time k</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,9" id="srcline9"> 9</a></span><span class="line"><span class="comment">%    vk - v[k], measurement noise at time k</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,10" id="srcline10">10</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,11" id="srcline11">11</a></span><span class="line"><span class="comment">% Outputs:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,12" id="srcline12">12</a></span><span class="line"><span class="comment">%    yk - y[k], measurements at time k</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,13" id="srcline13">13</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,14" id="srcline14">14</a></span><span class="line"><span class="comment">% The measurement is the first state with multiplicative noise</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,15" id="srcline15">15</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,16" id="srcline16">16</a></span><span class="line"><span class="comment">% See also extendedKalmanFilter, unscentedKalmanFilter</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,17" id="srcline17">17</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="173,18" id="srcline18">18</a></span><span class="line"><span class="comment">%   Copyright 2016 The MathWorks, Inc.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,19" id="srcline19">19</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="173,20" id="srcline20">20</a></span><span class="line"><span class="comment">%#codegen</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,21" id="srcline21">21</a></span><span class="line"></span></span>
+<span class="srcline"><span class="lineno"><a href="173,22" id="srcline22">22</a></span><span class="line"><span class="comment">% The tag %#codegen must be included if you wish to generate code with </span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,23" id="srcline23">23</a></span><span class="line"><span class="comment">% MATLAB Coder.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="173,24" id="srcline24">24</a></span><span class="line"><span class="mxinfo " id="T54:U4"><span class="var type1" id="S2T54U10">yk</span> = <span class="mxinfo " id="T54:U6">zeros([2,1])</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="173,25" id="srcline25">25</a></span><span class="line"><span class="mxinfo " id="T54:U7"><span class="mxinfo " id="T54:U8"><span class="var type1" id="S2T54U20">yk</span>(<span class="mxinfo " id="T22:U10">:</span>,<span class="mxinfo " id="T5:U11">1</span>)</span> = <span class="mxinfo " id="T54:U12"><span class="mxinfo " id="T54:U13"><span class="mxinfo " id="T184:U14">[1 0 0 0 0 0; 0 1 0 0 0 0]</span>*<span class="var type1" id="S3T95U40">xk</span></span>+ <span class="var type1" id="S4T54U41">vk</span></span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="173,26" id="srcline26">26</a></span><span class="line"><span class="keyword">end</span></span></span>
+</pre>
+</body>
+</html>
