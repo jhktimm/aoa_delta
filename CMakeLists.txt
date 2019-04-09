@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(aoa)
 
 include(cmake/add_dependency.cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 add_dependency(ChimeraTK-ApplicationCore 01.01 REQUIRED)
 add_dependency(ChimeraTK-ControlSystemAdapter-DoocsAdapter 00.09 REQUIRED)
