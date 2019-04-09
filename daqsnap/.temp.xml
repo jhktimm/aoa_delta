@@ -1,0 +1,31 @@
+<DAQREQ>
+<Exp  name='llrf_snap'/>
+<DDir name='/daq_data/xfel/LLRF/'/>
+<CDir name='/daq/xfel/adm/'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M1.A21.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M3.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M4.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M3.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M4.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M3.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M4.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M3.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M4.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M3.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M4.A11.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M1.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M1.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M1.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M1.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M1.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M2.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M2.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M2.A12.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M3.A13.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A13.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M3.A13.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M4.A13.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M4.A13.L3' dtype='52'/>
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M4.A13.L3' dtype='52'/>
+<File name='/daq_data/xfel/LLRF/llrf_snap_stream_1_run825_file1_20180926T081620.1.raw'/>
+</DAQREQ>
