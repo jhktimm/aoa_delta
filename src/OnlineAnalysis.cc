@@ -291,6 +291,60 @@ void OnlineAnalysis::print_res()
 		<< "\n";
 }
 
+void OnlineAnalysis::set_data(ttf2_daq_getdata* data)
+{
+    ///to get pid and time
+  u_int evid, tup, tlow;
+  int status;
+  int statusch;
+  u_int len;
+  int evtype, nsrvb;
+  if(data->GetEventInfo(&evid, &evtype, &len, &tup, &tlow, &status, &nsrvb)) {
+    printf("ttf2_user_loop(): failed to get event info\n");
+  }
+  std::cout << "   evid: " << evid;// PID
+  //~ std::cout << "    tup: " << tup << " " << std::endl;//time [s]
+  //~ std::cout << "   tlow: " << tlow << " " << std::endl;//time [mus]
+  ///-----  
+  /// to get channel name
+  char *channml;
+  int llenl;
+  if(data->GetChanInfo(&channml, NULL, &statusch, &llenl)) {
+    printf("ttf2_user_loop(): failed to get Server Block info\n");
+  }
+  std::cout << "   channml: " << channml << " " << std::endl;// channml
+  ///-----
+  ///main loop over numberOfSubchannels = # of subchennels: pp, ps, refl and forw ...
+  int numberOfSubchannels;
+  int ndata;
+  int lndata;
+  int groups;
+  float start;
+  float inc;
+  float groups_inc;
+  ttf2_spect_statistics_2010 *stat;  
+  numberOfSubchannels = data->GetNmemb();
+  std::cout << "   numberOfSubchannels: " << numberOfSubchannels << " " << std::endl;
+  /// numberOfSubchannels = # of subchennels: pp, ps, refl and forw ...
+  for (uint i = 0; i < this->samples; i++) {
+    this->Probe_Ampl->data[i]  = data->GetSpectVal(0, i);
+    this->Probe_Phase->data[i] = data->GetSpectVal(1, i);
+    this->Forw_Ampl->data[i]   = data->GetSpectVal(2, i);
+    this->Forw_Phase->data[i]  = data->GetSpectVal(3, i);
+    this->Refl_Ampl->data[i]   = data->GetSpectVal(4, i);
+    this->Refl_Phase->data[i]  = data->GetSpectVal(5, i);
+  }
+
+	this->PID = evid;
+	this->TIME = tup;
+	this->DELAY       =  20;
+	this->FILLING     =  750;
+	this->FLATTOP     =  650;
+	//~ this->FS          =  9.027999878;
+	this->FS          =  1;
+	this->F0          =  1300;
+}
+
 void OnlineAnalysis::set_data(CavitySignals *cs, MainTableParameters* mtp)
 {
 	this->channel.probe_signal.clear();
