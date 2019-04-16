@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 					oa->get_calCoeff();
 					//~ oa->print_calCoeff();
 					//~ oa->print_data();
-					double time1=0.0, tstart;tstart = clock();//timing
+					//~ double time1=0.0, tstart;tstart = clock();//timing
 					oa->get_res();
 					//~ time1 += clock() - tstart;time1 = time1/CLOCKS_PER_SEC; printf(" *** get_res time = %2.4f sec.\n",time1);
 					//~ oa->print_res();

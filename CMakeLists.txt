@@ -56,6 +56,8 @@ add_executable(daq_aoa src/main.cpp)
 include_directories(daqsnap/)
 add_subdirectory(daqsnap)
 
+include_directories(daq_ana/)
+add_subdirectory(daq_ana)
 
 EXECUTE_PROCESS(COMMAND mkdir ${PROJECT_BINARY_DIR}/../workdir)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/.)

@@ -87,6 +87,7 @@ int processEvent(ttf2_daq_getdata* data)
     }
     
   }	  
+  return 0;
 }
 
 
@@ -110,14 +111,14 @@ int main(int argc, char *argv[])
   
   //~ reader_2010.set_catalog_dir("/daq/xfel/adm/");
   //~ reader_2010.set_data_dir("/daq_data/xfel/LLRF/");
-  reader_2010.set_data_dir("/daq_data/xfel/USR1/LLRF/");///raw + list
+  reader_2010.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");///raw + list
   //~ reader_2010.add_file(argv[1],true);///raw
   
   
   /// check if we have to add all channels
   daq_server_request request_dummy;
 	ttf2_daq_reader_2010 reader_dummy;
-  reader_dummy.set_data_dir("/daq_data/xfel/USR1/LLRF/");  
+  reader_dummy.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");  
   reader_dummy.init(&fls, &request_dummy.chan_list); 
   vector<chan_descr_2010*> vc;
   vc.clear();    
@@ -153,7 +154,7 @@ int main(int argc, char *argv[])
     data.Clean();
     data.SetRes(&res);
     std::cout << "res.size() " << res.size() << "  reader_2010.get_number_of_channels() " << reader_2010.get_number_of_channels() << std::endl;
-    if(res.size() == reader_2010.get_number_of_channels()) {
+    if(res.size() == (uint) reader_2010.get_number_of_channels()) {
       data.Clean();
       data.SetRes(&res);
       numberOfChannels = reader_2010.get_number_of_channels();

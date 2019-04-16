@@ -27,9 +27,9 @@
 
 #include <jsoncpp/json/json.h>
 
-#include <ttf2_daq_reader_2010.h>
-#include <daq_server_util_def.h>
-#include <ttf2_daq_data.h>
+//~ #include <ttf2_daq_reader_2010.h>
+//~ #include <daq_server_util_def.h>
+//~ #include <ttf2_daq_data.h>
 
 #include <iostream>
 #include <fstream>
@@ -101,9 +101,10 @@ class OnlineAnalysis
 		//~ void getParameters(std::string jsonfilename, double tau_m[4], double K_m[4], double X0[4] );
 		void getParameters(std::string jsonfilename);
 		void getAutoParameters();/// Getting Parameters tau_m, K_m and X0 from jsonfile. json Filename is generated autamatic from live data. call readAll()( or cavity_name.read() or something like that) AND set_data first!
-		void print_Parameters();
+		void getAutoParameters(std::string tauKXdir);
+    void print_Parameters();
     
-		void set_data(ttf2_daq_getdata* data);
+		//~ void set_data(ttf2_daq_getdata* data);
 		void set_data(std::string jsonfilename);
 		void set_data(doocs_snapdaq_data_channel dc);
 		void set_data(doocs_snapdaq_data_channel dc, uint pid, double time);/// use this, if you want to overwrite delay, flattop, filling, fs=1 !, f0 and pid
@@ -133,7 +134,8 @@ class OnlineAnalysis
 		
 		double FS;
 		
-	private:
+	//~ private:
+	//~ protected:
 		void init();
 	
 		aoa_daq_datasclass* data = new aoa_daq_datasclass;
