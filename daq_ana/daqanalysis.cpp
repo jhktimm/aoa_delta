@@ -74,11 +74,13 @@ int main(int argc, char *argv[])
   double samples = 1820;
 	double div = 9;
   DAQAnalysis * oa = new DAQAnalysis(samples,div);
-  
+  ulong numberOfAllEvents = reader_2010.get_number_of_files()*100;
+  std::cout << "app. numberOfAllEvents = numberOfFiles*100: " << numberOfAllEvents << "\n" ;
   vector<ttf2_channel_entry_long*> res;
   reader_2010.start();
   int numberOfChannels;
   while((reader_2010.get_data(NULL, &res)) == TTF2_DAQ_READER_OK) {
+    std::cout << "operating " << reader_2010.get_number_of_events() << " of approx " << numberOfAllEvents <<" events\n" ;
     data.Clean();
     data.SetRes(&res);
     //~ std::cout << "res.size() " << res.size() << "  reader_2010.get_number_of_channels() " << reader_2010.get_number_of_channels() << std::endl;
@@ -116,8 +118,9 @@ int main(int argc, char *argv[])
         DoocsAddressHelper dah(channml);
         //~ dah.print();
         oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
-        oa->print_data();
+        //~ oa->print_data();
       }
+      oa->print_data();
     }      
   }
   std::cout << "fino" << std::endl;
