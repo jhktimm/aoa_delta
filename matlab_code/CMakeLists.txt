@@ -9,18 +9,19 @@
 include_directories(f_calib_and_res_gen_ukf)
 add_subdirectory(f_calib_and_res_gen_ukf)
 
-add_library(OnlineAnalysis  SHARED
-../src/OnlineAnalysis.cc
+add_library(AAnalysis  SHARED
+../src/AAnalysis.cc
 )
 
-message("{ChimeraTK-ApplicationCore_INCLUDE_DIRS} ${ChimeraTK-ApplicationCore_INCLUDE_DIRS}")
-target_include_directories(OnlineAnalysis PUBLIC ${ChimeraTK-ApplicationCore_INCLUDE_DIRS})
-target_link_libraries(OnlineAnalysis
+#~ message("{ChimeraTK-ApplicationCore_INCLUDE_DIRS} ${ChimeraTK-ApplicationCore_INCLUDE_DIRS}")
+#~ target_include_directories(AAnalysis PUBLIC ${ChimeraTK-ApplicationCore_INCLUDE_DIRS})
+target_include_directories(AAnalysis PUBLIC)
+target_link_libraries(AAnalysis
                                 #~ f_get_calCoeff_codegen
                                 #~ f_generate_online_UKF_residual
                                 #~ f_generate_online_parityRes1
                                 #~ f_generate_online_parityRes2
 								f_calib_and_res_gen_ukf
                                 "-ljsoncpp"
-                                ${ChimeraTK-ApplicationCore_LIBRARIES}
+                                #~ ${ChimeraTK-ApplicationCore_LIBRARIES}
 )

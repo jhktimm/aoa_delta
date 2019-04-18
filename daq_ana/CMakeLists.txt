@@ -19,5 +19,5 @@ add_executable(daqanalysis daqanalysis.cpp)
 set_target_properties(daqanalysis PROPERTIES COMPILE_FLAGS "${DOOCS_CXX_FLAGS}")
 #~ set_target_properties(daqanalysis PROPERTIES LINK_FLAGS "${DOOCS_LINKER_FLAGS} ${ChimeraTK-ApplicationCore_LINK_FLAGS}")
 set_target_properties(daqanalysis PROPERTIES LINK_FLAGS "${DOOCS_LINKER_FLAGS}")
-target_link_libraries(daqanalysis	OnlineAnalysis ${DOOCS_LIBRARIES} )
+target_link_libraries(daqanalysis	AAnalysis ${DOOCS_LIBRARIES} )
 

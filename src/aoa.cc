@@ -40,9 +40,12 @@ struct Controller : public ctk::ApplicationModule {
 		std::string json_filename_prefix = "residual_" + std::to_string(rawtime) + '_';
 	
 		//~ OnlineAnalysis * oa = new OnlineAnalysis(samples);
-		OnlineAnalysis * oa = new OnlineAnalysis(samples, div);
+		//~ OnlineAnalysis * oa = new OnlineAnalysis(samples, div);
+		OnlineAnalysis * oa = new OnlineAnalysis();
+		oa->init(samples, div);
 		oa->getParameters("../dmap_files/XFEL.RF.A20.L3.M1.C1.json");
-		oa->set_data("../data/data_set.json");
+		
+		//~ oa->set_data("../data/data_set.json");// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//~ oa->FS = 1;
 		oa->get_calCoeff();
 		oa->print_calCoeff();		

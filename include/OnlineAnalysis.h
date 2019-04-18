@@ -1,22 +1,7 @@
 /*
  * OnlineAnalysis.h
  * 
- * Copyright 2019 jan.horst.karl.timm@desy.de <jhktimm@xfelvdev2>
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
- * MA 02110-1301, USA.
+ * 2019 jan.horst.karl.timm@desy.de <jhktimm@xfelvdev2>
  * 
  * 
  */
@@ -25,34 +10,17 @@
 #ifndef ONLINEANALYSIS_H
 #define ONLINEANALYSIS_H
 
-#include <jsoncpp/json/json.h>
+#include "AAnalysis.h"
 
-//~ #include <ttf2_daq_reader_2010.h>
-//~ #include <daq_server_util_def.h>
-//~ #include <ttf2_daq_data.h>
+#include <jsoncpp/json/json.h>
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <thread>
 #include <sstream>
-#include "../matlab_code/f_calib_and_res_gen_ukf.h"
-
-//~ #include "f_generate_online_parityRes1.h"
-//~ #include "f_generate_online_parityRes2.h"
-//~ #include "f_generate_online_UKF_residual.h"
-
-//~ #include "f_generate_online_UKF_residual.old2.h"
-//~ #include "f_generate_online_UKF_residual.false.h"
-//~ #include "f_get_calCoeff_codegen.h"
-
-//~ #include "../doocs_snapdaq_llrf_datasclass.h"
-#include "../include/aoa_daq_datasclass.h"
-
-
 
 #include <ChimeraTK/ApplicationCore/ApplicationCore.h>
-//#include <ApplicationCore.h>
 
 bool operator==(std::vector<double> const& lhs, ChimeraTK::ArrayPushInput<double> & rhs){
     if(lhs.size() != rhs.getNElements()){
@@ -66,17 +34,15 @@ bool operator==(std::vector<double> const& lhs, ChimeraTK::ArrayPushInput<double
     return true;
 }
 
-
-
-  struct MainTableParameters : public ChimeraTK::VariableGroup {
-	using ChimeraTK::VariableGroup::VariableGroup;
-	  ChimeraTK::ScalarPollInput<float> fs{this, "FS", "", "...", {"MTC"}};
-	  ChimeraTK::ScalarPollInput<float> f0{this, "F0", "", "...", {"MTC"}};  
-	  ChimeraTK::ScalarPollInput<float> delay{this, "PULSE_DELAY", "", "...", {"MTC"}};
-	  ChimeraTK::ScalarPollInput<float> filling{this, "PULSE_FILLING", "", "...", {"MTC"}};
-	  ChimeraTK::ScalarPollInput<float> flattop{this, "PULSE_FLATTOP", "", "...", {"MTC"}};  
-	  ChimeraTK::ScalarPollInput<long> pid{this, "MACRO_PULSE_NUMBER", "", "...", {"MTC"}};
-	};
+struct MainTableParameters : public ChimeraTK::VariableGroup {
+using ChimeraTK::VariableGroup::VariableGroup;
+  ChimeraTK::ScalarPollInput<float> fs{this, "FS", "", "...", {"MTC"}};
+  ChimeraTK::ScalarPollInput<float> f0{this, "F0", "", "...", {"MTC"}};  
+  ChimeraTK::ScalarPollInput<float> delay{this, "PULSE_DELAY", "", "...", {"MTC"}};
+  ChimeraTK::ScalarPollInput<float> filling{this, "PULSE_FILLING", "", "...", {"MTC"}};
+  ChimeraTK::ScalarPollInput<float> flattop{this, "PULSE_FLATTOP", "", "...", {"MTC"}};  
+  ChimeraTK::ScalarPollInput<long> pid{this, "MACRO_PULSE_NUMBER", "", "...", {"MTC"}};
+};
 
 struct CavitySignals : public ChimeraTK::VariableGroup {
 using ChimeraTK::VariableGroup::VariableGroup;
@@ -90,99 +56,96 @@ using ChimeraTK::VariableGroup::VariableGroup;
   
 };
 
-class OnlineAnalysis
-{
+class OnlineAnalysis : public AAnalysis
+{ 
 	public:
-		OnlineAnalysis();
-		OnlineAnalysis(int samples);
-		OnlineAnalysis(int samples, int div);
-		virtual ~OnlineAnalysis();
-	
-		//~ void getParameters(std::string jsonfilename, double tau_m[4], double K_m[4], double X0[4] );
-		void getParameters(std::string jsonfilename);
-		void getAutoParameters();/// Getting Parameters tau_m, K_m and X0 from jsonfile. json Filename is generated autamatic from live data. call readAll()( or cavity_name.read() or something like that) AND set_data first!
-		void getAutoParameters(std::string tauKXdir);
-    void print_Parameters();
-    
-		//~ void set_data(ttf2_daq_getdata* data);
-		void set_data(std::string jsonfilename);
-		void set_data(doocs_snapdaq_data_channel dc);
-		void set_data(doocs_snapdaq_data_channel dc, uint pid, double time);/// use this, if you want to overwrite delay, flattop, filling, fs=1 !, f0 and pid
-		//~ void set_data(aoa_daq_channel dc);
-		void set_data(CavitySignals *cs, MainTableParameters* mtp);
-		void print_data();
-		
-		void test_signal_consistence(CavitySignals *cs);
-		
-		void get_res();
-		void print_res();
-		
-		void get_calCoeff();
-		void print_calCoeff();
-		
-		void writejson();
-		void writeappjson(std::string filename);
-		void savejson(std::string filename);
-		
-		void write_res_dat(std::string filename);
-
-		void save_daq_json(std::string filename);
-		void jsondaq();
-		
-		void save_bit(std::string filename);
-		//~ CavitySignals cs;
-		
-		double FS;
-		
-	//~ private:
-	//~ protected:
-		void init();
-	
-		aoa_daq_datasclass* data = new aoa_daq_datasclass;
-		
-		doocs_snapdaq_data_channel channel;
-		
-		Json::Value jsonstream;
-		Json::Value json_daq_stream;
-	
-		std::vector<double> tmp_probe_ampl;
-		std::vector<double> tmp_probe_phase;
-		std::vector<double> tmp_vforw_ampl;
-		std::vector<double> tmp_vforw_phase;
-		std::vector<double> tmp_vrefl_ampl;
-		std::vector<double> tmp_vrefl_phase;
-	
-		double tau_m[4];
-		double K_m[4];
-		double X0[4];
-	
-		double residual_ukf[6];
-		double residual_ukf_mean[6];
-		double residual_ukf_Variance[12];
-		
-		uint samples;
-		int div;
-		
-		std::string NAME;
-
-		double DELAY;
-		double FILLING;
-		double FLATTOP;
-		double PID;
-		double TIME;
-		//~ double FS;
-		double F0;
-		emxArray_real_T *Probe_Ampl;
-		emxArray_real_T *Probe_Phase;
-		emxArray_real_T *Forw_Ampl;
-		emxArray_real_T *Forw_Phase;
-		emxArray_real_T *Refl_Ampl;
-		emxArray_real_T *Refl_Phase;
+	OnlineAnalysis(int samples, int div) : AAnalysis(samples, div) {}
+	OnlineAnalysis() : AAnalysis() {}
+	using AAnalysis::set_data;
+	void set_data(CavitySignals *cs, MainTableParameters* mtp)
+	{
+		this->channel.probe_signal.clear();
+		this->channel.probe_phase.clear();
+		this->channel.forward_signal.clear();
+		this->channel.forward_phase.clear();
+		this->channel.reflected_signal.clear();
+		this->channel.reflected_phase.clear();
+		for (uint i = 0; i < this->samples; i = i + 1) {
 			
+			this->Probe_Ampl->data[i]  = cs->probe_ampl[i];
+			this->Probe_Phase->data[i] = cs->probe_phase[i];
+			this->Forw_Ampl->data[i]   = cs->vforw_ampl[i];
+			this->Forw_Phase->data[i]  = cs->vforw_phase[i];
+			this->Refl_Ampl->data[i]   = cs->vrefl_ampl[i];
+			this->Refl_Phase->data[i]  = cs->vrefl_phase[i];
+				this->channel.probe_signal.push_back(cs->probe_ampl[i]);
+				this->channel.probe_phase.push_back(cs->probe_phase[i]);
+				this->channel.forward_signal.push_back(cs->vforw_ampl[i]);
+				this->channel.forward_phase.push_back(cs->vforw_phase[i]);
+				this->channel.reflected_signal.push_back(cs->vrefl_ampl[i]);
+				this->channel.reflected_phase.push_back(cs->vrefl_phase[i]);
+		}	
+		this->NAME			= cs->cavity_name;	
+		this->DELAY       =  mtp->delay;
+		this->FILLING     =  mtp->filling;
+		this->FLATTOP     =  mtp->flattop;
+		this->FS          =  mtp->fs;
+		this->F0          =  mtp->f0;
+		this->PID         =  mtp->pid;
+		this->TIME         =  0;//mtp->time nned to be implemented!!!!!!!!!!!!!!!!!!!!!
+		this->channel.doocschannel= cs->cavity_name;//ist eigentlich nicht der voller doocschannel
+		std::stringstream strstream_name(this->NAME);//C1.M1.A20.L3
+		std::string C_str, M_str, A_str, L_str;
+		getline(strstream_name, C_str, '.');
+		getline(strstream_name, M_str, '.');
+		getline(strstream_name, A_str, '.');	
+		getline(strstream_name, L_str, '.');	
+		this->channel.section = M_str + '.' + L_str;
+		this->channel.station = A_str;
+		this->channel.type = C_str;
+		//~ this->NAME    = dc.type + '.' + dc.station + '.' + dc.section;// z.B. C4.M2. A17. L3
+
+	//~ .M1.L3 section
+	//~ A17 station
+	//~ C1 type
 		
-		creal_T calCoeff[4];
-		creal_T j_calCoeff[4];
-		/* add your private declarations */
+		this->channel.delay       =  mtp->delay;
+		this->channel.filling     =  mtp->filling;
+		this->channel.flattop     =  mtp->flattop;
+		this->channel.fs          =  mtp->fs;
+		this->channel.f0          =  mtp->f0;
+		
+		macro_pulse* mp = new macro_pulse();
+		mp->channel.push_back(this->channel);
+		mp->pid = mtp->pid;
+		this->data->mps.push_back(*mp);
+	}
+	
+	void test_signal_consistence(CavitySignals *cs)
+	{
+		if(this->tmp_probe_ampl == cs->probe_ampl) std::cout << "arsch\n";
+		if(this->tmp_probe_phase == cs->probe_phase) std::cout << "arsch\n";
+		if(this->tmp_vforw_ampl == cs->vforw_ampl) std::cout << "arsch\n";
+		if(this->tmp_vforw_phase == cs->vforw_phase) std::cout << "arsch\n";
+		if(this->tmp_vrefl_ampl == cs->vrefl_ampl) std::cout << "arsch\n";
+		if(this->tmp_vrefl_phase == cs->vrefl_phase) std::cout << "arsch\n";
+
+		this->tmp_probe_ampl.clear();
+		this->tmp_probe_phase.clear();
+		this->tmp_vforw_ampl.clear();
+		this->tmp_vforw_phase.clear();
+		this->tmp_vrefl_ampl.clear();
+		this->tmp_vrefl_phase.clear();
+		for (uint i = 0; i < this->samples; i++) {		
+			this->tmp_probe_ampl.push_back( cs->probe_ampl[i]);
+			this->tmp_probe_phase.push_back( cs->probe_phase[i]);
+			this->tmp_vforw_ampl.push_back( cs->vforw_ampl[i]);
+			this->tmp_vforw_phase.push_back( cs->vforw_phase[i]);
+			this->tmp_vrefl_ampl.push_back( cs->vrefl_ampl[i]);
+			this->tmp_vrefl_phase.push_back( cs->vrefl_phase[i]);
+		}	
+	}
+
 };
 
 #endif /* ONLINEANALYSIS_H */ 

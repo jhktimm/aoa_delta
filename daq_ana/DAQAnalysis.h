@@ -1,15 +1,18 @@
 #ifndef DAQANALYSIS_H
 #define DAQANALYSIS_H
 
-#include "../include/OnlineAnalysis.h"
+#include "../include/AAnalysis.h"
 
 #include <ttf2_daq_reader_2010.h>
 #include <daq_server_util_def.h>
 #include <ttf2_daq_data.h>
 
-struct DAQAnalysis : public OnlineAnalysis {
-    DAQAnalysis(int samples, int div) : OnlineAnalysis(samples, div) {}
+struct DAQAnalysis : public AAnalysis {
+    DAQAnalysis() : AAnalysis() {}
+    DAQAnalysis(int samples, int div) : AAnalysis(samples, div) {}
 
+	using AAnalysis::set_data;
+	
     void set_data(ttf2_daq_getdata* data)
     {
       ///to get pid and time

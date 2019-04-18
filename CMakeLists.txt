@@ -18,8 +18,9 @@ add_executable(daq_aoa src/main.cpp)
   set_target_properties(daq_aoa PROPERTIES LINK_FLAGS "${ChimeraTK-ApplicationCore_LINK_FLAGS} ${DOOCS_LINKER_FLAGS}")
 	target_link_libraries(daq_aoa 
 	#~ ${ChimeraTK-ApplicationCore_LIBRARIES}
-	OnlineAnalysis
-  ${DOOCS_LIBRARIES}
+	AAnalysis
+    ${DOOCS_LIBRARIES}
+    ${ChimeraTK-ApplicationCore_LIBRARIES}
 	#~ "-ljsoncpp"
 	)
   
@@ -33,6 +34,7 @@ add_executable(daq_aoa src/main.cpp)
 
   set_target_properties(aoa_app PROPERTIES COMPILE_FLAGS "${ChimeraTK-ControlSystemAdapter_CXX_FLAGS} ${DOOCS_CXX_FLAGS} -O3 ")
   set_target_properties(aoa_app PROPERTIES LINK_FLAGS "${ChimeraTK-ControlSystemAdapter_LINK_FLAGS} ${ChimeraTK-ControlSystemAdapter-DoocsAdapter_LINK_FLAGS} ${DOOCS_LINKER_FLAGS} ")
+  target_include_directories(aoa_app PUBLIC ${ChimeraTK-ApplicationCore_INCLUDE_DIRS})
   target_link_libraries(aoa_app 
 		#~ ${PROJECT_NAME}
 		#~ ${Boost_LIBRARIES}
@@ -42,7 +44,8 @@ add_executable(daq_aoa src/main.cpp)
 		#~ ${LibXML++_LIBRARIES}
 		#~ ${glib_LIBRARIES}
 		#~ ${HDF5_LIBRARIES}
-		OnlineAnalysis
+		AAnalysis
+		${ChimeraTK-ApplicationCore_LIBRARIES}
 		"-ljsoncpp"
 		#~ "-lstdc++"
 		)

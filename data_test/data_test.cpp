@@ -1,4 +1,4 @@
-#include "../include/OnlineAnalysis.h"
+#include "../include/AAnalysis.h"
 
 /**
  * This is a simple example and mostly a test to get the redsidual.
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
   double div = 1;
   
   /// OnlineAnalysis constructor
-  OnlineAnalysis * oa = new OnlineAnalysis(samples,div);
+  AAnalysis * oa = new AAnalysis(samples,div);
   
   /// setting up the data
   // depending on the source, you can set diffenret data types
