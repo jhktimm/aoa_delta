@@ -23,12 +23,12 @@ add_executable(daq_aoa src/main.cpp)
 	#~ "-ljsoncpp"
 	)
   
-  add_executable(data_test test/data_test.cpp)
-
-  set_target_properties(data_test PROPERTIES COMPILE_FLAGS "${ChimeraTK-ApplicationCore_CXX_FLAGS} ${DOOCS_CXX_FLAGS}")
-  set_target_properties(data_test PROPERTIES LINK_FLAGS "${ChimeraTK-ApplicationCore_LINK_FLAGS} ${DOOCS_LINKER_FLAGS}")
-	target_link_libraries(data_test 	OnlineAnalysis ${DOOCS_LIBRARIES})
-
+#  add_executable(data_test test/data_test.cpp)
+#
+#  set_target_properties(data_test PROPERTIES COMPILE_FLAGS "${ChimeraTK-ApplicationCore_CXX_FLAGS} ${DOOCS_CXX_FLAGS}")
+#  set_target_properties(data_test PROPERTIES LINK_FLAGS "${ChimeraTK-ApplicationCore_LINK_FLAGS} ${DOOCS_LINKER_FLAGS}")
+#	target_link_libraries(data_test 	OnlineAnalysis ${DOOCS_LIBRARIES})
+#
   add_executable(aoa_app src/aoa.cc )
 
   set_target_properties(aoa_app PROPERTIES COMPILE_FLAGS "${ChimeraTK-ControlSystemAdapter_CXX_FLAGS} ${DOOCS_CXX_FLAGS} -O3 ")
@@ -52,6 +52,8 @@ add_executable(daq_aoa src/main.cpp)
   FILE( COPY ${CMAKE_SOURCE_DIR}/aoa_app.conf DESTINATION ${PROJECT_BINARY_DIR})
   
 #end aos
+include_directories(data_test/)
+add_subdirectory(data_test)
 
 include_directories(daqsnap/)
 add_subdirectory(daqsnap)
