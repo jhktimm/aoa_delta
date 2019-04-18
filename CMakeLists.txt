@@ -58,9 +58,6 @@ add_executable(daq_aoa src/main.cpp)
 include_directories(data_test/)
 add_subdirectory(data_test)
 
-include_directories(daqsnap/)
-add_subdirectory(daqsnap)
-
 include_directories(daq_ana/)
 add_subdirectory(daq_ana)
 

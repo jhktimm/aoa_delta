@@ -1,3 +1,4 @@
+
 #include <daq_server_util_def.h>
 #include <ttf2_daq_data.h>
 #include <ttf2_daq_reader_2010.h>
@@ -105,13 +106,13 @@ int main(int argc, char *argv[])
 
   ttf2_daq_getdata data; 
   parse_daq_request_from_file(xml, &request); 
-  //~ reader_2010.set_data_dir(request.ddir);///xml
-  //~ reader_2010.set_catalog_dir(request.cdir);///xml
-  //~ reader_2010.init(&request.file_list, &request.chan_list);///xml
+  reader_2010.set_data_dir(request.ddir);///xml
+  reader_2010.set_catalog_dir(request.cdir);///xml
+  reader_2010.init(&request.file_list, &request.chan_list);///xml
   
   //~ reader_2010.set_catalog_dir("/daq/xfel/adm/");
   //~ reader_2010.set_data_dir("/daq_data/xfel/LLRF/");
-  reader_2010.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");///raw + list
+  //~ reader_2010.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");///raw + list
   //~ reader_2010.add_file(argv[1],true);///raw
   
   
@@ -153,7 +154,7 @@ int main(int argc, char *argv[])
   while((reader_2010.get_data(NULL, &res)) == TTF2_DAQ_READER_OK) {
     data.Clean();
     data.SetRes(&res);
-    std::cout << "res.size() " << res.size() << "  reader_2010.get_number_of_channels() " << reader_2010.get_number_of_channels() << std::endl;
+    //~ std::cout << "res.size() " << res.size() << "  reader_2010.get_number_of_channels() " << reader_2010.get_number_of_channels() << std::endl;
     if(res.size() == (uint) reader_2010.get_number_of_channels()) {
       data.Clean();
       data.SetRes(&res);
