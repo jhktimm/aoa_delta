@@ -11,15 +11,14 @@ add_dependency(ChimeraTK-ControlSystemAdapter-DoocsAdapter 00.09 REQUIRED)
 include_directories(matlab_code/)
 add_subdirectory(matlab_code)
 
-add_executable(daq_aoa src/main.cpp)
+#~ add_executable(daq_aoa src/main.cpp)
 
-set_target_properties(daq_aoa PROPERTIES COMPILE_FLAGS "${ChimeraTK-ApplicationCore_CXX_FLAGS}")
-set_target_properties(daq_aoa PROPERTIES LINK_FLAGS "${ChimeraTK-ApplicationCore_LINK_FLAGS}")
-target_link_libraries(daq_aoa 
-	AAnalysis
-	${ChimeraTK-ApplicationCore_LIBRARIES}
-	)
-	
+#~ set_target_properties(daq_aoa PROPERTIES COMPILE_FLAGS "${ChimeraTK-ApplicationCore_CXX_FLAGS}")
+#~ set_target_properties(daq_aoa PROPERTIES LINK_FLAGS "${ChimeraTK-ApplicationCore_LINK_FLAGS}")
+#~ target_link_libraries(daq_aoa 
+	#~ AAnalysis
+	#~ ${ChimeraTK-ApplicationCore_LIBRARIES}
+	#~ )
 
 add_executable(aoa_app src/aoa.cc )
 
@@ -45,4 +44,7 @@ include_directories(daq_ana/)
 add_subdirectory(daq_ana)
 
 EXECUTE_PROCESS(COMMAND mkdir ${PROJECT_BINARY_DIR}/../workdir)
-EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/.)
+#~ EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/aoa_app ${PROJECT_BINARY_DIR}/../workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${PROJECT_BINARY_DIR}/../workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/run.sh ${PROJECT_BINARY_DIR}/../workdir/.)
