@@ -35,6 +35,7 @@ target_link_libraries(aoa_app
 # copy config files for 2nd example
 FILE( COPY ${CMAKE_SOURCE_DIR}/dmap_files/aoa.dmap DESTINATION ${PROJECT_BINARY_DIR})
 FILE( COPY ${CMAKE_SOURCE_DIR}/aoa_app.conf DESTINATION ${PROJECT_BINARY_DIR})
+FILE( COPY ${CMAKE_SOURCE_DIR}/tools/run.sh DESTINATION ${PROJECT_BINARY_DIR}/daq_ana/)
   
 
 include_directories(data_test/)
@@ -43,8 +44,8 @@ add_subdirectory(data_test)
 include_directories(daq_ana/)
 add_subdirectory(daq_ana)
 
-EXECUTE_PROCESS(COMMAND mkdir ${PROJECT_BINARY_DIR}/../workdir)
+EXECUTE_PROCESS(COMMAND mkdir ${CMAKE_SOURCE_DIR}/workdir)
 #~ EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/.)
-EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/aoa_app ${PROJECT_BINARY_DIR}/../workdir/.)
-EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${PROJECT_BINARY_DIR}/../workdir/.)
-EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/run.sh ${PROJECT_BINARY_DIR}/../workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/aoa_app ${CMAKE_SOURCE_DIR}/workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${CMAKE_SOURCE_DIR}/workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/run.sh ${CMAKE_SOURCE_DIR}/workdir/.)
