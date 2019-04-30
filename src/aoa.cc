@@ -43,25 +43,27 @@ struct Controller : public ctk::ApplicationModule {
 		//~ OnlineAnalysis * oa = new OnlineAnalysis(samples, div);
 		OnlineAnalysis * oa = new OnlineAnalysis();
 		oa->init(samples, div);
-		oa->getParameters("../dmap_files/XFEL.RF.A20.L3.M1.C1.json");
-		
+// 		oa->getParameters("../dmap_files/XFEL.RF.A20.L3.M1.C1.json");
+                oa->getAutoParameters("../tau_k_x/");
+		oa->print_Parameters();
 		//~ oa->set_data("../data/data_set.json");// !!!!!!!!!!!!!!!!!!!!!!!!!!!
 		//~ oa->FS = 1;
-		oa->get_calCoeff();
-		oa->print_calCoeff();		
+// 		oa->get_calCoeff();
+// 		oa->print_calCoeff();		
 		std::cout << "bevor" << std::endl; 
-		oa->get_res();	
-		oa->print_res();
+// 		oa->get_res();	
+// 		oa->print_res();
 		std::cout << "after" << std::endl; 
 		
 
 		casi.readAll();
 		mtp.readAll();
 		oa->set_data(&casi, &mtp);
-		oa->getAutoParameters();
+// 		oa->getAutoParameters();
 				
 		oa->get_calCoeff();		
 		oa->print_calCoeff();
+                oa->print_calCoeff();
 		uint file_iterator = 0;
 		uint event_iterator = 0;
 		while (run_flag)
@@ -80,22 +82,23 @@ struct Controller : public ctk::ApplicationModule {
 			oa->get_res();std::cout << "after" << std::endl;
 			time1 += clock() - tstart;time1 = time1/CLOCKS_PER_SEC; printf(" *** get_res time = %2.4f sec.\n",time1);
 			oa->print_res();
-			oa->writejson();			
+// 			oa->writejson();			
 			event_iterator++;
 			if (event_iterator > save_residual_every) {
 				event_iterator=0;
 				file_iterator++;
-				oa->savejson(json_filename_prefix + std::to_string(file_iterator) + ".json");
-				oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");
+// 				oa->savejson(json_filename_prefix + std::to_string(file_iterator) + ".json");
+// 				oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");
 				//~ oa->save_daq_json( "daq_" + json_filename_prefix + std::to_string(file_iterator) + ".json");				
 			} else if (event_iterator > refresh) {
-				oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");				
+// 				oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");				
 			}
 		}
-		oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");
+// 		oa->save_bit("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".bit");
 		file_iterator++;
-		oa->savejson(json_filename_prefix + std::to_string(file_iterator) + ".json");
+// 		oa->savejson(json_filename_prefix + std::to_string(file_iterator) + ".json");
 		//~ oa->save_daq_json("daq_" + json_filename_prefix + std::to_string(file_iterator) + ".json");
+            delete(oa);
 	}
 };
 
@@ -109,8 +112,10 @@ struct Controller : public ctk::ApplicationModule {
 		}
      Controller controller{this, "Controller", "The Controller"};
 
-	ctk::DeviceModule cavity_device{"cavity"};
-	ctk::DeviceModule mainmodule {"mainmodule"};
+	ctk::DeviceModule cavity_device{this, "cavity"};
+// 	ctk::DeviceModule cavity_device{"cavity"};
+// 	ctk::DeviceModule mainmodule {"mainmodule"};
+	ctk::DeviceModule mainmodule {this, "mainmodule"};
 	
      void defineConnections();
  };

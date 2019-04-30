@@ -40,3 +40,4 @@ the program daqanalysis should be ion the build/daq_ana directory
     ./aoa_app
 
 
+env LANG=C cmake -DCMAKE_MODULE_PATH=/home/jhktimm/jhbuild/install/share/cmake-3.5/Modules ..

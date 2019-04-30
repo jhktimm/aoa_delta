@@ -1,7 +1,9 @@
- #!/bin/bash
-run="run1143"
+#!/bin/bash
+run="run1146"
+# run="run1143"
 #~ run="run1138"
-echo "srthsth${run}kjhkjhg"
+# echo "srthsth${run}kjhkjhg"
+echo $0 $1 $2 $3 $4 $5
 if [ "$1" == "" ] 
     then
         echo "Use: '. run.sh 23 test' for running:"
