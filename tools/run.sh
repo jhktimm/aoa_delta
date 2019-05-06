@@ -1,6 +1,6 @@
 #!/bin/bash
-run="run1146"
-# run="run1143"
+# run="run1146"
+run="run1143"
 #~ run="run1138"
 # echo "srthsth${run}kjhkjhg"
 echo $0 $1 $2 $3 $4 $5
