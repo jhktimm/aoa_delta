@@ -101,3 +101,6 @@ RUN git clone https://github.com/jhktimm/aoa_delta.git && \
 #     mkdir /daq_data/xfel/USR1 && \
     cd /aoa_delta/workdir
 
+ENV TZ=CET
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
