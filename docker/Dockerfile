@@ -103,4 +103,4 @@ RUN git clone https://github.com/jhktimm/aoa_delta.git && \
 
 ENV TZ=CET
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
+WORKDIR /aoa_delta/workdir

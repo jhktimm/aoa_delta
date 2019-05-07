@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 project(aoa)
+EXECUTE_PROCESS(COMMAND ln -s ${CMAKE_SOURCE_DIR}/tools/run.sh ${CMAKE_SOURCE_DIR}/workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${CMAKE_SOURCE_DIR}/tools/runDocker.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 
 include(cmake/add_dependency.cmake)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/Modules)
@@ -49,4 +51,3 @@ EXECUTE_PROCESS(COMMAND mkdir ${CMAKE_SOURCE_DIR}/workdir)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/aoa_app ${CMAKE_SOURCE_DIR}/workdir/.)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${CMAKE_SOURCE_DIR}/workdir/.)
 # EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/run.sh ${CMAKE_SOURCE_DIR}/workdir/.)
-EXECUTE_PROCESS(COMMAND ln -s ${CMAKE_SOURCE_DIR}/tools/run.sh ${CMAKE_SOURCE_DIR}/workdir/.)
