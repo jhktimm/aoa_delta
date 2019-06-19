@@ -101,11 +101,15 @@ RUN git clone https://github.com/jhktimm/aoa_delta.git && \
 #     mkdir /daq_data/xfel/USR1 && \
     cd /aoa_delta/workdir
     
-RUN apt-get install -y rpcbind
+#RUN apt-get install -y rpcbind
 
 # Start rpcbind at launch of the container, required for DOOCS
-ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
+#ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
 
 ENV TZ=CET
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-WORKDIR /aoa_delta/workdir
+WORKDIR /space/aoa_delta/workdir
+
+RUN apt install -y openssh-client openssh-server sshfs && ssh-keygen -A && \
+	sed -i 's/required\(.*pam_loginuid\)/optional\1/' /etc/pam.d/sshd
+
