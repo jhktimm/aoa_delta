@@ -17,18 +17,21 @@
 int main(int argc, char *argv[])
 {
   std::cout << "usage: " << argv[0] << " <prefix> <list with .raw files>\n";
+  std::cout << "usage: " << argv[0] << " <resultDirectory> <prefix> <list with .raw files>\n";
   vector<char*> fileList;
   for (int a = 2; a < argc; a++) {
     fileList.push_back(argv[a]);
   }
+  std::string resultDirectory;
+  resultDirectory = argv[1];
   std::string prefix;
-  prefix = argv[1];
+  prefix = argv[2];
   
   daq_server_request request;
 	ttf2_daq_reader_2010 reader_2010;
 
   ttf2_daq_getdata data; 
-  std::string path = argv[2];
+  std::string path = argv[3];
   FileSystemPath fsp(path);  
   //~ reader_2010.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");///raw + list
   reader_2010.set_data_dir((char*) fsp.dir.c_str());///raw + list
@@ -117,12 +120,13 @@ int main(int argc, char *argv[])
         ///-----
         DoocsAddressHelper dah(channml);
         //~ dah.print();
-        oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
+        oa->write_res_dat( resultDirectory + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
+//         oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
         //~ oa->print_data();
       }
       oa->print_data();
     }      
   }
   std::cout << "fino" << std::endl;
-  return 0;	
+  return 0;
 }
