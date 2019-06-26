@@ -47,6 +47,10 @@ void AAnalysis::init(int samp, int div)
 
 void AAnalysis::init()
 {
+  
+  emxInitArray_creal_T(&r_cmplx, 1);
+  emxInitArray_real_T(&s_max, 1);
+  
 	static int iv0[1] = { (int) this->samples };
 	
 	this->Probe_Ampl = emxCreateND_real_T(1, iv0);
@@ -88,7 +92,35 @@ void AAnalysis::getParameters(std::string jsonfilename)
 			const Json::Value j_tau_m = obj["tau_m"];
 			const Json::Value j_K_m = obj["K_m"];
 			const Json::Value j_X0 = obj["X0"];
-	  
+			const Json::Value j_QL_nom = obj["QL_nom"];
+      this->QL_nom = j_QL_nom.asDouble();
+			const Json::Value j_cal_coeff_real = obj["cal_coeff_real"];
+			const Json::Value j_cal_coeff_imag = obj["cal_coeff_imag"];
+      for (int idx0 = 0; idx0 < 4; idx0++) {
+        calCoeff[idx0].re = j_cal_coeff_real[idx0].asDouble();
+        calCoeff[idx0].im = j_cal_coeff_imag[idx0].asDouble();
+      }
+      
+			const Json::Value j_Sigma_nom = obj["Sigma_nom"];
+      this->Sigma_nom[0]=j_Sigma_nom[0][0].asDouble();
+      this->Sigma_nom[1]=j_Sigma_nom[0][1].asDouble();
+      this->Sigma_nom[2]=j_Sigma_nom[1][0].asDouble();
+      this->Sigma_nom[3]=j_Sigma_nom[1][1].asDouble();
+			const Json::Value j_MeasNoiseVar = obj["MeasNoiseVar"];
+      this->MeasNoiseVar[0]=j_MeasNoiseVar[0][0].asDouble();
+      this->MeasNoiseVar[1]=j_MeasNoiseVar[0][1].asDouble();
+      this->MeasNoiseVar[2]=j_MeasNoiseVar[1][0].asDouble();
+      this->MeasNoiseVar[3]=j_MeasNoiseVar[1][1].asDouble();
+			const Json::Value j_r_mean_nom = obj["r_mean_nom"];
+      this->r_mean_nom[0]=j_r_mean_nom[0].asDouble();
+      this->r_mean_nom[1]=j_r_mean_nom[1].asDouble();
+			const Json::Value j_ProcessVar = obj["ProcessVar"];
+			for ( uint x = 0; x < 6; ++x ) {
+        for ( uint y = 0; y < 6; ++y ) {
+          this->ProcessVar[6*x+y]=j_ProcessVar[x][y].asDouble();     
+        }
+      }
+      
 			for ( uint index = 0; index < j_tau_m.size(); ++index ) {
 				this->tau_m[index] = j_tau_m[index].asDouble();
 				this->K_m[index] = j_K_m[index].asDouble();
@@ -96,7 +128,10 @@ void AAnalysis::getParameters(std::string jsonfilename)
 			}
 		} else {
 			std::cout << "!!!!!     Error opening file:" << jsonfilename << "\n";
-			std::cout << "!!!!!     tau_m, K_m and X0 set to:/n";
+// 			std::cout << "!!!!!     tau_m, K_m and X0 set to:\n";
+      this->QL_nom = 4.5452426058970168E+6;
+      double s[4]= {2.7555539567360955E-5,-7.1685130309531256E-6,-7.1685130309531256E-6,2.8752891448382514E-5};
+      double m[4]= {0.0001,0,0,0.0001};
 			double t[4] = {0.0001540832871932599,0.00021662815104381899,0.00020796093478067394,0.00018335802017938494};
 			double k[4] = { 27.0017421067048,-6.7881026325577114,-19.883832901443135,53.344675600530827 };
 			double x[4] = { 359919.45138667425,-3.7594839458641172E+6,5.4300091097390065E+6,-2.0331664354777546E+6 };
@@ -104,8 +139,21 @@ void AAnalysis::getParameters(std::string jsonfilename)
 				this->tau_m[i] = t[i];
 				this->K_m[i] = k[i];
 				this->X0[i] = x[i];
+        this->Sigma_nom[i] = s[i];
+        this->MeasNoiseVar[i] = m[i];
 			}
-			
+			this->r_mean_nom[0]=0.0027705769790225682;
+			this->r_mean_nom[1]= -1 * 0.0020281930252110526;
+      for ( uint x = 0; x < 6; ++x ) {
+        for ( uint y = 0; y < 6; ++y ) {
+          if (x==y) {
+            this->ProcessVar[6*x+y]=0.0001;
+          } else {
+            this->ProcessVar[6*x+y]=0;     
+          }
+        }
+      }      
+//       this->print_Parameters();
 		}
 		//~ std::cout << "tau: " << this->tau_m[0] << " " << this->tau_m[1]<< " " << this->tau_m[2]<< " " << this->tau_m[3]<< "\n";
 		//~ std::cout << "K_m: " << this->K_m[0]   << " " << this->K_m[1]  << " " << this->K_m[2]  << " " << this->K_m[3]  << "\n";
@@ -114,9 +162,23 @@ void AAnalysis::getParameters(std::string jsonfilename)
 
 void AAnalysis::print_Parameters()
 {
+  print_calCoeff();
   std::cout << "tau: " << this->tau_m[0] << " " << this->tau_m[1]<< " " << this->tau_m[2]<< " " << this->tau_m[3]<< "\n";
   std::cout << "K_m: " << this->K_m[0]   << " " << this->K_m[1]  << " " << this->K_m[2]  << " " << this->K_m[3]  << "\n";
   std::cout << "X0: "  << this->X0[0]    << " " << this->X0[1]   << " " << this->X0[2]   << " " << this->X0[3]   << "\n";
+  std::cout << "r_mean_nom: "  << this->r_mean_nom[0]    << " " << this->r_mean_nom[1] << "\n";
+  for ( uint i = 0; i < 4; ++i ) {
+    std::cout << " Sigma_nom[" << i << "]: " << Sigma_nom[i] << "\n";
+    std::cout << " MeasNoiseVar[" << i << "]: " << MeasNoiseVar[i] << "\n";
+  }
+  std::cout << "ProcessVar: ";
+  for ( uint x = 0; x < 6; ++x ) {
+    for ( uint y = 0; y < 6; ++y ) {
+      std::cout <<  " "<< 6*x+y <<": " << this->ProcessVar[6*x+y] << " ";          
+    }
+    std::cout << "\n          ";
+  }
+  std::cout << "\n";
 
 }
 
@@ -128,7 +190,7 @@ void AAnalysis::getAutoParameters(std::string tauKXdir){
 	getline(strstream_name, A_str, '.');	
 	getline(strstream_name, L_str, '.');	
 	
-	std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + ".json";//XFEL.RF.A20.L3.M1.C1.json
+	std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara" + ".json";//XFEL.RF.A20.L3.M1.C1.json
 	//~ std::cout << "AAnalysis::getAutoParameters: " << jsonfilename << "\n";
 	this->getParameters(jsonfilename);
 }
@@ -205,18 +267,19 @@ void AAnalysis::set_data(std::string jsonfilename)
 
 void AAnalysis::get_calCoeff()
 {
-	f_get_calCoeff_codegen(
-		this->Probe_Ampl, 
-		this->Probe_Phase, 
-		this->Forw_Ampl, 
-		this->Forw_Phase, 
-		this->Refl_Ampl, 
-		this->Refl_Phase, 
-		this->DELAY,
-		this->FILLING,
-		this->FLATTOP, 
-		this->FS,
-		this->calCoeff);
+  std::cout << "DO NOT USE!!!!!\n";
+// 	f_get_calCoeff_codegen(
+// 		this->Probe_Ampl, 
+// 		this->Probe_Phase, 
+// 		this->Forw_Ampl, 
+// 		this->Forw_Phase, 
+// 		this->Refl_Ampl, 
+// 		this->Refl_Phase, 
+// 		this->DELAY,
+// 		this->FILLING,
+// 		this->FLATTOP, 
+// 		this->FS,
+// 		this->calCoeff);
 	//~ this->print_calCoeff();
 	
 }
@@ -232,28 +295,67 @@ void AAnalysis::print_calCoeff()
 
 void AAnalysis::get_res()
 {
+//   f_generate_and_eval_residual(
+//     this->emxArray_real_T *PA, 
+//     this->emxArray_real_T *PP,
+//   const emxArray_real_T *FA, 
+//   const emxArray_real_T *FP,
+//   const emxArray_real_T *RA,
+//   const emxArray_real_T *RP, 
+//   double FS, 
+//   double F0,
+//   const creal_T cal_coeff[4],
+//   const double tau_m[4],
+//   const double K_m[4],
+//   const  double X0[4],
+//   double QL_nom,
+//   double DELAY,
+//   double FILLING,
+//   double FLATTOP,  
+//   const double Sigma_nom[4],
+//   const double r_mean_nom[2],
+//   const double  MeasNoiseVar[4],
+//   const double ProcessVar[36],
+//   emxArray_creal_T *r_cmplx,
+//   emxArray_real_T *s_max);
+  
 	//~ this->print_data();
-	
-	f_calib_and_res_gen_ukf(
-	//~ f_generate_online_UKF_residual(
-		this->Probe_Ampl, 
-		this->Probe_Phase, 
-		this->Forw_Ampl, 
-		this->Forw_Phase, 
-		this->Refl_Ampl, 
-		this->Refl_Phase, 
-		this->FS, 
-		this->F0, 
-		this->tau_m, 
-		this->K_m, 
-		this->X0, 
-		this->DELAY,
-		this->FILLING, 
-		this->FLATTOP, 
-		this->residual_ukf, 
-		this->residual_ukf_mean, 
-		this->residual_ukf_Variance,
-		this->calCoeff);
+  if (this->Forw_Ampl->data[1000] < 5) {
+    this->FLAG=true;
+    std::cout << "FLAG! cavity "<< this->NAME <<" at pid " << this->PID << " could be off.";
+  } else {
+    this->FLAG=false;
+    f_generate_and_eval_residual(
+      this->Probe_Ampl, 
+      this->Probe_Phase, 
+      this->Forw_Ampl, 
+      this->Forw_Phase, 
+      this->Refl_Ampl, 
+      this->Refl_Phase, 
+      this->FS, 
+      this->F0,
+      this->calCoeff,    
+      this->tau_m, 
+      this->K_m, 
+      this->X0,
+      this->QL_nom,
+      this->DELAY,
+      this->FILLING, 
+      this->FLATTOP, 
+      this->Sigma_nom,
+      this->r_mean_nom,
+      this->MeasNoiseVar,
+      this->ProcessVar,
+      this->r_cmplx,
+      this->s_max);
+  }
+  
+  
+
+// 		this->residual_ukf, 
+// 		this->residual_ukf_mean, 
+// 		this->residual_ukf_Variance,
+// 		this->calCoeff);
 
 	//~ this->print_res();
 }
@@ -292,6 +394,23 @@ void AAnalysis::print_res()
 		<< this->residual_ukf_Variance[10] <<", " 
 		<< this->residual_ukf_Variance[11] << " "
 		<< "\n";
+    
+    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].re: ";
+    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+      std::cout << r_cmplx->data[idx0].re << " ";
+    }
+    std::cout << "\n";
+    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].im: ";
+    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+      std::cout << r_cmplx->data[idx0].im << " ";
+    }
+    std::cout << "\n";
+    std::cout << " smax[" << s_max->size[0U] << "]: ";
+    for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
+      std::cout << s_max->data[idx0] << " ";      
+    }
+    std::cout << "\n";
+
 }
 
 void AAnalysis::set_data(doocs_snapdaq_data_channel dc, uint pid, double time)
@@ -539,61 +658,32 @@ void AAnalysis::write_res_dat(std::string filename)
 		<< "PID"  << " " 
 		<< "NAME"  << " " 
 		<< "TIME"  << " " 
-		<< "residual_ukf[0]"  << " " 
-		<< "residual_ukf[1]"  << " " 
-		<< "residual_ukf[2]"  << " " 
-		<< "residual_ukf[3]"  << " " 
-		<< "residual_ukf[3]"  << " " 
-		<< "residual_ukf[4]"  << " " 
-		<< "residual_ukf[5]"  << " " 
-		<< "residual_ukf_mean[0]"  << " " 
-		<< "residual_ukf_mean[1]"  << " " 
-		<< "residual_ukf_mean[2]"  << " " 
-		<< "residual_ukf_mean[3]"  << " " 
-		<< "residual_ukf_mean[4]"  << " " 
-		<< "residual_ukf_mean[5]"  << " " 
-		<< "residual_ukf_Variance[0]" << " " 
-		<< "residual_ukf_Variance[1]" << " " 
-		<< "residual_ukf_Variance[2]" << " " 
-		<< "residual_ukf_Variance[3]" << " " 
-		<< "residual_ukf_Variance[4]" << " " 
-		<< "residual_ukf_Variance[5]" << " " 
-		<< "residual_ukf_Variance[6]" << " " 
-		<< "residual_ukf_Variance[7]" << " " 
-		<< "residual_ukf_Variance[8]" << " " 
-		<< "residual_ukf_Variance[9]" << " " 
-		<< "residual_ukf_Variance[10]" << " " 
-		<< "residual_ukf_Variance[11]" << std::endl;
+		<< "FLAG"  << " " 
+		<< "r_cmplx.re[]"  << " " 
+		<< "r_cmplx.im[]"  << " " 
+		<< "smax[]"  << " " 
+    << std::endl;
 	}
+	
 	file_out << std::setprecision(16)
 		<< this->PID                        << " " 
 		<< this->NAME                       << " " 
-		<< this->TIME                       << " " 
-		<< this->residual_ukf[0]            << " " 
-		<< this->residual_ukf[1]            << " " 
-		<< this->residual_ukf[2]            << " " 
-		<< this->residual_ukf[3]            << " " 
-		//~ << this->residual_ukf[3]            << " " 
-		<< this->residual_ukf[4]            << " " 
-		<< this->residual_ukf[5]            << " " 
-		<< this->residual_ukf_mean[0]       << " " 
-		<< this->residual_ukf_mean[1]       << " " 
-		<< this->residual_ukf_mean[2]       << " " 
-		<< this->residual_ukf_mean[3]       << " " 
-		<< this->residual_ukf_mean[4]       << " " 
-		<< this->residual_ukf_mean[5]       << " " 
-		<< this->residual_ukf_Variance[0]  << " " 
-		<< this->residual_ukf_Variance[1]  << " " 
-		<< this->residual_ukf_Variance[2]  << " " 
-		<< this->residual_ukf_Variance[3]  << " " 
-		<< this->residual_ukf_Variance[4]  << " " 
-		<< this->residual_ukf_Variance[5]  << " " 
-		<< this->residual_ukf_Variance[6]  << " " 
-		<< this->residual_ukf_Variance[7]  << " " 
-		<< this->residual_ukf_Variance[8]  << " " 
-		<< this->residual_ukf_Variance[9]  << " " 
-		<< this->residual_ukf_Variance[10] << " " 
-		<< this->residual_ukf_Variance[11] << std::endl;
+		<< this->TIME                       << " "
+		<< this->FLAG                       << " "
+    << "[ ";
+    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+      file_out << r_cmplx->data[idx0].re << " ";
+    }
+    file_out << " ] [ ";
+    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+      file_out << r_cmplx->data[idx0].im << " ";
+    }
+    file_out << " ] [ ";
+    for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
+      file_out << s_max->data[idx0] << " ";      
+    }
+		file_out << " ]" << std::endl;
+    
 	file_out.close();
 	
 }

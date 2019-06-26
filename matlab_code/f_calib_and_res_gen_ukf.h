@@ -3,9 +3,9 @@ extern "C" {
 #include "f_calib_and_res_gen_ukf/calcSigmaPoints.h"
 #include "f_calib_and_res_gen_ukf/combine_vector_elements.h"
 #include "f_calib_and_res_gen_ukf/exp.h"
+#include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf.h"
 #include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf_emxAPI.h"
 #include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf_emxutil.h"
-#include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf.h"
 #include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf_initialize.h"
 #include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf_rtwutil.h"
 #include "f_calib_and_res_gen_ukf/f_calib_and_res_gen_ukf_terminate.h"
@@ -28,6 +28,6 @@ extern "C" {
 #include "f_calib_and_res_gen_ukf/xgeqp3.h"
 #include "f_calib_and_res_gen_ukf/xnrm2.h"
 #include "f_calib_and_res_gen_ukf/xscal.h"
-#include "f_calib_and_res_gen_ukf/xzlarfg.h"
 #include "f_calib_and_res_gen_ukf/xzlarf.h"
+#include "f_calib_and_res_gen_ukf/xzlarfg.h"
 }

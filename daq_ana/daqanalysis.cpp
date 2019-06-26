@@ -102,13 +102,13 @@ int main(int argc, char *argv[])
         
         //~ oa->getAutoParameters("../../tau_k_x/");
         oa->getAutoParameters("../tau_k_x/");
-        //~ oa->print_Parameters();
+//         oa->print_Parameters();
         
-        oa->get_calCoeff();
+//         oa->get_calCoeff();
         //~ oa->print_calCoeff();
         
         oa->get_res();
-        //~ oa->print_res();
+//         oa->print_res();
         /// to get channel name
         char *channml;
         int llenl, statusch;

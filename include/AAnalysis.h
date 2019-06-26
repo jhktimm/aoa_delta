@@ -14,7 +14,9 @@
 #include <vector>
 #include <thread>
 #include <sstream>
-#include "../matlab_code/f_calib_and_res_gen_ukf.h"
+// #include "../matlab_code/f_calib_and_res_gen_ukf.h"
+
+#include "../matlab_code/f_generate_and_eval_residual.h"
 
 //~ #include "f_generate_online_parityRes1.h"
 //~ #include "f_generate_online_parityRes2.h"
@@ -110,6 +112,7 @@ class AAnalysis
 		double FLATTOP;
 		double PID;
 		double TIME;
+		bool   FLAG;
 		//~ double FS;
 		double F0;
 		emxArray_real_T *Probe_Ampl;
@@ -121,7 +124,16 @@ class AAnalysis
 			
 		
 		creal_T calCoeff[4];
-		creal_T j_calCoeff[4];
+// 		creal_T j_calCoeff[4];
+    
+    double QL_nom;
+    double Sigma_nom[4];
+    double r_mean_nom[2];
+    double MeasNoiseVar[4];
+    double ProcessVar[36];
+    
+    emxArray_creal_T *r_cmplx;
+    emxArray_real_T *s_max;
 		/* add your private declarations */
 };
 
