@@ -73,6 +73,12 @@ void AAnalysis::init()
 		this->calCoeff[i].im  = 0;
 		this->calCoeff[i].re  = 0;
 	}
+
+ classis = new double;
+ strengthis = new double;
+ QL = new double;
+ dw_stat = new double;
+
 	//~ this->tmp_probe_ampl->reserve(samp);
 	//~ this->tmp_probe_phase->reserve(samp);
 	//~ this->tmp_vforw_ampl->reserve(samp);
