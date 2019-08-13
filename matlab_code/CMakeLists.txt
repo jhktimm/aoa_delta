@@ -6,8 +6,8 @@
 #~ add_subdirectory(f_generate_online_UKF_residual)
 #~ include_directories(f_get_calCoeff_codegen)
 #~ add_subdirectory(f_get_calCoeff_codegen)
-include_directories(f_generate_and_eval_residual)
-add_subdirectory(f_generate_and_eval_residual)
+include_directories(f_generate_and_eval_residual2)
+add_subdirectory(f_generate_and_eval_residual2)
 # include_directories(f_calib_and_res_gen_ukf)
 # add_subdirectory(f_calib_and_res_gen_ukf)
 
