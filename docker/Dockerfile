@@ -88,23 +88,23 @@ RUN git clone https://github.com/ChimeraTK/DeviceAccess-DoocsBackend.git && \
     make -j 15 && \
     make install    
         
-# RUN git clone https://github.com/jhktimm/aoa_delta.git && \
-#     apt install -y libjsoncpp-dev && \
-#     apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib && \
-#     cd aoa_delta && \
-#     mkdir build && \
-#     cd build && \
-#     cmake .. && \
-#     make -j 3 && \
-#     mkdir /daq_data && \
-#     mkdir /daq_data/xfel && \
-#     mkdir /daq_data/xfel/USR1 && \
-#     cd /aoa_delta/workdir
+RUN git clone https://github.com/jhktimm/aoa_delta.git && \
+    apt install -y libjsoncpp-dev && \
+    apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib && \
+    cd aoa_delta && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make -j 3 && \
+    mkdir /daq_data && \
+    mkdir /daq_data/xfel && \
+    mkdir /daq_data/xfel/USR1 && \
+    cd /aoa_delta/workdir
     
-#RUN apt-get install -y rpcbind
+RUN apt-get install -y rpcbind
 
 # Start rpcbind at launch of the container, required for DOOCS
-#ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
+ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
 
 ENV TZ=CET
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
