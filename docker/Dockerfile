@@ -104,7 +104,7 @@ RUN git clone https://github.com/jhktimm/aoa_delta.git && \
 RUN apt-get install -y rpcbind
 
 # Start rpcbind at launch of the container, required for DOOCS
-ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
+#ENTRYPOINT ["bash", "-c", "rpcbind -w; /bin/bash"]
 
 ENV TZ=CET
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
