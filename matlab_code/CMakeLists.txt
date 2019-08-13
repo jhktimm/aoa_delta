@@ -23,7 +23,7 @@ target_link_libraries(AAnalysis
                                 #~ f_generate_online_UKF_residual
                                 #~ f_generate_online_parityRes1
                                 #~ f_generate_online_parityRes2
-								f_generate_and_eval_residual
+        f_generate_and_eval_residual2
                                 "-ljsoncpp"
                                 #~ ${ChimeraTK-ApplicationCore_LIBRARIES}
 )
