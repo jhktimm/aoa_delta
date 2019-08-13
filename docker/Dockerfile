@@ -14,7 +14,7 @@ RUN git clone https://github.com/ChimeraTK/cppext.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     sudo make install
         
 RUN pwd && \
@@ -25,7 +25,7 @@ RUN pwd && \
     git submodule init && \
     git submodule update && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     make install && \
     pwd
     
@@ -35,7 +35,7 @@ RUN pwd && \
     mkdir build && \
     cd build && \
     cmake .. && \    
-    nice make -j 3 
+    nice make -j 15 
     
 RUN cd DeviceAccess/build && \
     make install; exit 0 $$ \
@@ -46,7 +46,7 @@ RUN git clone https://github.com/ChimeraTK/ControlSystemAdapter.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     make install
 
 # DOOCS    
@@ -60,7 +60,7 @@ RUN git clone https://github.com/ChimeraTK/DoocsServerTestHelper.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     make install  
     
 RUN git clone https://github.com/ChimeraTK/ControlSystemAdapter-DoocsAdapter.git && \
@@ -77,7 +77,7 @@ RUN git clone https://github.com/ChimeraTK/ApplicationCore.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     make install
 
 RUN git clone https://github.com/ChimeraTK/DeviceAccess-DoocsBackend.git && \
@@ -85,21 +85,21 @@ RUN git clone https://github.com/ChimeraTK/DeviceAccess-DoocsBackend.git && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
+    make -j 15 && \
     make install    
         
-RUN git clone https://github.com/jhktimm/aoa_delta.git && \
-    apt install -y libjsoncpp-dev && \
-    apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib && \
-    cd aoa_delta && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j 3 && \
+# RUN git clone https://github.com/jhktimm/aoa_delta.git && \
+#     apt install -y libjsoncpp-dev && \
+#     apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib && \
+#     cd aoa_delta && \
+#     mkdir build && \
+#     cd build && \
+#     cmake .. && \
+#     make -j 3 && \
 #     mkdir /daq_data && \
 #     mkdir /daq_data/xfel && \
 #     mkdir /daq_data/xfel/USR1 && \
-    cd /aoa_delta/workdir
+#     cd /aoa_delta/workdir
     
 #RUN apt-get install -y rpcbind
 

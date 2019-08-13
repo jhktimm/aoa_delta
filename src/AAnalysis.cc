@@ -48,7 +48,7 @@ void AAnalysis::init(int samp, int div)
 void AAnalysis::init()
 {
   
-  emxInitArray_creal_T(&r_cmplx, 1);
+//  emxInitArray_creal_T(&r_cmplx, 1);
   emxInitArray_real_T(&s_max, 1);
   
 	static int iv0[1] = { (int) this->samples };
@@ -295,30 +295,7 @@ void AAnalysis::print_calCoeff()
 
 void AAnalysis::get_res()
 {
-//   f_generate_and_eval_residual(
-//     this->emxArray_real_T *PA, 
-//     this->emxArray_real_T *PP,
-//   const emxArray_real_T *FA, 
-//   const emxArray_real_T *FP,
-//   const emxArray_real_T *RA,
-//   const emxArray_real_T *RP, 
-//   double FS, 
-//   double F0,
-//   const creal_T cal_coeff[4],
-//   const double tau_m[4],
-//   const double K_m[4],
-//   const  double X0[4],
-//   double QL_nom,
-//   double DELAY,
-//   double FILLING,
-//   double FLATTOP,  
-//   const double Sigma_nom[4],
-//   const double r_mean_nom[2],
-//   const double  MeasNoiseVar[4],
-//   const double ProcessVar[36],
-//   emxArray_creal_T *r_cmplx,
-//   emxArray_real_T *s_max);
-  
+
 	//~ this->print_data();
   if (this->Forw_Ampl->data[1000] < 5) {
     this->FLAG=true;
@@ -326,28 +303,32 @@ void AAnalysis::get_res()
   } else {
     this->FLAG=false;
     f_generate_and_eval_residual(
-      this->Probe_Ampl, 
-      this->Probe_Phase, 
-      this->Forw_Ampl, 
-      this->Forw_Phase, 
-      this->Refl_Ampl, 
-      this->Refl_Phase, 
-      this->FS, 
+      this->Probe_Ampl,
+      this->Probe_Phase,
+      this->Forw_Ampl,
+      this->Forw_Phase,
+      this->Refl_Ampl,
+      this->Refl_Phase,
+      this->FS,
       this->F0,
-      this->calCoeff,    
-      this->tau_m, 
-      this->K_m, 
+      this->calCoeff,
+      this->tau_m,
+      this->K_m,
       this->X0,
       this->QL_nom,
       this->DELAY,
-      this->FILLING, 
-      this->FLATTOP, 
+      this->FILLING,
+      this->FLATTOP,
       this->Sigma_nom,
       this->r_mean_nom,
       this->MeasNoiseVar,
       this->ProcessVar,
-      this->r_cmplx,
-      this->s_max);
+      this->s_max,
+      this->classis,
+      this->strengthis,
+      this->QL,
+      this->dw_stat
+      );
   }
   
   
@@ -395,15 +376,15 @@ void AAnalysis::print_res()
 		<< this->residual_ukf_Variance[11] << " "
 		<< "\n";
     
-    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].re: ";
-    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
-      std::cout << r_cmplx->data[idx0].re << " ";
-    }
-    std::cout << "\n";
-    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].im: ";
-    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
-      std::cout << r_cmplx->data[idx0].im << " ";
-    }
+//    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].re: ";
+//    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+//      std::cout << r_cmplx->data[idx0].re << " ";
+//    }
+//    std::cout << "\n";
+//    std::cout << " r_cmplx[" << r_cmplx->size[0U] << "].im: ";
+//    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+//      std::cout << r_cmplx->data[idx0].im << " ";
+//    }
     std::cout << "\n";
     std::cout << " smax[" << s_max->size[0U] << "]: ";
     for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
@@ -659,9 +640,13 @@ void AAnalysis::write_res_dat(std::string filename)
 		<< "NAME"  << " " 
 		<< "TIME"  << " " 
 		<< "FLAG"  << " " 
-		<< "r_cmplx.re[]"  << " " 
-		<< "r_cmplx.im[]"  << " " 
-		<< "smax[]"  << " " 
+  << "classis"  << " "
+  << "strengthis"  << " "
+  << "QL"  << " "
+  << "dw_stat"  << " "
+//		<< "r_cmplx.re[]"  << " "
+//		<< "r_cmplx.im[]"  << " "
+//		<< "smax[]"  << " "
     << std::endl;
 	}
 	
@@ -670,19 +655,26 @@ void AAnalysis::write_res_dat(std::string filename)
 		<< this->NAME                       << " " 
 		<< this->TIME                       << " "
 		<< this->FLAG                       << " "
-    << "[ ";
-    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
-      file_out << r_cmplx->data[idx0].re << " ";
-    }
-    file_out << " ] [ ";
-    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
-      file_out << r_cmplx->data[idx0].im << " ";
-    }
-    file_out << " ] [ ";
-    for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
-      file_out << s_max->data[idx0] << " ";      
-    }
-		file_out << " ]" << std::endl;
+
+  << this->classis                   << " "
+  << this->strengthis                << " "
+  << this->QL                        << " "
+  << this->dw_stat                    << " "
+    ;
+// << "[ ";
+//    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+//      file_out << r_cmplx->data[idx0].re << " ";
+//    }
+//    file_out << " ] [ ";
+//    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
+//      file_out << r_cmplx->data[idx0].im << " ";
+//    }
+//    file_out << " ] [ ";
+//    file_out << " [ ";
+//    for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
+//      file_out << s_max->data[idx0] << " ";
+//    }
+//		file_out << " ]" << std::endl;
     
 	file_out.close();
 	

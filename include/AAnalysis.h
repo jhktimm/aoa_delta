@@ -16,7 +16,8 @@
 #include <sstream>
 // #include "../matlab_code/f_calib_and_res_gen_ukf.h"
 
-#include "../matlab_code/f_generate_and_eval_residual.h"
+//#include "../matlab_code/f_generate_and_eval_residual.h"
+#include "../matlab_code/f_generate_and_eval_residual2.h"
 
 //~ #include "f_generate_online_parityRes1.h"
 //~ #include "f_generate_online_parityRes2.h"
@@ -132,8 +133,13 @@ class AAnalysis
     double MeasNoiseVar[4];
     double ProcessVar[36];
     
-    emxArray_creal_T *r_cmplx;
+//    emxArray_creal_T *r_cmplx;
     emxArray_real_T *s_max;
+
+    double *classis;
+    double *strengthis;
+    double *QL;
+    double *dw_stat;
 		/* add your private declarations */
 };
 
