@@ -12,12 +12,16 @@
 
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
+interludefix=maXfel_Eval
+newPreFix=test
 
-for run in  1138 1143 1146 ; do
+for run in  1138 ; do
+#for run in  1138 1143 1146 ; do
+
   for module in {1..4} ; do
     for cavity in {1..8} ; do
-      echo ${resultDirectory}A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_maXfelQ_run${run}_file${fileNumber}*.dat
-      ./mergeDat.sh ${resultDirectory}A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_maXfelQ_run${run}_file${fileNumber}*.dat &
+      echo ${resultDirectory}A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat
+      ./mergeDat.sh ${resultDirectory}${newPreFix}_A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat &
     done
   done
 done  

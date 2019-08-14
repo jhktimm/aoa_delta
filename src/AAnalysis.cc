@@ -662,10 +662,10 @@ void AAnalysis::write_res_dat(std::string filename)
 		<< this->TIME                       << " "
 		<< this->FLAG                       << " "
 
-  << this->classis                   << " "
-  << this->strengthis                << " "
-  << this->QL                        << " "
-  << this->dw_stat                    << " "
+  << *this->classis                   << " "
+  << *this->strengthis                << " "
+  << *this->QL                        << " "
+  << *this->dw_stat                    << " "
     ;
 // << "[ ";
 //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
@@ -681,6 +681,7 @@ void AAnalysis::write_res_dat(std::string filename)
 //      file_out << s_max->data[idx0] << " ";
 //    }
 //		file_out << " ]" << std::endl;
+   file_out << std::endl;
     
 	file_out.close();
 	

@@ -23,7 +23,7 @@ echo "SLURM_ARRAY_TASK_MAX   $SLURM_ARRAY_TASK_MAX"
 echo "SLURM_ARRAY_TASK_MIN   $SLURM_ARRAY_TASK_MIN"
 
 runnumber=1138                                              # 0 - 5 array!!!!!!!!!!!!!!!
-dataDirectory=/beegfs/desy/user/jhktimm/rawdata                               # !!!!!!!!!!!!!!!
+dataDirectory=/beegfs/desy/user/jhktimm/rawdata/                               # !!!!!!!!!!!!!!!
 resultDirectory=/beegfs/desy/user/jhktimm/results/                               # !!!!!!!!!!!!!!!
 aoaDirectory=/home/jhktimm/sources/aoa_delta/                          # !!!!!!!!!!!!!!!
 logDirectory=/beegfs/desy/user/jhktimm/logs/                           # !!!!!!!!!!!!!!!
@@ -36,23 +36,23 @@ echo real nprocs $((`/usr/bin/nproc`))
 echo number $number
 ((number=$START+($arrayRun*$nprocs)))
 echo number $number
+docker pull jhktimm/aoa
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
   postfix=maXfel_Eval_run${runnumber}_file${number}xx
   filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
 
   echo "#!/bin/bash" > tmp${number}
-  echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq__ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
+  echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
 #   echo "sleep 120" >> tmp${number}
 
   cat tmp${number}
 
   chmod +x tmp${number}
-
+  pwd
   dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
-  sleep 0.5
+  sleep 0.3
   rm tmp${number}
-  
   
   let COUNTER=COUNTER+1 
   let number=number+1 
@@ -66,5 +66,6 @@ while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
 #   sleep 1;
 done
 
+#rm tmp*
 echo running docker container: $numberOfRunningDockerContainer
 echo end job $SLURM_JOB_ID $SLURM_ARRAY_JOB_ID
