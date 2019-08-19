@@ -3,6 +3,7 @@
 function merge {
   echo $0 $*
   if [ -z $3 ]; then
+    echo list of files to merge is empty
     echo "usage: $0 <filenamOfMergedFile> <filesToBeMerged>"
     echo "or   : $0 gui"
   exit 1

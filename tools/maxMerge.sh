@@ -12,16 +12,31 @@
 
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
-interludefix=maXfel_Eval
+interludefix=maXfelQ
+#interludefix=maXfel_Eval
+station=A17
 newPreFix=test
 
-for run in  1138 ; do
+#for run in  1138 ; do
+#for run in  1143 1146 ; do
+for run in  1146 ; do
 #for run in  1138 1143 1146 ; do
 
   for module in {1..4} ; do
     for cavity in {1..8} ; do
-      echo ${resultDirectory}A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat
-      ./mergeDat.sh ${resultDirectory}${newPreFix}_A17.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}A17.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat &
+      echo ${resultDirectory}${newPreFix}_${station}.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}${station}.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat
+      ./mergeDat.sh ${resultDirectory}${newPreFix}_${station}.L3.M${module}.C${cavity}_run${run}.dat ${dataToMergeDirectory}${station}.L3.M${module}.C${cavity}_${interludefix}_run${run}_file${fileNumber}*.dat &
+#      echo $! >> .tmp
     done
   done
 done  
+
+while [[ $(jobs -p | wc -l) -ne 0 ]]; do
+  echo `date` jobs are running
+  jobs -lq
+  sleep 20;
+done
+echo `date` jobs are finnish
+jobs -l
+
+#rm .tmp

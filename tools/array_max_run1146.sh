@@ -39,7 +39,7 @@ echo number $number
 docker pull jhktimm/aoa
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
-  postfix=maXfelQ_run${runnumber}_file${number}xx
+  postfix=maXfel_Eval_run${runnumber}_file${number}xx
   filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
 
   echo "#!/bin/bash" > tmp${number}
@@ -47,9 +47,9 @@ while [  $COUNTER -lt $nprocs ]; do
 #   echo "sleep 120" >> tmp${number}
 
   cat tmp${number}
-  pwd
-  chmod +x tmp${number}
 
+  chmod +x tmp${number}
+  pwd
   dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
   sleep 0.3
   rm tmp${number}  

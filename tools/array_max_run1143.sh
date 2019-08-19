@@ -54,7 +54,6 @@ while [  $COUNTER -lt $nprocs ]; do
   sleep 0.3
   rm tmp${number}
   
-  
   let COUNTER=COUNTER+1 
   let number=number+1 
 done
