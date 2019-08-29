@@ -44,7 +44,7 @@ while [  $COUNTER -lt $nprocs ]; do
   filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
 
   echo "#!/bin/bash" > tmp${number}
-  echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
+  echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq_${SLURM_JOB_NAME}_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
 #   echo "sleep 120" >> tmp${number}
 
   cat tmp${number}

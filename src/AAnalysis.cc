@@ -78,6 +78,8 @@ void AAnalysis::init()
  strengthis = new double;
  QL = new double;
  dw_stat = new double;
+ SP_F = new double;
+ SP_P = new double;
 
 	//~ this->tmp_probe_ampl->reserve(samp);
 	//~ this->tmp_probe_phase->reserve(samp);

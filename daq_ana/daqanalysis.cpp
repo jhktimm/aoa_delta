@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
   double samples = 1820;
 	double div = 9;
   DAQAnalysis * oa = new DAQAnalysis(samples,div);
-  DAQMyAna ma;
+//  DAQMyAna ma;
   ulong numberOfAllEvents = reader_2010.get_number_of_files()*100;
   std::cout << "app. numberOfAllEvents = numberOfFiles*100: " << numberOfAllEvents << "\n" ;
   vector<ttf2_channel_entry_long*> res;
@@ -101,18 +101,20 @@ int main(int argc, char *argv[])
         //~ std::cout << "\n-----------------------------------\n";
         
         oa->set_data(&data);
-        ma.setData(&data,samples);
-        //~ oa->print_data();
+//        ma.setData(&data,samples);
+//        oa->print_data();
         
         //~ oa->getAutoParameters("../../tau_k_x/");
         oa->getAutoParameters("../tau_k_x/");
 //         oa->print_Parameters();
         
 //         oa->get_calCoeff();
-        //~ oa->print_calCoeff();
+//        oa->print_calCoeff();
         
         oa->get_res();
+
 //         oa->print_res();
+        std::cout << "arsch" << std::endl;
         /// to get channel name
         char *channml;
         int llenl, statusch;
@@ -120,13 +122,13 @@ int main(int argc, char *argv[])
           printf("ttf2_user_loop(): failed to get Server Block info\n");
           return -1;
         }
-        //~ std::cout << "   channml: " << channml << " " << std::endl;// channml
+        std::cout << "   channml: " << channml << " " << std::endl;// channml
         ///-----
         DoocsAddressHelper dah(channml);
         //~ dah.print();
         oa->write_res_dat( resultDirectory + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
 //         oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
-        //~ oa->print_data();
+        oa->print_data();
       }
       oa->print_data();
     }      
