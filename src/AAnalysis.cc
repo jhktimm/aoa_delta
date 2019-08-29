@@ -333,7 +333,9 @@ void AAnalysis::get_res()
       this->classis,
       this->strengthis,
       this->QL,
-      this->dw_stat
+      this->dw_stat,
+      this->SP_F,
+      this->SP_P
       );
   }
   
@@ -650,6 +652,8 @@ void AAnalysis::write_res_dat(std::string filename)
   << "strengthis"  << " "
   << "QL"  << " "
   << "dw_stat"  << " "
+  << "SP_F"  << " "
+  << "SP_P"  << " "
 //		<< "r_cmplx.re[]"  << " "
 //		<< "r_cmplx.im[]"  << " "
 //		<< "smax[]"  << " "
@@ -666,6 +670,8 @@ void AAnalysis::write_res_dat(std::string filename)
   << *this->strengthis                << " "
   << *this->QL                        << " "
   << *this->dw_stat                    << " "
+  << *this->SP_F                    << " "
+  << *this->SP_P                    << " "
     ;
 // << "[ ";
 //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {

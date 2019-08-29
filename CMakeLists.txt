@@ -22,6 +22,7 @@ add_subdirectory(matlab_code)
 	#~ ${ChimeraTK-ApplicationCore_LIBRARIES}
 	#~ )
 
+
 add_executable(aoa_app src/aoa.cc )
 
 set_target_properties(aoa_app PROPERTIES COMPILE_FLAGS "${ChimeraTK-ControlSystemAdapter_CXX_FLAGS} -O3 ")

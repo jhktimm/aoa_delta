@@ -12,8 +12,8 @@
 
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
-interludefix=maXfelQ
-#interludefix=maXfel_Eval
+#interludefix=maXfelQ
+interludefix=maXfel_Eval
 station=A17
 newPreFix=test
 
@@ -33,7 +33,7 @@ done
 
 while [[ $(jobs -p | wc -l) -ne 0 ]]; do
   echo `date` jobs are running
-  jobs -lq
+  jobs -l
   sleep 20;
 done
 echo `date` jobs are finnish

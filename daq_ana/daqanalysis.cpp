@@ -10,15 +10,17 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <vector>
 #include <time.h>
 
 #include "DAQAnalysis.h"
+#include "DAQMyAna.h"
 
 int main(int argc, char *argv[])
 {
   std::cout << "usage: " << argv[0] << " <prefix> <list with .raw files>\n";
   std::cout << "usage: " << argv[0] << " <resultDirectory> <prefix> <list with .raw files>\n";
-  vector<char*> fileList;
+  std::vector<char*> fileList;
   for (int a = 2; a < argc; a++) {
     fileList.push_back(argv[a]);
   }
@@ -77,6 +79,7 @@ int main(int argc, char *argv[])
   double samples = 1820;
 	double div = 9;
   DAQAnalysis * oa = new DAQAnalysis(samples,div);
+  DAQMyAna ma;
   ulong numberOfAllEvents = reader_2010.get_number_of_files()*100;
   std::cout << "app. numberOfAllEvents = numberOfFiles*100: " << numberOfAllEvents << "\n" ;
   vector<ttf2_channel_entry_long*> res;
@@ -98,6 +101,7 @@ int main(int argc, char *argv[])
         //~ std::cout << "\n-----------------------------------\n";
         
         oa->set_data(&data);
+        ma.setData(&data,samples);
         //~ oa->print_data();
         
         //~ oa->getAutoParameters("../../tau_k_x/");

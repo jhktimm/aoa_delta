@@ -17,7 +17,8 @@
 // #include "../matlab_code/f_calib_and_res_gen_ukf.h"
 
 //#include "../matlab_code/f_generate_and_eval_residual.h"
-#include "../matlab_code/f_generate_and_eval_residual2.h"
+//#include "../matlab_code/f_generate_and_eval_residual2.h"
+#include "../matlab_code/f_generate_and_eval_residual3.h"
 
 //~ #include "f_generate_online_parityRes1.h"
 //~ #include "f_generate_online_parityRes2.h"
@@ -140,6 +141,9 @@ class AAnalysis
     double *strengthis;
     double *QL;
     double *dw_stat;
+    double *SP_F;
+    double *SP_P;
+
 		/* add your private declarations */
 };
 
