@@ -85,15 +85,37 @@ public:
     auto sampleNumberFillingBegin = static_cast<ulong>( (delay) * fs );
     auto sampleNumberFlattopBegin = static_cast<ulong>( (delay + filling  ) * fs );
     auto sampleNumberFlattopRange = static_cast<ulong>( (flattop  ) * fs );
+    fillingReg.clean();
+    std::cout << "pulse.size(): " << pulse.size() << std::endl;
+    std::cout << "sampleNumberFillingBegin: " << sampleNumberFillingBegin << std::endl;
+    std::cout << "sampleNumberFlattopBegin: " << sampleNumberFlattopBegin << std::endl;
+    std::cout << "sampleNumberFlattopRange: " << sampleNumberFlattopRange << std::endl;
     for (ulong i = sampleNumberFillingBegin; i < sampleNumberFlattopBegin; i++) {
       std::pair<float,float> value(i, static_cast<float>(  pulse.at(i) ));
       fillingReg.add(value);
     }
+    flattopReg.clean();
     for (ulong i = sampleNumberFlattopBegin; i < sampleNumberFlattopRange + sampleNumberFlattopBegin; i++) {
       std::pair<float,float> value(i, static_cast<float>(  pulse.at(i) ));
-      fillingReg.add(value);
+      flattopReg.add(value);
     }
 
+    std::cout << "fillingReg.size(): " << fillingReg.size() << std::endl;
+    std::cout << "flattopReg.size(): " << flattopReg.size() << std::endl;
+
+
+    if (fillingReg.size() < 2) {
+        std::pair<float,float> value(0, 0);
+        fillingReg.add(value);
+        fillingReg.add(value);
+    }
+    if (flattopReg.size() < 2) {
+        std::pair<float,float> value(0, 0);
+        flattopReg.add(value);
+        flattopReg.add(value);
+    }
+    std::cout << "fillingReg.size(): " << fillingReg.size() << std::endl;
+    std::cout << "flattopReg.size(): " << flattopReg.size() << std::endl;
   }
 
   void write(std::string filename){

@@ -89,9 +89,9 @@ struct DAQMyAna : public MyAna {
         this->fs          =  1;
 //        this->f0          =  1300;
         //~ std::cout << "pid: " << this->PID << " time: " << std::setprecision(12)<< this->TIME << std::endl;
+        setData(evid, name, time, delay, filling, flattop, fs, pulse);
       }
-
-    };
+   };
 
 //}
 
