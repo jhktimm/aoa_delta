@@ -7,7 +7,7 @@
 #SBATCH --no-requeue
 #SBATCH --array 0-20                                         # !!!!!!!!!!!!!!!always start at 0! 0-5
 #SBATCH --cpus-per-task 40
-#SBATCH --job-name maXfelQ
+#SBATCH --job-name maXfelMyAna                              # !!!!!!!!!!!!!1 NAME !!!!!!!!!!!!!
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
 export LD_PRELOAD=""
@@ -15,6 +15,7 @@ nprocs=40
 #export nprocs=$((`/usr/bin/nproc`))
 source /etc/profile.d/modules.sh
 echo "SLURM_JOB_ID           $SLURM_JOB_ID"
+echo "SLURM_JOB_NAME         $SLURM_JOB_NAME"
 echo "SLURM_JOB_NODES        $SLURM_JOB_NODES"
 echo "SLURM_ARRAY_JOB_ID     $SLURM_ARRAY_JOB_ID"
 echo "SLURM_ARRAY_TASK_ID    $SLURM_ARRAY_TASK_ID"
@@ -39,7 +40,7 @@ echo number $number
 docker pull jhktimm/aoa
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
-  postfix=maXfelQ_run${runnumber}_file${number}xx
+  postfix=${SLURM_JOB_NAME}_run${runnumber}_file${number}xx
   filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
 
   echo "#!/bin/bash" > tmp${number}
