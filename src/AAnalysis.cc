@@ -80,6 +80,9 @@ void AAnalysis::init()
  dw_stat = new double;
  SP_F = new double;
  SP_P = new double;
+ strengtVar = new double;
+ maxis = new double;
+ minis = new double;
 
 	//~ this->tmp_probe_ampl->reserve(samp);
 	//~ this->tmp_probe_phase->reserve(samp);
@@ -334,6 +337,9 @@ void AAnalysis::get_res()
       this->s_max,
       this->classis,
       this->strengthis,
+          this->strengtVar,
+          this->maxis,
+          this->minis,
       this->QL,
       this->dw_stat,
       this->SP_F,
@@ -652,6 +658,9 @@ void AAnalysis::write_res_dat(std::string filename)
 		<< "FLAG"  << " " 
   << "classis"  << " "
   << "strengthis"  << " "
+  << "strengtVar"  << " "
+  << "maxis"  << " "
+  << "minis"  << " "
   << "QL"  << " "
   << "dw_stat"  << " "
   << "SP_F"  << " "
@@ -670,6 +679,9 @@ void AAnalysis::write_res_dat(std::string filename)
 
   << *this->classis                   << " "
   << *this->strengthis                << " "
+  << *this->strengtVar                << " "
+  << *this->maxis                << " "
+  << *this->minis                << " "
   << *this->QL                        << " "
   << *this->dw_stat                    << " "
   << *this->SP_F                    << " "

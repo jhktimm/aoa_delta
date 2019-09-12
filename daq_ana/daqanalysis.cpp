@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
   double samples = 1820;
 	double div = 9;
   DAQAnalysis * oa = new DAQAnalysis(samples,div);
-  DAQMyAna ma;
+//  DAQMyAna ma;
   ulong numberOfAllEvents = reader_2010.get_number_of_files()*100;
   std::cout << "app. numberOfAllEvents = numberOfFiles*100: " << numberOfAllEvents << "\n" ;
   vector<ttf2_channel_entry_long*> res;
@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         //~ std::cout << "\n-----------------------------------\n";
         
         oa->set_data(&data);
-        ma.setData(&data,samples);
+//        ma.setData(&data,samples);
 //        oa->print_data();
         
         //~ oa->getAutoParameters("../../tau_k_x/");
@@ -117,14 +117,13 @@ int main(int argc, char *argv[])
         std::cout << "   channml: " << channml << " " << std::endl;// channml
         std::string wasOFF("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");
 if ( wasOFF.compare(channml) != 0) oa->get_res();// !!!!!!!!!!!
-        ma.mach();
+//        ma.mach();
 //         oa->print_res();
         ///-----
         DoocsAddressHelper dah(channml);
         //~ dah.print();
         oa->write_res_dat( resultDirectory + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );// !!!!!!!!!!!
-        ma.write( resultDirectory + "MyAna_" + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
-//         oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
+//        ma.write( resultDirectory + "MyAna_" + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
 //        oa->print_data();
       }
 
