@@ -28,7 +28,6 @@ int main(int argc, char *argv[])
   resultDirectory = argv[1];
   std::string prefix;
   prefix = argv[2];
-  
   daq_server_request request;
 	ttf2_daq_reader_2010 reader_2010;
 
@@ -108,12 +107,6 @@ int main(int argc, char *argv[])
         oa->getAutoParameters("../tau_k_x/");
 //         oa->print_Parameters();
         
-//         oa->get_calCoeff();
-//        oa->print_calCoeff();
-        
-        oa->get_res();
-        ma.mach();
-//         oa->print_res();
         /// to get channel name
         char *channml;
         int llenl, statusch;
@@ -122,14 +115,19 @@ int main(int argc, char *argv[])
           return -1;
         }
         std::cout << "   channml: " << channml << " " << std::endl;// channml
+        std::string wasOFF("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");
+if ( wasOFF.compare(channml) != 0) oa->get_res();// !!!!!!!!!!!
+        ma.mach();
+//         oa->print_res();
         ///-----
         DoocsAddressHelper dah(channml);
         //~ dah.print();
-        oa->write_res_dat( resultDirectory + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
+        oa->write_res_dat( resultDirectory + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );// !!!!!!!!!!!
         ma.write( resultDirectory + "MyAna_" + dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
 //         oa->write_res_dat( dah.A_str + '.' + dah.L_str + '.' + dah.M_str + '.' + dah.C_str + '_' + prefix + ".dat" );
 //        oa->print_data();
       }
+
 //      oa->print_data();
     }      
   }

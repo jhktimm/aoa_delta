@@ -33,3 +33,5 @@ CTestTestfile.cmake
 build/
 daq_data/
 workdir/
+.user/
+*.user*

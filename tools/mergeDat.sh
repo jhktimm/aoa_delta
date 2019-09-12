@@ -18,7 +18,8 @@ function merge {
   #sort merged file in time
 #   cat $1.tmp | sort -k 2 -n >> $1
   #sort merged file in pid
-  cat $1.tmp | sort -k 1 -n >> $1
+#  cat $1.tmp | sort -k 1 -n >> $1
+  sort -k1 -n $1.tmp >> $1
   rm $1.tmp
 }
 

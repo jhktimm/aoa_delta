@@ -86,10 +86,10 @@ public:
     auto sampleNumberFlattopBegin = static_cast<ulong>( (delay + filling  ) * fs );
     auto sampleNumberFlattopRange = static_cast<ulong>( (flattop  ) * fs );
     fillingReg.clean();
-    std::cout << "pulse.size(): " << pulse.size() << std::endl;
-    std::cout << "sampleNumberFillingBegin: " << sampleNumberFillingBegin << std::endl;
-    std::cout << "sampleNumberFlattopBegin: " << sampleNumberFlattopBegin << std::endl;
-    std::cout << "sampleNumberFlattopRange: " << sampleNumberFlattopRange << std::endl;
+//    std::cout << "pulse.size(): " << pulse.size() << std::endl;
+//    std::cout << "sampleNumberFillingBegin: " << sampleNumberFillingBegin << std::endl;
+//    std::cout << "sampleNumberFlattopBegin: " << sampleNumberFlattopBegin << std::endl;
+//    std::cout << "sampleNumberFlattopRange: " << sampleNumberFlattopRange << std::endl;
     for (ulong i = sampleNumberFillingBegin; i < sampleNumberFlattopBegin; i++) {
       std::pair<float,float> value(i, static_cast<float>(  pulse.at(i) ));
       fillingReg.add(value);
@@ -99,10 +99,6 @@ public:
       std::pair<float,float> value(i, static_cast<float>(  pulse.at(i) ));
       flattopReg.add(value);
     }
-
-    std::cout << "fillingReg.size(): " << fillingReg.size() << std::endl;
-    std::cout << "flattopReg.size(): " << flattopReg.size() << std::endl;
-
 
     if (fillingReg.size() < 2) {
         std::pair<float,float> value(0, 0);
@@ -114,8 +110,7 @@ public:
         flattopReg.add(value);
         flattopReg.add(value);
     }
-    std::cout << "fillingReg.size(): " << fillingReg.size() << std::endl;
-    std::cout << "flattopReg.size(): " << flattopReg.size() << std::endl;
+
   }
 
   void write(std::string filename){
@@ -137,7 +132,7 @@ public:
      << "flattopReg.m"  << " "
      << "flattopReg.sigmaM"  << " "
      << "flattopReg.R"  << " "
-     << rep.header()  << " "
+//     << rep.header()  << " "
 
      << std::endl;
     }
@@ -153,7 +148,7 @@ public:
      << flattopReg.m()                       << " "
      << flattopReg.sigmaM()                       << " "
      << flattopReg.R()                       << " "
-     << rep.data()                       << " "
+//     << rep.data()                       << " "
 
        ;
       file_out << std::endl;
@@ -164,7 +159,8 @@ public:
 
   void mach() {
     int maxHistorySize = 5;
-    uint32_t deadEdgeSamples = 2000;
+    uint32_t deadEdgeSamples = 2000/9;
+//    uint32_t deadEdgeSamples = 2000;
     float maxFlatTopSigma = 3;
     float maxTripDownSpeed = 0.2;
     float minFlatTopMean = 2;//below cavity is presumed to be off
@@ -196,9 +192,9 @@ public:
     if(reportHisto.size() > 1) {
       if ( ( reportHisto.back().mean - rep.mean ) > maxTripDownSpeed ) {
         rep.state = stateNum::trip;
-        std::cout << "\ntrip!!!! " << (char) rep.state << "\n";
-        std::cout << rep.header();
-        std::cout << rep.data();
+//        std::cout << "\ntrip!!!! " << (char) rep.state << "\n";
+//        std::cout << rep.header();
+//        std::cout << rep.data();
       } else if ( ( rep.mean > reportHisto.back().mean + reportHisto.back().sigma * maxFlatTopSigma )
                   | (rep.mean < reportHisto.back().mean - reportHisto.back().sigma  * maxFlatTopSigma ) ) {
         //    } else if ( rep.sigma > maxFlatTopSigma ) {
@@ -229,7 +225,7 @@ public:
         for (auto s : reportHisto) tripeventWarning = tripeventWarning + s.data();
 //        tripeventWarning.write();
       }
-      std::cout << plausible << std::flush;
+//      std::cout << plausible << std::flush;
       rep.comment = plausible;
       tripeventState = std::string(1, (char) rep.state) + plausible;
   //    tripeventState = std::string(1, (char) rep.state);
@@ -253,7 +249,7 @@ public:
       }
     }
 
-    std::cout << (char) rep.state << std::flush;
+//    std::cout << (char) rep.state << std::flush;
 
     reportHisto.push_back(rep);
     if ( reportHisto.size() > maxHistorySize ) reportHisto.assign(reportHisto.begin() + 1,reportHisto.end());
