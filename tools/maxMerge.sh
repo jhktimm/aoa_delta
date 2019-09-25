@@ -27,14 +27,14 @@ function nrwait() {
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
 #interludefix=maXfelQ
-interludefix=Kvelertak
+interludefix=Opeth
 station=A17
-newPreFix=Kvelertak
+newPreFix=Opeth
 
 #for run in  1138 ; do
 #for run in  1143 1146 ; do
-for run in  1143 ; do
-#for run in  1146 ; do
+#for run in  1143 ; do
+for run in  1146 ; do
 #for run in  1138 1143 1146 ; do
 
   for module in {1..4} ; do
