@@ -6,8 +6,8 @@
 #~ add_subdirectory(f_generate_online_UKF_residual)
 #~ include_directories(f_get_calCoeff_codegen)
 #~ add_subdirectory(f_get_calCoeff_codegen)
-include_directories(f_generate_and_eval_residual4)
-add_subdirectory(f_generate_and_eval_residual4)
+include_directories(f_generate_and_eval_residual5)
+add_subdirectory(f_generate_and_eval_residual5)
 # include_directories(f_calib_and_res_gen_ukf)
 # add_subdirectory(f_calib_and_res_gen_ukf)
 
@@ -23,7 +23,7 @@ target_link_libraries(AAnalysis
                                 #~ f_generate_online_UKF_residual
                                 #~ f_generate_online_parityRes1
                                 #~ f_generate_online_parityRes2
-        f_generate_and_eval_residual4
+        f_generate_and_eval_residual5
                                 "-ljsoncpp"
                                 #~ ${ChimeraTK-ApplicationCore_LIBRARIES}
 )

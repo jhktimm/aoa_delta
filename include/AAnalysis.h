@@ -18,7 +18,7 @@
 
 //#include "../matlab_code/f_generate_and_eval_residual.h"
 //#include "../matlab_code/f_generate_and_eval_residual2.h"
-#include "../matlab_code/f_generate_and_eval_residual4.h"
+#include "../matlab_code/f_generate_and_eval_residual5.h"
 
 //~ #include "f_generate_online_parityRes1.h"
 //~ #include "f_generate_online_parityRes2.h"
@@ -146,7 +146,8 @@ class AAnalysis
     double *strengtVar;
     double *maxis;
     double *minis;
-
+    boolean_T *PC;
+    double *calib_check;
 
 		/* add your private declarations */
 };

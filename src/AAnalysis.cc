@@ -83,6 +83,8 @@ void AAnalysis::init()
  strengtVar = new double;
  maxis = new double;
  minis = new double;
+ calib_check = new double;
+ PC = new boolean_T;
 
 	//~ this->tmp_probe_ampl->reserve(samp);
 	//~ this->tmp_probe_phase->reserve(samp);
@@ -343,7 +345,9 @@ void AAnalysis::get_res()
       this->QL,
       this->dw_stat,
       this->SP_F,
-      this->SP_P
+      this->SP_P,
+          this->PC,
+          this->calib_check
       );
   }
   
@@ -665,6 +669,8 @@ void AAnalysis::write_res_dat(std::string filename)
   << "dw_stat"  << " "
   << "SP_F"  << " "
   << "SP_P"  << " "
+  << "PC"  << " "
+  << "calib_check"  << " "
 //		<< "r_cmplx.re[]"  << " "
 //		<< "r_cmplx.im[]"  << " "
 //		<< "smax[]"  << " "
@@ -686,6 +692,8 @@ void AAnalysis::write_res_dat(std::string filename)
   << *this->dw_stat                    << " "
   << *this->SP_F                    << " "
   << *this->SP_P                    << " "
+  << *this->PC                    << " "
+  << *this->calib_check               << " "
     ;
 // << "[ ";
 //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {

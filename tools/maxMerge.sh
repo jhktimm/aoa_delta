@@ -27,9 +27,9 @@ function nrwait() {
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
 #interludefix=maXfelQ
-interludefix=Opeth
+interludefix=Mantar
 station=A17
-newPreFix=Opeth
+newPreFix=Mantar
 
 #for run in  1138 ; do
 #for run in  1143 1146 ; do
