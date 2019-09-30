@@ -1,0 +1,72 @@
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>RTW Report - calcUTParameters.c</title>
+<script language="JavaScript" type="text/javascript" src="rtwreport_utils.js"></script>
+<script src="resources/eml_report_loadable_data.js"></script>
+</head>
+<body bgcolor="#eeeeee" onload="try {if (top) { if (top.rtwFileOnLoad) top.rtwFileOnLoad(window.document); else local_onload();}} catch(err) {};">
+<p>
+<table border="0" cellspacing="0" cellpadding="6" width="100%%" height="100%%"><tr><td width="100%%" valign="top" bgcolor="#ffffff">
+<h4>File: <a href="../calcUTParameters.c" target="rtwreport_document_frame" id="linkToText_plain">calcUTParameters.c</a></h4>
+<pre id="RTWcode">
+<a name="1"><font color="#888888 "><i>    1   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="2"><font color="#888888 "><i>    2   </i></font></a><font color="#117755"><I> * Academic License - for use in teaching, academic research, and meeting</i></font>
+<a name="3"><font color="#888888 "><i>    3   </i></font></a><font color="#117755"><I> * course requirements at degree granting institutions only.  Not for</i></font>
+<a name="4"><font color="#888888 "><i>    4   </i></font></a><font color="#117755"><I> * government, commercial, or other organizational use.</i></font>
+<a name="5"><font color="#888888 "><i>    5   </i></font></a><font color="#117755"><I> * File: calcUTParameters.c</i></font>
+<a name="6"><font color="#888888 "><i>    6   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="7"><font color="#888888 "><i>    7   </i></font></a><font color="#117755"><I> * MATLAB Coder version            : 3.4</i></font>
+<a name="8"><font color="#888888 "><i>    8   </i></font></a><font color="#117755"><I> * C/C++ source code generated on  : 27-Sep-2019 16:47:25</i></font>
+<a name="9"><font color="#888888 "><i>    9   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="10"><font color="#888888 "><i>   10   </i></font></a>
+<a name="11"><font color="#888888 "><i>   11   </i></font></a><font color="#117755"><i>/* Include Files */</i></font>
+<a name="12"><font color="#888888 "><i>   12   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;rt_nonfinite.h&quot;</font>
+<a name="13"><font color="#888888 "><i>   13   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;f_generate_and_eval_residual.h&quot;</font>
+<a name="14"><font color="#888888 "><i>   14   </i></font></a><font color="#992211">#</font><font color="#992211"><b>include</b></font> <font color="#992211">&quot;calcUTParameters.h&quot;</font>
+<a name="15"><font color="#888888 "><i>   15   </i></font></a>
+<a name="16"><font color="#888888 "><i>   16   </i></font></a><font color="#117755"><i>/* Function Definitions */</i></font>
+<a name="17"><font color="#888888 "><i>   17   </i></font></a>
+<a name="18"><font color="#888888 "><i>   18   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="19"><font color="#888888 "><i>   19   </i></font></a><font color="#117755"><I> * Arguments    : double alpha</i></font>
+<a name="20"><font color="#888888 "><i>   20   </i></font></a><font color="#117755"><I> *                double beta</i></font>
+<a name="21"><font color="#888888 "><i>   21   </i></font></a><font color="#117755"><I> *                double kappa</i></font>
+<a name="22"><font color="#888888 "><i>   22   </i></font></a><font color="#117755"><I> *                double *c</i></font>
+<a name="23"><font color="#888888 "><i>   23   </i></font></a><font color="#117755"><I> *                double Wmean[2]</i></font>
+<a name="24"><font color="#888888 "><i>   24   </i></font></a><font color="#117755"><I> *                double Wcov[2]</i></font>
+<a name="25"><font color="#888888 "><i>   25   </i></font></a><font color="#117755"><I> *                double *OOM</i></font>
+<a name="26"><font color="#888888 "><i>   26   </i></font></a><font color="#117755"><I> * Return Type  : void</i></font>
+<a name="27"><font color="#888888 "><i>   27   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="28"><font color="#888888 "><i>   28   </i></font></a><font color="#112266"><b>void</b></font> <a name="fcn_calcUTParameters">calcUTParameters</a>(<font color="#112266"><b>double</b></font> alpha, <font color="#112266"><b>double</b></font> beta, <font color="#112266"><b>double</b></font> kappa, <font color="#112266"><b>double</b></font> *c, <font color="#112266"><b>double</b></font>
+<a name="29"><font color="#888888 "><i>   29   </i></font></a>                      Wmean[2], <font color="#112266"><b>double</b></font> Wcov[2], <font color="#112266"><b>double</b></font> *OOM)
+<a name="30"><font color="#888888 "><i>   30   </i></font></a><b>{</b>
+<a name="31"><font color="#888888 "><i>   31   </i></font></a>  <font color="#112266"><b>double</b></font> b_Wmean;
+<a name="32"><font color="#888888 "><i>   32   </i></font></a>  <font color="#112266"><b>int</b></font> i3;
+<a name="33"><font color="#888888 "><i>   33   </i></font></a>  *c = alpha * alpha * (6.0 + kappa);
+<a name="34"><font color="#888888 "><i>   34   </i></font></a>  Wmean[0] = 1.0 - 6.0 / *c;
+<a name="35"><font color="#888888 "><i>   35   </i></font></a>  Wmean[1] = 1.0 / (2.0 * *c);
+<a name="36"><font color="#888888 "><i>   36   </i></font></a>  Wcov[0] = Wmean[0] + ((1.0 - alpha * alpha) + beta);
+<a name="37"><font color="#888888 "><i>   37   </i></font></a>  Wcov[1] = Wmean[1];
+<a name="38"><font color="#888888 "><i>   38   </i></font></a>  <font color="#112266"><b>if</b></font> (Wmean[0] != 0.0) <b>{</b>
+<a name="39"><font color="#888888 "><i>   39   </i></font></a>    *OOM = Wmean[0];
+<a name="40"><font color="#888888 "><i>   40   </i></font></a>    b_Wmean = Wmean[0];
+<a name="41"><font color="#888888 "><i>   41   </i></font></a>    <font color="#112266"><b>for</b></font> (i3 = 0; i3 &lt; 2; i3++) <b>{</b>
+<a name="42"><font color="#888888 "><i>   42   </i></font></a>      Wmean[i3] /= b_Wmean;
+<a name="43"><font color="#888888 "><i>   43   </i></font></a>      Wcov[i3] /= *OOM;
+<a name="44"><font color="#888888 "><i>   44   </i></font></a>    <b>}</b>
+<a name="45"><font color="#888888 "><i>   45   </i></font></a>  <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
+<a name="46"><font color="#888888 "><i>   46   </i></font></a>    *OOM = 1.0;
+<a name="47"><font color="#888888 "><i>   47   </i></font></a>  <b>}</b>
+<a name="48"><font color="#888888 "><i>   48   </i></font></a><b>}</b>
+<a name="49"><font color="#888888 "><i>   49   </i></font></a>
+<a name="50"><font color="#888888 "><i>   50   </i></font></a><font color="#117755"><i>/*</i></font>
+<a name="51"><font color="#888888 "><i>   51   </i></font></a><font color="#117755"><I> * File trailer for calcUTParameters.c</i></font>
+<a name="52"><font color="#888888 "><i>   52   </i></font></a><font color="#117755"><I> *</i></font>
+<a name="53"><font color="#888888 "><i>   53   </i></font></a><font color="#117755"><I> * [EOF]</i></font>
+<a name="54"><font color="#888888 "><i>   54   </i></font></a><font color="#117755"><I> */</i></font>
+<a name="55"><font color="#888888 "><i>   55   </i></font></a></pre>
+</td></tr></table>
+</p>
+</body>
+</html>
