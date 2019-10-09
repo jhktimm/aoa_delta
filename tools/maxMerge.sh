@@ -27,9 +27,9 @@ function nrwait() {
 resultDirectory=/beegfs/desy/user/jhktimm/merged/
 dataToMergeDirectory=/beegfs/desy/user/jhktimm/results/
 #interludefix=maXfelQ
-interludefix=Motorhead
+interludefix=Motorhead2
 station=A17
-newPreFix=Motorhead
+newPreFix=Motorhead2
 
 #for run in  1138 ; do
 #for run in  1143 1146 ; do

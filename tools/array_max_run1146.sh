@@ -7,7 +7,7 @@
 #SBATCH --no-requeue
 #SBATCH --array 0-5                                         # !!!!!!!!!!!!!!!always start at 0! 0-5
 #SBATCH --cpus-per-task 40
-#SBATCH --job-name Motorhead                         #   !!!!!!!!!!!!!!!!!!1    NAME OF THE JOB !!!!!!!!!!!!!!!!!!!!!!!!
+#SBATCH --job-name Motorhead2                         #   !!!!!!!!!!!!!!!!!!1    NAME OF THE JOB !!!!!!!!!!!!!!!!!!!!!!!!
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
 export LD_PRELOAD=""
