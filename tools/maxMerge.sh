@@ -31,10 +31,10 @@ interludefix=Motorhead
 station=A17
 newPreFix=Motorhead
 
-for run in  1138 ; do
+#for run in  1138 ; do
 #for run in  1143 1146 ; do
 #for run in  1143 ; do
-#for run in  1146 ; do
+for run in  1146 ; do
 #for run in  1138 1143 1146 ; do
 
   for module in {1..4} ; do
