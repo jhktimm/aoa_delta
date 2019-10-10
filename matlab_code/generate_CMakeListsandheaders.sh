@@ -1,12 +1,16 @@
 #!/bin/bash
+echo
 echo 'generating header files and CMakeLists.txt for every subdirectory'
+echo
+echo
+echo 'add this to your CMakeLists.txtin this directory'
 echo
 for directory in *
 do
         if [ -d "${directory}" ]
         then
-                echo "include_directories(example2/lib/$directory)"
-                echo "add_subdirectory(example2/lib/$directory)"
+                echo "include_directories($directory)"
+                echo "add_subdirectory($directory)"
                 cd $directory
                 echo "add_library(${directory}  SHARED" > CMakeLists.txt
                 ls *.c >> CMakeLists.txt
@@ -21,11 +25,22 @@ do
         fi
 done
 echo
-echo 'add this to your CMakeLists.txt and target_link_libraries(...) and the headers'
+echo "add this to target_link_libraries( "
+for directory in *
+do
+     if [ -d "${directory}" ]
+     then
+            echo "     $directory"
+     fi
+done
+echo ") also in CMameLists.txt"
+echo
+echo
+echo 'and add to the headers (e.g. AAnalysis.h):'
 echo
 for hfile in *.h
 do
-        echo '#include "'lib/$hfile'"'
+        echo '#include "'../matlab_code/$hfile'"'
 done
 echo
 echo 'to your c file'
