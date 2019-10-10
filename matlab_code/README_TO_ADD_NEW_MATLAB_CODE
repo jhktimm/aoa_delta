@@ -1,0 +1,5 @@
+copy the folder with matlab c code in this directory
+
+execute the scribt './generate_CMakeListsandheaders.sh'
+
+and than follow the instructions(change the CMakeLists.txt file in the directory and includ the headers in your c code)
