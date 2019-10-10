@@ -1,0 +1,8 @@
+array_max_???????.sh are scribts for the maxwell cluster
+start it an the cluster in the workdir directory with
+sbatch array_max_???????.sh
+
+you can merge the result files with mergeDat.sh by hand 
+or with maxMerge.sh on the maxwell cluster with
+sbatch maxMerge.sh
+
