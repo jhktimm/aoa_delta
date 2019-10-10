@@ -1,4 +1,9 @@
-docker run  -v /home/jhktimm/sources/aoa_delta/:/space/aoa_delta  -v /home/jhktimm/data_sshfs/:/data/ -w /space/aoa_delta/workdir -it jhktimm/aoa bash
+docker pull jhktimm/aoa
+docker run
+   -v /home/jhktimm/sources/aoa_delta/:/space/aoa_delta
+   -v /home/jhktimm/data_sshfs/:/data/
+   -w /space/aoa_delta/build
+   -it jhktimm/aoa bash
 # getent passwd $USER > passwd_x
 # echo "$(id -gn):*:$(id -g):$USER" > group_x
 # docker run  -v /home/$USER/passwd_x:/etc/passwd \

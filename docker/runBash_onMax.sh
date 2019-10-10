@@ -4,7 +4,7 @@ resultDirectory=/beegfs/desy/user/jhktimm/results/                              
 aoaDirectory=/home/jhktimm/sources/aoa_delta/                          # !!!!!!!!!!!!!!!
 logDirectory=/beegfs/desy/user/jhktimm/logs/
 
-dockerrun -w /space/aoa_delta/workdir \
+dockerrun -w /space/aoa_delta/build \
   -v ${aoaDirectory}:/space/aoa_delta  \
   -v ${resultDirectory}:/results  \
   -v ${dataDirectory}:/data  \

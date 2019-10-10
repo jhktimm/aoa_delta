@@ -1,0 +1,5 @@
+Dockerfile is the fiel to create docker container
+dockerrun.sh is similar to the dockerrun scribt on the maxwell cluster
+runBash_onMax.sh is a scribt to run bash in the container on maxwelll,
+to compile your code.
+runBash_local.sh should do the same on your local pc and your local docker container
