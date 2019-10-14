@@ -15,7 +15,9 @@ RUN git clone https://github.com/ChimeraTK/cppext.git && \
     cd build && \
     cmake .. && \
     make -j 15 && \
-    sudo make install
+    sudo make install && \
+    cd ../../ && \
+    rm -rf cppext
         
 RUN pwd && \
     git clone https://github.com/ChimeraTK/exprtk-interface.git && \
@@ -27,7 +29,8 @@ RUN pwd && \
     cmake .. && \
     make -j 15 && \
     make install && \
-    pwd
+    cd ../../ && \
+    rm -rf exprtk-interface
     
 RUN pwd && \
     git clone https://github.com/ChimeraTK/DeviceAccess.git && \
@@ -35,11 +38,13 @@ RUN pwd && \
     mkdir build && \
     cd build && \
     cmake .. && \    
-    nice make -j 15 
+    nice make -j 15 && \
+    rm -rf DeviceAccess
     
 RUN cd DeviceAccess/build && \
     make install; exit 0 $$ \
-    pwd
+    cd ../../ && \
+    rm -rf DeviceAccess
 
 RUN git clone https://github.com/ChimeraTK/ControlSystemAdapter.git && \
     cd ControlSystemAdapter && \
@@ -47,7 +52,9 @@ RUN git clone https://github.com/ChimeraTK/ControlSystemAdapter.git && \
     cd build && \
     cmake .. && \
     make -j 15 && \
-    make install
+    make install && \
+    cd ../../ && \
+    rm -rf ControlSystemAdapter
 
 # DOOCS    
 RUN wget -O - http://doocs.desy.de/pub/doocs/DOOCS-key.gpg.asc | sudo apt-key add - && \
@@ -61,15 +68,19 @@ RUN git clone https://github.com/ChimeraTK/DoocsServerTestHelper.git && \
     cd build && \
     cmake .. && \
     make -j 15 && \
-    make install  
+    make install && \
+    cd ../../ && \
+    rm -rf DoocsServerTestHelper
     
 RUN git clone https://github.com/ChimeraTK/ControlSystemAdapter-DoocsAdapter.git && \
     cd ControlSystemAdapter-DoocsAdapter && \
     mkdir build && \
     cd build && \
     cmake .. && \
-    make -j 3 && \
-    make install
+    make -j 15 && \
+    make install && \
+    cd ../../ && \
+    rm -rf ControlSystemAdapter-DoocsAdapter
     
 RUN git clone https://github.com/ChimeraTK/ApplicationCore.git && \
     apt install -y libhdf5-dev && \
@@ -78,7 +89,9 @@ RUN git clone https://github.com/ChimeraTK/ApplicationCore.git && \
     cd build && \
     cmake .. && \
     make -j 15 && \
-    make install
+    make install && \
+    cd ../../ && \
+    rm -rf ApplicationCore
 
 RUN git clone https://github.com/ChimeraTK/DeviceAccess-DoocsBackend.git && \
     cd DeviceAccess-DoocsBackend && \
@@ -86,20 +99,22 @@ RUN git clone https://github.com/ChimeraTK/DeviceAccess-DoocsBackend.git && \
     cd build && \
     cmake .. && \
     make -j 15 && \
-    make install    
+    make install && \
+    cd ../../ && \
+    rm -rf DeviceAccess-DoocsBackend
         
-RUN git clone https://github.com/jhktimm/aoa_delta.git && \
-    apt install -y libjsoncpp-dev && \
-    apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib && \
-    cd aoa_delta && \
-    mkdir build && \
-    cd build && \
-    cmake .. && \
-    make -j 3 && \
-    mkdir /daq_data && \
-    mkdir /daq_data/xfel && \
-    mkdir /daq_data/xfel/USR1 && \
-    cd /aoa_delta/workdir
+RUN apt install -y libjsoncpp-dev && \
+    apt install -y dev-doocs-eqdaqdatalib dev-doocs-lzo2lib dev-doocs-ttf2xmllib dev-doocs-daqbmlib dev-doocs-daqreaderlib
+
+#RUN git clone https://github.com/jhktimm/aoa_delta.git && \
+#    cd aoa_delta && \
+#    mkdir build && \
+#    cd build && \
+#    cmake .. && \
+#    make -j 15 && \
+#    make install && \
+#    cd ../../ && \
+#    rm -rf aoa_delta
     
 RUN apt-get install -y rpcbind
 
