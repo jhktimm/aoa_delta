@@ -54,6 +54,7 @@ EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${CMAKE_
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/array_max_run1138.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/array_max_run1143.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/array_max_run1146.sh ${CMAKE_SOURCE_DIR}/workdir/.)
+EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/array_max_run1261.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/maxMerge.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/tools/mergeDat.sh ${CMAKE_SOURCE_DIR}/workdir/.)
 # EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_ana/run.sh ${CMAKE_SOURCE_DIR}/workdir/.)

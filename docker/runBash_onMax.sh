@@ -5,6 +5,7 @@ aoaDirectory=/home/jhktimm/sources/aoa_delta/                          # !!!!!!!
 logDirectory=/beegfs/desy/user/jhktimm/logs/
 
 dockerrun -w /space/aoa_delta/build \
+  --tmpfs /tmp \
   -v ${aoaDirectory}:/space/aoa_delta  \
   -v ${resultDirectory}:/results  \
   -v ${dataDirectory}:/data  \

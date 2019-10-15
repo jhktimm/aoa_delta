@@ -5,7 +5,7 @@
 #SBATCH --nodes            1
 #SBATCH --partition maxwell
 #SBATCH --no-requeue
-#SBATCH --array 0-5                                         # !!!!!!!!!!!!!!!always start at 0!
+#SBATCH --array 0-4                                         # !!!!!!!!!!!!!!!always start at 0!
 #SBATCH --cpus-per-task 40
 #SBATCH --job-name Homer                              # !!!!!!!!!!!!!1 NAME !!!!!!!!!!!!!
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
