@@ -5,7 +5,7 @@
 #SBATCH --nodes            1
 #SBATCH --partition maxwell
 #SBATCH --no-requeue
-#SBATCH --array 0-4                                         # !!!!!!!!!!!!!!!always start at 0!
+#SBATCH --array 0-15                                         # !!!!!!!!!!!!!!!always start at 0!
 #SBATCH --cpus-per-task 40
 #SBATCH --job-name Bart                              # !!!!!!!!!!!!!1 NAME !!!!!!!!!!!!!
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
@@ -23,14 +23,14 @@ echo "SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_COUNT"
 echo "SLURM_ARRAY_TASK_MAX   $SLURM_ARRAY_TASK_MAX"
 echo "SLURM_ARRAY_TASK_MIN   $SLURM_ARRAY_TASK_MIN"
 
-runnumber=1262                                              # 0 - 5 array!!!!!!!!!!!!!!!
+runnumber=1261                                              # 0 - 5 array!!!!!!!!!!!!!!!
 dataDirectory=/beegfs/desy/user/jhktimm/rawdata/                               # !!!!!!!!!!!!!!!
 resultDirectory=/beegfs/desy/user/jhktimm/results/                               # !!!!!!!!!!!!!!!
 aoaDirectory=/home/jhktimm/sources/aoa_delta/                          # !!!!!!!!!!!!!!!
 logDirectory=/beegfs/desy/user/jhktimm/logs/                           # !!!!!!!!!!!!!!!
 # !!!!!!!!!!!!!!!
 COUNTER=0
-START=0                                                            # start !!!!!!!!! file 1 - 17997 ->5 jobs /(40cpus and 100 files)
+START=313                                                            # start !!!!!!!!! 31321-94674...-> 15.8jobs pro (40cpus and 100files)
 #arrayRun=0 #!!! ONLY FOR tests
 ((arrayRun=$SLURM_ARRAY_TASK_ID))
 echo nprocs $nprocs

@@ -5,6 +5,7 @@
 #include <parse_chan_descr.h>
 #include <ttf2_daq_slicer.h>
 
+
 #include <fstream>
 #include <iostream>
 #include <fstream>
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
   std::cout << "usage: " << argv[0] << " <prefix> <list with .raw files>\n";
   std::cout << "usage: " << argv[0] << " <resultDirectory> <prefix> <list with .raw files>\n";
   std::vector<char*> fileList;
-  for (int a = 2; a < argc; a++) {
+  for (int a = 3; a < argc; a++) {
     fileList.push_back(argv[a]);
   }
   if (fileList.empty() == true) {
@@ -114,9 +115,9 @@ int main(int argc, char *argv[])
         
         /////////////////////////////////////////////////////////////////////////////////////
         /// prepair for calculations
-        //~ oa->getAutoParameters("../../tau_k_x/");
-        oa->getAutoParameters("../tau_k_x/");
-        //         oa->print_Parameters();
+        oa->getAutoParameters("../../tau_k_x/");// !testing!
+//      //oa->getAutoParameters("../tau_k_x/");//normal
+        //oa->print_Parameters();
         
         /////////////////////////////////////////////////////////////////////////////////////
         /// to get channel name
@@ -130,8 +131,20 @@ int main(int argc, char *argv[])
 
         /////////////////////////////////////////////////////////////////////////////////////
         /// do calculations
-        std::string wasOFF("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");
-        if ( wasOFF.compare(channml) != 0) oa->get_res();// !!!!!!!!!!!
+//        std::string wasOFF("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");
+
+        /// skiping same channels
+        std::vector<std::string> channelsToSkip;
+        channelsToSkip.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");//this cavity was off for run 1138,1143,1146
+        channelsToSkip.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M2.A12.L3");// get res does not work with this for run 1262
+        channelsToSkip.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M3.A12.L3");//   "
+        channelsToSkip.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M4.A12.L3");//   "
+        bool calculateThisChannel = true;
+        for  (auto channelToSkip: channelsToSkip) {
+          if( channelToSkip.compare(channml) == 0) calculateThisChannel = false ;
+        }
+        if (calculateThisChannel) oa->get_res();
+//        if ( wasOFF.compare(channml) != 0) oa->get_res();// !!!!!!!!!!!
         //        ma.mach();
         //         oa->print_res();
 
@@ -146,7 +159,7 @@ int main(int argc, char *argv[])
 
       //      oa->print_data();
     } else {
-      std::cout << "res.size():"<< res.size() <<" != (uint) reader_2010.get_number_of_channels():"<< (uint) reader_2010.get_number_of_channels() << std::endl:
+      std::cout << "res.size(): "<< res.size() <<" != (uint) reader_2010.get_number_of_channels(): "<< (uint) reader_2010.get_number_of_channels() << std::endl;
     }
   }
   std::cout << "fino" << std::endl;
