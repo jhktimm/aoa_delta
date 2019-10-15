@@ -91,6 +91,7 @@ void AAnalysis::init()
   PC = new double;
   calib_check = new double;
   dec_hq = new double;
+  dw_stat_nom = new double;
 
   //~ this->tmp_probe_ampl->reserve(samp);
   //~ this->tmp_probe_phase->reserve(samp);
@@ -337,7 +338,8 @@ void AAnalysis::get_res()
           this->SP_P,
           this->PC,
           this->calib_check,
-          this->dec_hq
+          this->dec_hq,
+          this->dw_stat_nom
           );
   }
   
@@ -501,6 +503,7 @@ void AAnalysis::write_res_dat(std::string filename)
         << "PC"  << " "
         << "calib_check"  << " "
         << "dec_hq"  << " "
+        << "dw_stat_nom"  << " "
            //		<< "r_cmplx.re[]"  << " "
            //		<< "r_cmplx.im[]"  << " "
            //		<< "smax[]"  << " "
@@ -525,6 +528,7 @@ void AAnalysis::write_res_dat(std::string filename)
            << *this->PC                    << " "
            << *this->calib_check               << " "
            << *this->dec_hq               << " "
+           << *this->dw_stat_nom               << " "
               ;
   // << "[ ";
   //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {

@@ -10,7 +10,7 @@
 #include <thread>
 #include <sstream>
 
-#include "../matlab_code/f_generate_and_eval_residual6.h"
+#include "../matlab_code/f_generate_and_eval_residual7.h"
 
 #include "../include/aoa_daq_datasclass.h"
 
@@ -111,6 +111,7 @@ public:
  double *PC;
  double *calib_check;
  double *dec_hq;
+ double *dw_stat_nom;
 
 };
 

@@ -115,8 +115,7 @@ int main(int argc, char *argv[])
         
         /////////////////////////////////////////////////////////////////////////////////////
         /// prepair for calculations
-        oa->getAutoParameters("../../tau_k_x/");// !testing!
-//      //oa->getAutoParameters("../tau_k_x/");//normal
+        oa->getAutoParameters("../tau_k_x/");//normal
         //oa->print_Parameters();
         
         /////////////////////////////////////////////////////////////////////////////////////
