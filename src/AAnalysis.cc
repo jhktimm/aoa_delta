@@ -55,6 +55,9 @@ void AAnalysis::init()
   
   //  emxInitArray_creal_T(&r_cmplx, 1);
   emxInitArray_real_T(&s_max, 1);
+  emxInitArray_real_T(&s_max_dw, 1);
+  emxInitArray_real_T(&s_max_PS1, 1);
+  emxInitArray_real_T(&res_PS2, 1);
   
   static int iv0[1] = { (int) this->samples };
 
@@ -80,18 +83,21 @@ void AAnalysis::init()
   }
 
   classis = new double;
+  classis_dw = new double;
+  classis_ps = new double;
   strengthis = new double;
+  strengthis_ps = new double;
+  strengthis_dw = new double;
   QL = new double;
   dw_stat = new double;
   SP_F = new double;
   SP_P = new double;
-  strengtVar = new double;
-  maxis = new double;
-  minis = new double;
+//  strengtVar = new double;
+//  maxis = new double;
+//  minis = new double;
   PC = new double;
   calib_check = new double;
   dec_hq = new double;
-//  dw_stat_nom = new double;
 
   //~ this->tmp_probe_ampl->reserve(samp);
   //~ this->tmp_probe_phase->reserve(samp);
@@ -121,6 +127,11 @@ void AAnalysis::getParameters(std::string jsonfilename)
       calCoeff[idx0].im = j_cal_coeff_imag[idx0].asDouble();
     }
 
+    const Json::Value j_Sigma_nom_PS1 = obj["Sigma_nom_PS1"];
+    this->Sigma_nom_PS1 = j_Sigma_nom_PS1.asDouble();
+    const Json::Value j_Sigma_nom_dw = obj["Sigma_nom_dw"];
+    this->Sigma_nom_dw = j_Sigma_nom_dw.asDouble();
+
     const Json::Value j_Sigma_nom = obj["Sigma_nom"];
     this->Sigma_nom[0]=j_Sigma_nom[0][0].asDouble();
     this->Sigma_nom[1]=j_Sigma_nom[0][1].asDouble();
@@ -140,6 +151,21 @@ void AAnalysis::getParameters(std::string jsonfilename)
         this->ProcessVar[6*x+y]=j_ProcessVar[x][y].asDouble();
       }
     }
+
+
+    const Json::Value j_dw_trace_nom = obj["dw_trace_nom"];
+    static int iv0[1] = { (int) j_dw_trace_nom.size() };
+    this->dw_trace_nom = emxCreateND_real_T(1, iv0);
+    for (int i = 0; i <  j_dw_trace_nom.size() ; ++i) {
+      this->dw_trace_nom->data[i] = j_dw_trace_nom[i].asDouble();
+    }
+    const Json::Value j_r_PS1_nom = obj["r_PS1_nom"];
+    static int iv1[1] = { (int) j_r_PS1_nom.size() };
+    this->dw_trace_nom = emxCreateND_real_T(1, iv1);
+    for (int i = 0; i <  j_r_PS1_nom.size() ; ++i) {
+      this->r_PS1_nom->data[i] = j_r_PS1_nom[i].asDouble();
+    }
+
 
     for ( uint index = 0; index < j_tau_m.size(); ++index ) {
       this->tau_m[index] = j_tau_m[index].asDouble();
@@ -212,7 +238,8 @@ void AAnalysis::getAutoParameters(std::string tauKXdir){
   getline(strstream_name, A_str, '.');
   getline(strstream_name, L_str, '.');
 
-  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara" + ".json";//XFEL.RF.A20.L3.M1.C1.json
+  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara_multi" + ".json";//XFEL.RF.A20.L3.M1.C1.json
+//  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara" + ".json";//XFEL.RF.A20.L3.M1.C1.json
   //~ std::cout << "AAnalysis::getAutoParameters: " << jsonfilename << "\n";
   this->getParameters(jsonfilename);
 }
@@ -305,7 +332,8 @@ void AAnalysis::get_res()
     std::cout << "FLAG! cavity "<< this->NAME <<" at pid " << this->PID << " could be off.";
   } else {
     this->FLAG=false;
-    f_generate_and_eval_residual(
+    f_generate_and_eval_multi_residuals(
+//          f_generate_and_eval_residual(
           this->Probe_Ampl,
           this->Probe_Phase,
           this->Forw_Ampl,
@@ -319,6 +347,7 @@ void AAnalysis::get_res()
           this->K_m,
           this->X0,
           this->QL_nom,
+          this->dw_trace_nom, //new
           this->DELAY,
           this->FILLING,
           this->FLATTOP,
@@ -326,12 +355,22 @@ void AAnalysis::get_res()
           this->r_mean_nom,
           this->MeasNoiseVar,
           this->ProcessVar,
+          this->Sigma_nom_dw,
+          this->r_PS1_nom,
+          this->Sigma_nom_PS1,
           this->s_max,
+          this->s_max_dw,
+          this->s_max_PS1,
+          this->res_PS2,
           this->classis,
+          this->classis_ps,
+          this->classis_dw,
           this->strengthis,
-          this->strengtVar,
-          this->maxis,
-          this->minis,
+          this->strengthis_ps,
+          this->strengthis_dw,
+//          this->strengtVar,//old
+//          this->maxis,//old
+//          this->minis,//old
           this->QL,
           this->dw_stat,
           this->SP_F,
@@ -339,7 +378,6 @@ void AAnalysis::get_res()
           this->PC,
           this->calib_check,
           this->dec_hq
-//          this->dw_stat_nom
           );
   }
   
@@ -492,10 +530,14 @@ void AAnalysis::write_res_dat(std::string filename)
         << "TIME"  << " "
         << "FLAG"  << " "
         << "classis"  << " "
+        << "classis_ps"  << " "
+        << "classis_dw"  << " "
         << "strengthis"  << " "
-        << "strengtVar"  << " "
-        << "maxis"  << " "
-        << "minis"  << " "
+        << "strengthis_ps"  << " "
+        << "strengthis_dw"  << " "
+//        << "strengtVar"  << " "
+//        << "maxis"  << " "
+//        << "minis"  << " "
         << "QL"  << " "
         << "dw_stat"  << " "
         << "SP_F"  << " "
@@ -503,7 +545,6 @@ void AAnalysis::write_res_dat(std::string filename)
         << "PC"  << " "
         << "calib_check"  << " "
         << "dec_hq"  << " "
-//        << "dw_stat_nom"  << " "
            //		<< "r_cmplx.re[]"  << " "
            //		<< "r_cmplx.im[]"  << " "
            //		<< "smax[]"  << " "
@@ -517,10 +558,15 @@ void AAnalysis::write_res_dat(std::string filename)
            << this->FLAG                       << " "
 
            << *this->classis                   << " "
+           << *this->classis_ps                   << " "
+           << *this->classis_dw                   << " "
            << *this->strengthis                << " "
-           << *this->strengtVar                << " "
-           << *this->maxis                << " "
-           << *this->minis                << " "
+           << *this->strengthis_ps                << " "
+           << *this->strengthis_dw                << " "
+
+//           << *this->strengtVar                << " "
+//           << *this->maxis                << " "
+//           << *this->minis                << " "
            << *this->QL                        << " "
            << *this->dw_stat                    << " "
            << *this->SP_F                    << " "
@@ -528,7 +574,6 @@ void AAnalysis::write_res_dat(std::string filename)
            << *this->PC                    << " "
            << *this->calib_check               << " "
            << *this->dec_hq               << " "
-//           << *this->dw_stat_nom               << " "
               ;
   // << "[ ";
   //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {

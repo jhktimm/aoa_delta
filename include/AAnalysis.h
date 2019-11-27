@@ -10,7 +10,8 @@
 #include <thread>
 #include <sstream>
 
-#include "../matlab_code/f_generate_and_eval_residual8.h"
+#include "../matlab_code/f_generate_and_eval_multi_residuals.h"
+//#include "../matlab_code/f_generate_and_eval_residual6.h"
 
 #include "../include/aoa_daq_datasclass.h"
 
@@ -87,6 +88,12 @@ public:
  emxArray_real_T *Refl_Ampl;
  emxArray_real_T *Refl_Phase;
 
+ //inputs
+ emxArray_real_T *dw_trace_nom; //new
+ emxArray_real_T *r_PS1_nom; //new
+
+ double Sigma_nom_PS1;//new
+ double Sigma_nom_dw;//new
 
  creal_T calCoeff[4];
 
@@ -97,21 +104,28 @@ public:
  double ProcessVar[36];
 
  //    emxArray_creal_T *r_cmplx;
- emxArray_real_T *s_max;
+ //outputs not to be saved
+ emxArray_real_T *s_max;//ukf
+ emxArray_real_T *s_max_dw; //new
+ emxArray_real_T *s_max_PS1; //new
+ emxArray_real_T *res_PS2; //new
 
  double *classis;
+ double *classis_ps;//new
+ double *classis_dw;//new
  double *strengthis;
+ double *strengthis_ps;//new
+ double *strengthis_dw;//new
  double *QL;
  double *dw_stat;
  double *SP_F;
  double *SP_P;
- double *strengtVar;
- double *maxis;
- double *minis;
+// double *strengtVar;//old
+// double *maxis;//old
+// double *minis;//old
  double *PC;
  double *calib_check;
  double *dec_hq;
-// double *dw_stat_nom;
 
 };
 
