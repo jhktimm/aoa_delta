@@ -58,6 +58,8 @@ void AAnalysis::init()
   emxInitArray_real_T(&s_max_dw, 1);
   emxInitArray_real_T(&s_max_PS1, 1);
   emxInitArray_real_T(&res_PS2, 1);
+  emxInitArray_real_T(&dw_trace_nom, 1);
+  emxInitArray_real_T(&r_PS1_nom, 1);
   
   static int iv0[1] = { (int) this->samples };
 
@@ -67,6 +69,9 @@ void AAnalysis::init()
   this->Forw_Phase = emxCreateND_real_T(1, iv0);
   this->Refl_Ampl = emxCreateND_real_T(1, iv0);
   this->Refl_Phase = emxCreateND_real_T(1, iv0);
+  this->dw_trace_nom = emxCreateND_real_T(1, iv0);
+  static int iv1[1] = { 1818 };
+  this->r_PS1_nom = emxCreateND_real_T(1, iv1);
 
   for (int idx0 = 0; idx0 < Probe_Ampl->size[0U]; idx0++) {
     this->Probe_Ampl->data[idx0] = 0;
@@ -112,9 +117,19 @@ void AAnalysis::getParameters(std::string jsonfilename)
 {
   std::ifstream jsonfile(jsonfilename);
   if (jsonfile.is_open()) {
-    Json::Reader reader;
+//    Json::Reader reader;
+
+    Json::CharReaderBuilder builder;
+    builder["collectComments"] = false;
+    builder["allowSpecialFloats"] = true; // for NaNs ... etc.
+    std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
+
     Json::Value obj;
-    reader.parse(jsonfile, obj);
+
+    JSONCPP_STRING errs;
+//    reader.parse(jsonfile, obj);
+    auto jsonOK = Json::parseFromStream(builder, jsonfile, &obj, &errs);
+    if (!jsonOK) std::cout << " error parsing jason file('"<<jsonfilename<<"'):" << errs << std::endl;
     const Json::Value j_tau_m = obj["tau_m"];
     const Json::Value j_K_m = obj["K_m"];
     const Json::Value j_X0 = obj["X0"];
@@ -154,15 +169,11 @@ void AAnalysis::getParameters(std::string jsonfilename)
 
 
     const Json::Value j_dw_trace_nom = obj["dw_trace_nom"];
-    static int iv0[1] = { (int) j_dw_trace_nom.size() };
-    this->dw_trace_nom = emxCreateND_real_T(1, iv0);
-    for (int i = 0; i <  j_dw_trace_nom.size() ; ++i) {
+    for (uint i = 0; i <  j_dw_trace_nom.size(); ++i) {
       this->dw_trace_nom->data[i] = j_dw_trace_nom[i].asDouble();
     }
     const Json::Value j_r_PS1_nom = obj["r_PS1_nom"];
-    static int iv1[1] = { (int) j_r_PS1_nom.size() };
-    this->dw_trace_nom = emxCreateND_real_T(1, iv1);
-    for (int i = 0; i <  j_r_PS1_nom.size() ; ++i) {
+    for (uint i = 0; i <  j_r_PS1_nom.size(); ++i) {
       this->r_PS1_nom->data[i] = j_r_PS1_nom[i].asDouble();
     }
 
