@@ -1,12 +1,9 @@
 #!/bin/bash
-source setFixedParameter.sh
 #SBATCH --mail-type ALL                           # Type of email notification- BEGIN,END,FAIL,ALL
-##SBATCH --mail-user jhktimm@mail.desy.de          # Email to which notifications will be sent. It defaults to <userid@mail.desy.de> if none is set.
 #SBATCH --time    0-15:00:00
 #SBATCH --nodes            1
 #SBATCH --partition maxwell
 #SBATCH --no-requeue
-##SBATCH --array 0-4                                         # !!!!!!!!!!!!!!!always start at 0!
 #SBATCH --cpus-per-task 40
 #SBATCH --job-name Mona                              # !!!!!!!!!!!!!1 NAME !!!!!!!!!!!!!
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
@@ -23,8 +20,11 @@ echo "SLURM_ARRAY_TASK_ID    $SLURM_ARRAY_TASK_ID"
 echo "SLURM_ARRAY_TASK_COUNT $SLURM_ARRAY_TASK_COUNT"
 echo "SLURM_ARRAY_TASK_MAX   $SLURM_ARRAY_TASK_MAX"
 echo "SLURM_ARRAY_TASK_MIN   $SLURM_ARRAY_TASK_MIN"
-echo "runnumber=${runnumber} START=${START} arrayRange=${arrayRange}"
+source setFixedParameter.sh
 
+runnumber=$1
+START=$2
+echo "runnumber=${runnumber} START=${START}"
 
 #runnumber=1262                                              # 0 - 5 array!!!!!!!!!!!!!!!
 #dataDirectory=/beegfs/desy/user/jhktimm/rawdata/                               # !!!!!!!!!!!!!!!
@@ -32,7 +32,10 @@ echo "runnumber=${runnumber} START=${START} arrayRange=${arrayRange}"
 #aoaDirectory=/home/jhktimm/sources/aoa_delta/                          # !!!!!!!!!!!!!!!
 #logDirectory=/beegfs/desy/user/jhktimm/logs/                           # !!!!!!!!!!!!!!!
 # !!!!!!!!!!!!!!!
+echo "dataDirectory=${dataDirectory}"
+
 COUNTER=0
+
 #START=0                                                            # start !!!!!!!!! file 1 - 17997 ->5 jobs /(40cpus and 100 files)
 #arrayRun=0 #!!! ONLY FOR tests
 ((arrayRun=$SLURM_ARRAY_TASK_ID))

@@ -1,5 +1,8 @@
 Dockerfile is the fiel to create docker container
 dockerrun.sh is similar to the dockerrun scribt on the maxwell cluster
 runBash_onMax.sh is a scribt to run bash in the container on maxwelll,
-to compile your code.
+to compile your code. (cmake .. && make -j8)
 runBash_local.sh should do the same on your local pc and your local docker container
+
+To set all directories, see aoa_delta/tool/setFixedParameter.sh , this will be called before starting docker.
+
