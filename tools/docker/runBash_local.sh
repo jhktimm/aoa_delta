@@ -1,7 +1,11 @@
+#!/bin/bash
+source ../setFixedParameter.sh
 docker pull jhktimm/aoa
 docker run \
-   -v /home/jhktimm/sources/aoa_delta/:/space/aoa_delta \
-   -v /home/jhktimm/data_sshfs/:/data/ \
+   -v ${aoaDirectory}:/space/aoa_delta \
+   -v ${dataDirectory}:/data/ \
+   -v ${resultDirectory}:/results \
+   -v ${logDirectory}:/logs \
    -w /space/aoa_delta/build \
    -it jhktimm/aoa bash
 # getent passwd $USER > passwd_x
