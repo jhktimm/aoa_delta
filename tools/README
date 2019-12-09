@@ -1,8 +1,3 @@
-array_max_???????.sh are scribts for the maxwell cluster
-start it an the cluster in the workdir directory with
-sbatch array_max_???????.sh
-DO NOT USE!!!! NEW WAY IS:
-
 Open setFixedParameter.sh and set default directories and your e mail.
 Open setStartAndLengthFromRuns.sh and define for your new runNumber, the length aof arrays 'arrayRange=0-numberOfAllFilesInThisRun/40000'  and first file 'START=firstFileNumber/100'
 Than you can start your new run an maxwell with:
