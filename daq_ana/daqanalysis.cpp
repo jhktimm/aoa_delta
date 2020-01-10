@@ -17,7 +17,7 @@
 #include "DAQAnalysis.h"
 #include "DAQMyAna.h"
 
-std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<std::string> * rest) {
+std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<char*> *rest) {
   std::map<std::string,std::string> resMap;
   for (int i = 1; i != argc; ++i) {
     if (argv[i][0]=='-') {
@@ -49,7 +49,8 @@ int main(int argc, char *argv[])
   }
 
   // parse options and fileList
-  std::vector<std::string> fileList;
+  std::vector<char*> fileList;
+//  std::vector<std::string> fileListStr;
   auto args = arguments(argc,argv,&fileList);
 
   //set options, defaults and tests
@@ -75,6 +76,7 @@ int main(int argc, char *argv[])
 
   std::string path = fileList.at(0);
   FileSystemPath fsp(path);
+
 
   daq_server_request request;
   ttf2_daq_reader_2010 reader_2010;
