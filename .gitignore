@@ -35,3 +35,5 @@ daq_data/
 workdir/
 .user/
 *.user*
+setFixedParameter.sh
+
