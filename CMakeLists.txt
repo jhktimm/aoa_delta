@@ -47,16 +47,22 @@ add_subdirectory(data_test)
 include_directories(daq_ana/)
 add_subdirectory(daq_ana)
 
+include_directories(tools/)
+add_subdirectory(tools)
+
 EXECUTE_PROCESS(COMMAND mkdir ${CMAKE_SOURCE_DIR}/workdir)
 #~ EXECUTE_PROCESS(COMMAND ln -s ${PROJECT_BINARY_DIR}/daq_aoa ${PROJECT_BINARY_DIR}/../workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${PROJECT_BINARY_DIR}/aoa_app ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${PROJECT_BINARY_DIR}/daq_ana/daqanalysis ${CMAKE_SOURCE_DIR}/workdir/)
+EXECUTE_PROCESS(COMMAND ln -sr ${PROJECT_BINARY_DIR}/tools/getStartAndArraySizeForRuns ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/runsbatch.sh ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/setFixedParameter.sh ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/setStartAndLengthFromRuns.sh ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/startArrayOnMax.sh ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/mergeDat.sh ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/maxMerge.sh ${CMAKE_SOURCE_DIR}/workdir/)
+EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/makeNewIndex.sh ${CMAKE_SOURCE_DIR}/workdir/)
+EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/index ${CMAKE_SOURCE_DIR}/workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/tools/README ${CMAKE_SOURCE_DIR}/workdir/)
 
 #ADD_CUSTOM_TARGET(link_target All
