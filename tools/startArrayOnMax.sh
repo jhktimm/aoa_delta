@@ -50,10 +50,15 @@ while [  $COUNTER -lt $nprocs ]; do
   postfix=${SLURM_JOB_NAME}_run${runnumber}_file${number}xx
   if [ $number -eq 0 ]
   then
-    filepath="/data/linac_test_main_run${runnumber}_file??_*.raw /data/linac_test_main_run${runnumber}_file?_*.raw"
+    filepath2="`cat index | grep -e run${runnumber}_file[0-9]_` `cat index | grep -e run${runnumber}_file[0-9][0-9]_`"
+#    filepath="/data/linac_test_main_run${runnumber}_file??_*.raw /data/linac_test_main_run${runnumber}_file?_*.raw"
   else
-    filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
+#    filepath=/data/linac_test_main_run${runnumber}_file${number}??_*.raw
+    filepath2=`cat index | grep -e run${runnumber}_file${number}[0-9][0-9]_`
   fi
+  for f in $filepath2; do
+    filepath="${filepath} /data/${f}"
+  done
   echo "#!/bin/bash" > tmp${number}
   echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq_${SLURM_JOB_NAME}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
 #   echo "sleep 120" >> tmp${number}
