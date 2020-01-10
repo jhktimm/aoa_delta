@@ -60,7 +60,7 @@ while [  $COUNTER -lt $nprocs ]; do
     filepath="${filepath} /data/${f}"
   done
   echo "#!/bin/bash" > tmp${number}
-  echo "./daqanalysis /results/ ${postfix} ${filepath} >> /logs/log_daq_${SLURM_JOB_NAME}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
+  echo "./daqanalysis -r=/results/ -p=${postfix} ${filepath} >> /logs/log_daq_${SLURM_JOB_NAME}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}_run${runnumber}_job${number}.log" >> tmp${number}
 #   echo "sleep 120" >> tmp${number}
 
   cat tmp${number}

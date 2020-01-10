@@ -17,28 +17,69 @@
 #include "DAQAnalysis.h"
 #include "DAQMyAna.h"
 
+std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<std::string> * rest) {
+  std::map<std::string,std::string> resMap;
+  for (int i = 1; i != argc; ++i) {
+    if (argv[i][0]=='-') {
+      std::stringstream stream(argv[i]);
+      std::string value,option;
+      std::getline(stream, option,'=');
+      std::getline(stream, value,'=');
+      resMap.insert(std::make_pair(option,value));
+    } else {
+      rest->push_back(argv[i]);
+    }
+  }
+  return resMap;
+}
+
 int main(int argc, char *argv[])
 {
-  std::cout << "usage: " << argv[0] << " <prefix> <list with .raw files>\n";
-  std::cout << "usage: " << argv[0] << " <resultDirectory> <prefix> <list with .raw files>\n";
-  std::vector<char*> fileList;
-  for (int a = 3; a < argc; a++) {
-    fileList.push_back(argv[a]);
+  //just to show usage and options
+  std::vector<std::pair<std::string,std::string>> options{
+   {"r","result director, defualt /reslut/"},
+   {"t","parameter director, default ../tau_k_x/"},
+   {"p","prefix to name this run"},
+  };
+  std::cout << "usage: " << argv[0] << " <options> <listOfFiles>" << std::endl;
+  std::cout << "options:" << std::endl;
+  for (auto o : options) {
+    std::cout << "  -" << o.first << "=<" << o.second << ">" << std::endl;
+    std::cout << std::endl;
   }
+
+  // parse options and fileList
+  std::vector<std::string> fileList;
+  auto args = arguments(argc,argv,&fileList);
+
+  //set options, defaults and tests
+  auto resultDirectory = args["-r"];
+  if (resultDirectory.empty()) resultDirectory="/reslut/";
+  std::cout << "resultDirectory: " << resultDirectory << std::endl;
+
+  auto parameterDirector = args["-t"];
+  if (parameterDirector.empty()) parameterDirector="../tau_k_x/";
+  std::cout << "parameterDirector: " << parameterDirector << std::endl;
+
+  auto prefix = args["-p"];
+  if (prefix.empty()) prefix="testRun";
+  std::cout << "prefix: " << prefix << std::endl;
+
+  std::cout << "files:";
   if (fileList.empty() == true) {
-    std::cout << "File list is empty." << std::endl;
+    std::cout << " File list is empty." << std::endl;
     return 1;
   }
-  std::string resultDirectory;
-  resultDirectory = argv[1];
-  std::string prefix;
-  prefix = argv[2];
+  for ( auto file : fileList ) std::cout << " " << file;
+  std::cout << std::endl;
+
+  std::string path = fileList.at(0);
+  FileSystemPath fsp(path);
+
   daq_server_request request;
   ttf2_daq_reader_2010 reader_2010;
 
   ttf2_daq_getdata data;
-  std::string path = argv[3];
-  FileSystemPath fsp(path);
   //~ reader_2010.set_data_dir((char*) "/daq_data/xfel/USR1/LLRF/");///raw + list
   reader_2010.set_data_dir((char*) fsp.dir.c_str());///raw + list
 
@@ -115,7 +156,8 @@ int main(int argc, char *argv[])
         
         /////////////////////////////////////////////////////////////////////////////////////
         /// prepair for calculations
-        oa->getAutoParameters("../tau_k_x/");//normal
+        oa->getAutoParameters(parameterDirector);//normal
+//        oa->getAutoParameters("../tau_k_x/");//normal
         //oa->print_Parameters();
         
         /////////////////////////////////////////////////////////////////////////////////////
