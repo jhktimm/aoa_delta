@@ -62,17 +62,7 @@ int main(int argc, char* argv[]) {
     return -1;
   }
   
-  std::ifstream myfile (argv[1]);
-  if (myfile.is_open())
-  {
-    std::string line;
-    while ( getline (myfile,line) )
-    {
-      std::stringstream stream(line);
-      getMinMax(&stream);
-    }
-    myfile.close();
-  } else {
+//  } else {
   DIR *dir;
   struct dirent *ent;
   if ((dir = opendir (argv[1])) != NULL) {
@@ -84,11 +74,23 @@ int main(int argc, char* argv[]) {
     }
     std::cout << std::endl;
     closedir (dir);
-  } else {
-    std::cout << "Could not open directory." << std::endl;
-    return -1;
+  } else {   
+     std::ifstream myfile (argv[1]);
+     if (myfile.is_open())
+     {
+       std::string line;
+       while ( getline (myfile,line) )
+       {
+         std::stringstream stream(line);
+         getMinMax(&stream);
+       }
+       myfile.close();
+     } else {
+       std::cout << "Could not open directory or file." << std::endl;
+       return -1;
+     }
   }
- }
+// }
 	for (auto p : mapMin) {
 		std::cout << "run: " << p.first
 		<< " min: " << p.second
