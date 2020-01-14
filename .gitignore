@@ -36,4 +36,4 @@ workdir/
 .user/
 *.user*
 setFixedParameter.sh
-
+tools/build/
