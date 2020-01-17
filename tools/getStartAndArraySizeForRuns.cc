@@ -6,6 +6,27 @@
 #include<map>
 #include <math.h>
 #include <fstream>
+#include <vector>
+
+std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<char*> *rest) {
+  std::map<std::string,std::string> resMap;
+  std::cout << argv[0] << " ";
+  for (int i = 1; i != argc; ++i) {
+    std::cout << argv[i] << " ";
+    if (argv[i][0]=='-') {
+      std::stringstream stream(argv[i]);
+      std::string value,option;
+      std::getline(stream, option,'=');
+      std::getline(stream, value,'=');
+      resMap.insert(std::make_pair(option,value));
+    } else {
+      rest->push_back(argv[i]);
+    }
+  }
+  std::cout << std::endl;
+  return resMap;
+}
+
 
 std::map<long,long> mapMin,mapMax;
 
@@ -62,7 +83,6 @@ int main(int argc, char* argv[]) {
     return -1;
   }
   
-//  } else {
   DIR *dir;
   struct dirent *ent;
   if ((dir = opendir (argv[1])) != NULL) {

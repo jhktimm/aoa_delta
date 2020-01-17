@@ -1,3 +1,20 @@
+### get started
+  mkdir build
+  cd build
+  cmake ..
+  make
+This will compile the getFileList and will creat links
+in the workdir.
+
+
+### start a job
+GO to the workdir. To strt a job:
+  ./run.sh runParameter_example.run
+in 'runParameter_example.run' are all definitions needed for the jobs.
+Copy this file and modify it with ypur needs. Than you can start it like that.
+
+
+### OLD
 Open setFixedParameter.sh and set default directories and your e mail.
 Open setStartAndLengthFromRuns.sh and define for your new runNumber, the length aof arrays 'arrayRange=0-numberOfAllFilesInThisRun/40000'  and first file 'START=firstFileNumber/100'
 Than you can start your new run an maxwell with:
