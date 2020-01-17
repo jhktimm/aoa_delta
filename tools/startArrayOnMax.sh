@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --mail-type ALL                           # Type of email notification- BEGIN,END,FAIL,ALL
-#SBATCH --time    0-15:00:00
+#SBATCH --time    0-24:00:00
 #SBATCH --nodes            1
 #SBATCH --partition maxwell
 #SBATCH --no-requeue
@@ -71,7 +71,8 @@ while [  $COUNTER -lt $nprocs ]; do
   dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
   sleep 0.3
   rm tmp${number}
-filepath=""
+  filepath=""
+
   let COUNTER=COUNTER+1
   let number=number+1
 done
