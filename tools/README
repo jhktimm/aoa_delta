@@ -14,6 +14,9 @@ in 'runParameter_example.run' are all definitions needed for the jobs.
 Copy this file and modify it with ypur needs. Than you can start it like that.
 
 
+### merge files
+sbatch maxMergeFiles.sh Mona_Noether
+
 ### OLD
 Open setFixedParameter.sh and set default directories and your e mail.
 Open setStartAndLengthFromRuns.sh and define for your new runNumber, the length aof arrays 'arrayRange=0-numberOfAllFilesInThisRun/40000'  and first file 'START=firstFileNumber/100'
