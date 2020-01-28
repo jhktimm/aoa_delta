@@ -19,7 +19,7 @@ EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/maxMergeFiles.sh ${CMAKE_SOUR
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/runParameter_example.run ${CMAKE_SOURCE_DIR}/../workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/sbatchArray.sh ${CMAKE_SOURCE_DIR}/../workdir/)
 EXECUTE_PROCESS(COMMAND ln -sr ${CMAKE_SOURCE_DIR}/setFixedParameter_template.sh ${CMAKE_SOURCE_DIR}/workdir/)
-message("   ---   copy setFixedParameter and adapt it   ---")
+message("   ---   copy setFixedParameter and adapt it in the tools/ dir  ---")
 message("         cp setFixedParameter_template.sh setFixedParameter.sh")
 
 
