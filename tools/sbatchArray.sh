@@ -24,6 +24,8 @@ postfix=""
 source $1
 echo "dataDirectory=${dataDirectory}"
 echo "parameterDirectory=${parameterDirectory}"
+before=$(date +%s)
+echo "start at ${before}"
 COUNTER=0
 ((arrayRun=$SLURM_ARRAY_TASK_ID))
 #for testing    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -69,6 +71,9 @@ while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
   sleep 60;
 #   sleep 1;
 done
-
+after=$(date +%s)
+echo "stop at ${before}"
+echo "elapsed time:" $((after - $before)) "seconds"
 echo running docker container: $numberOfRunningDockerContainer
+echo stop at `date`
 echo end job $SLURM_JOB_ID $SLURM_ARRAY_JOB_ID
