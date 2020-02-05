@@ -11,8 +11,11 @@
 
 source setFixedParameter.sh
 numberOfFilesPerMerge=100
+resultDirectory=/beegfs/desy/user/aeichler/results/
 
-./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge} ${resultDirectory}*${1}*
+#./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge} ${resultDirectory}*${1}*
+# if file list too long...
+find  ${resultDirectory} -name "*${1}*" -print0 | xargs -0 ./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge}
 
 wait
 echo `date` jobs are finnish
