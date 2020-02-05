@@ -22,6 +22,7 @@ echo "SLURM_ARRAY_TASK_MIN   $SLURM_ARRAY_TASK_MIN"
 filepath=""
 postfix=""
 source $1
+source setFixedParameter.sh
 echo "dataDirectory=${dataDirectory}"
 echo "parameterDirectory=${parameterDirectory}"
 before=$(date +%s)
