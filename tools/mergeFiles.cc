@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <thread>
 #include <chrono>
+#include <dirent.h>
 
 std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<char*> *rest) {
  std::map<std::string,std::string> resMap;
@@ -100,7 +101,7 @@ void bundle(std::pair<std::string,std::map<long,std::string>> cav, int fileNumbe
  for (auto p : cav.second) {
   fileList.push_back(p.second);
   if (i==1) {
-   mergedFileName = outDir + p.second.substr( p.second.rfind('/') + 1 ) +".merged";
+   mergedFileName = outDir + p.second.substr( p.second.rfind('/') + 1 );
   }
   if (verbose) std::cout << " file: "  << p.second << std::endl;
   if (i==fileNumber) {
@@ -131,6 +132,8 @@ int main(int argc, char *argv[])
   {"size","number of files to merge, default 100"},
   {"j","number of threads, default 1"},
   {"outDir","output directory, default pwd"},
+  {"inputDir","input directory, required"},
+  {"searchPattern","search pattern, required"}
  };
 
  // parse options and fileList
@@ -158,7 +161,11 @@ int main(int argc, char *argv[])
 
  auto outDir = args["-outDir"];
 
- if ( args.count("--help") | argc==1 ) {
+ auto inputDir = args["-inputDir"];
+
+ auto searchPattern = args["-searchPattern"];
+
+ if ( args.count("--help") | argc==1  ) {
   std::clog << "This program merges files." << std::endl;
   std::clog << "/beegfs/desy/user/jhktimm/results/A17.L3.M1.C8_Mona_Noether_20190324T115450.dat" << std::endl;
   std::clog << "/beegfs/desy/user/jhktimm/results/A17.L3.M1.C8_Mona_Noether_20190324T125451.dat" << std::endl;
@@ -182,10 +189,36 @@ int main(int argc, char *argv[])
  /// map of cavity_unique_name of map of time and fullPath
  std::map<std::string,std::map<long,std::string>> cavityMap;
 
- for (auto file: fileList) {
-  auto ret = parseFileName(file);
-  cavityMap[ret.first][ret.second.first] = ret.second.second;
+ if (fileList.empty()) {
+   if ( inputDir.empty() && searchPattern.empty() ) {
+    std::cerr << "you have to specify -inputDir=<> and -searchPattern=<>. See --help\n";
+    return 1;
+   }
+   DIR *dir;
+   struct dirent *ent;
+   if ((dir = opendir (inputDir.c_str())) != NULL) {
+     while ((ent = readdir (dir)) != NULL) {
+       std::string checkFileName(ent->d_name);
+       if (checkFileName.find(searchPattern)!=std::string::npos) {
+//         printf ("%s\n", ent->d_name);
+         auto ret = parseFileName(inputDir+checkFileName);
+         cavityMap[ret.first][ret.second.first] = ret.second.second;
+       }
+
+     }
+     closedir (dir);
+   } else {
+     /* could not open directory */
+     perror ("");
+     return EXIT_FAILURE;
+   }
+ } else {
+   for (auto file: fileList) {
+    auto ret = parseFileName(file);
+    cavityMap[ret.first][ret.second.first] = ret.second.second;
+   }
  }
+
  if (optimal) {
   numThreads = static_cast<int>(std::thread::hardware_concurrency());
   std::cout << "Optimal number of threads = "
