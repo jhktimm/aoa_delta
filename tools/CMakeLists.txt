@@ -23,10 +23,10 @@ message("   ---   copy setFixedParameter and adapt it in the tools/ dir  ---")
 message("         cp setFixedParameter_template.sh setFixedParameter.sh")
 
 
-EXECUTE_PROCESS(COMMAND sh ${CMAKE_SOURCE_DIR}/docker/compile_onMax.sh
- WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/
- RESULT_VARIABLE variable_RESULT
- OUTPUT_VARIABLE variable_OUTPUT
- )
-message(STATUS ${variable_RESULT})
-message(STATUS ${variable_OUTPUT})
+#EXECUTE_PROCESS(COMMAND sbatch ${CMAKE_SOURCE_DIR}/docker/compile_onMax.sh
+# WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/
+# RESULT_VARIABLE variable_RESULT
+# OUTPUT_VARIABLE variable_OUTPUT
+# )
+#message(STATUS ${variable_RESULT})
+#message(STATUS ${variable_OUTPUT})
