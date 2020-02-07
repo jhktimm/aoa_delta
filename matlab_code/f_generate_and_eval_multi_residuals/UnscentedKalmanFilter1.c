@@ -2,25 +2,20 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: UnscentedKalmanFilter1.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * UnscentedKalmanFilter1.c
+ *
+ * Code generation for function 'UnscentedKalmanFilter1'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "UnscentedKalmanFilter1.h"
 #include "isSymmetricPositiveSemiDefinite.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : unscentedKalmanFilter *obj
- *                const double value[4]
- * Return Type  : void
- */
 void c_UnscentedKalmanFilter_set_Mea(unscentedKalmanFilter *obj, const double
   value[4])
 {
@@ -31,8 +26,14 @@ void c_UnscentedKalmanFilter_set_Mea(unscentedKalmanFilter *obj, const double
   }
 }
 
-/*
- * File trailer for UnscentedKalmanFilter1.c
- *
- * [EOF]
- */
+void c_UnscentedKalmanFilter_set_Pro(unscentedKalmanFilter *obj, const double
+  value[36])
+{
+  int i5;
+  b_isSymmetricPositiveSemiDefini(value);
+  for (i5 = 0; i5 < 36; i5++) {
+    obj->pProcessNoise[i5] = value[i5];
+  }
+}
+
+/* End of code generation (UnscentedKalmanFilter1.c) */

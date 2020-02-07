@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: isSymmetricPositiveSemiDefinite.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * isSymmetricPositiveSemiDefinite.h
+ *
+ * Code generation for function 'isSymmetricPositiveSemiDefinite'
+ *
  */
 
 #ifndef ISSYMMETRICPOSITIVESEMIDEFINITE_H
 #define ISSYMMETRICPOSITIVESEMIDEFINITE_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -26,8 +27,4 @@ extern void isSymmetricPositiveSemiDefinite(const double value[4]);
 
 #endif
 
-/*
- * File trailer for isSymmetricPositiveSemiDefinite.h
- *
- * [EOF]
- */
+/* End of code generation (isSymmetricPositiveSemiDefinite.h) */

@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_computeQL.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_computeQL.c
+ *
+ * Code generation for function 'f_computeQL'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_computeQL.h"
@@ -16,18 +17,6 @@
 #include "abs.h"
 
 /* Function Definitions */
-
-/*
- * The quality factor of the cavity is determined by the decay time of the
- *  probes signal. Pulse cuts are considered, as the decay time is deduced
- *  from the pulses.
- * Arguments    : const emxArray_real_T *Rise
- *                const emxArray_creal_T *u_mCal
- *                const emxArray_creal_T *y_mC
- *                double fs
- *                double f0
- * Return Type  : double
- */
 double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
                    const emxArray_creal_T *y_mC, double fs, double f0)
 {
@@ -50,6 +39,11 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   unsigned int absa;
   emxArray_real_T *lnA;
   unsigned int u1;
+  emxArray_creal_T *b_y_mC;
+
+  /*  The quality factor of the cavity is determined by the decay time of the */
+  /*  probes signal. Pulse cuts are considered, as the decay time is deduced */
+  /*  from the pulses. */
   if (fs > 1.0E+6) {
     rampup_smpls = 30;
   } else {
@@ -60,7 +54,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   absb = u_mCal->size[0];
   i = b_u_mCal->size[0];
   b_u_mCal->size[0] = absb;
-  emxEnsureCapacity_creal_T(b_u_mCal, i);
+  emxEnsureCapacity((emxArray__common *)b_u_mCal, i, sizeof(creal_T));
   for (i = 0; i < absb; i++) {
     b_u_mCal->data[i] = u_mCal->data[i];
   }
@@ -70,8 +64,9 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   b_abs(b_u_mCal, idx_u_mCal_off);
   i = x->size[0];
   x->size[0] = idx_u_mCal_off->size[0];
-  emxEnsureCapacity_boolean_T(x, i);
+  emxEnsureCapacity((emxArray__common *)x, i, sizeof(boolean_T));
   absb = idx_u_mCal_off->size[0];
+  emxFree_creal_T(&b_u_mCal);
   for (i = 0; i < absb; i++) {
     x->data[i] = (idx_u_mCal_off->data[i] < 1.5);
   }
@@ -81,7 +76,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   idx = 0;
   i = ii->size[0];
   ii->size[0] = x->size[0];
-  emxEnsureCapacity_int32_T(ii, i);
+  emxEnsureCapacity((emxArray__common *)ii, i, sizeof(int));
   absb = 1;
   exitg1 = false;
   while ((!exitg1) && (absb <= nx)) {
@@ -102,7 +97,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
     if (idx == 0) {
       i = ii->size[0];
       ii->size[0] = 0;
-      emxEnsureCapacity_int32_T(ii, i);
+      emxEnsureCapacity((emxArray__common *)ii, i, sizeof(int));
     }
   } else {
     i = ii->size[0];
@@ -112,13 +107,13 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
       ii->size[0] = idx;
     }
 
-    emxEnsureCapacity_int32_T(ii, i);
+    emxEnsureCapacity((emxArray__common *)ii, i, sizeof(int));
   }
 
   emxFree_boolean_T(&x);
   i = idx_u_mCal_off->size[0];
   idx_u_mCal_off->size[0] = ii->size[0];
-  emxEnsureCapacity_real_T1(idx_u_mCal_off, i);
+  emxEnsureCapacity((emxArray__common *)idx_u_mCal_off, i, sizeof(double));
   absb = ii->size[0];
   for (i = 0; i < absb; i++) {
     idx_u_mCal_off->data[i] = ii->data[i];
@@ -136,7 +131,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   emxInit_int32_T(&r9, 1);
   i = r9->size[0];
   r9->size[0] = absb;
-  emxEnsureCapacity_int32_T(r9, i);
+  emxEnsureCapacity((emxArray__common *)r9, i, sizeof(int));
   absb = 0;
   for (i = 0; i <= idx; i++) {
     if (idx_u_mCal_off->data[i] > Rise->data[0] + (double)rampup_smpls) {
@@ -148,8 +143,9 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   emxInit_real_T(&r10, 2);
   if (u_mCal->size[0] < (int)idx_u_mCal_off->data[r9->data[0] - 1]) {
     i = r10->size[0] * r10->size[1];
+    r10->size[0] = 1;
     r10->size[1] = 0;
-    emxEnsureCapacity_real_T(r10, i);
+    emxEnsureCapacity((emxArray__common *)r10, i, sizeof(double));
   } else if (idx_u_mCal_off->data[r9->data[0] - 1] == idx_u_mCal_off->data
              [r9->data[0] - 1]) {
     ndbl = idx_u_mCal_off->data[r9->data[0] - 1];
@@ -157,7 +153,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
     absb = r10->size[0] * r10->size[1];
     r10->size[0] = 1;
     r10->size[1] = (int)floor((double)i - ndbl) + 1;
-    emxEnsureCapacity_real_T(r10, absb);
+    emxEnsureCapacity((emxArray__common *)r10, absb, sizeof(double));
     absb = (int)floor((double)i - ndbl);
     for (i = 0; i <= absb; i++) {
       r10->data[r10->size[0] * i] = ndbl + (double)i;
@@ -192,7 +188,7 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
     i = r10->size[0] * r10->size[1];
     r10->size[0] = 1;
     r10->size[1] = idx;
-    emxEnsureCapacity_real_T(r10, i);
+    emxEnsureCapacity((emxArray__common *)r10, i, sizeof(double));
     if (idx > 0) {
       r10->data[0] = idx_u_mCal_off->data[r9->data[0] - 1];
       if (idx > 1) {
@@ -216,27 +212,28 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   emxInit_real_T1(&lnA, 1);
   i = lnA->size[0];
   lnA->size[0] = r10->size[1];
-  emxEnsureCapacity_real_T1(lnA, i);
+  emxEnsureCapacity((emxArray__common *)lnA, i, sizeof(double));
   absb = r10->size[1];
   for (i = 0; i < absb; i++) {
     lnA->data[i] = 0.0;
   }
 
+  emxInit_creal_T(&b_y_mC, 1);
   apnd = idx_u_mCal_off->data[r9->data[0] - 1];
   ndbl = (double)r10->size[1] - 1.0;
-  i = b_u_mCal->size[0];
-  b_u_mCal->size[0] = (int)ndbl + 1;
-  emxEnsureCapacity_creal_T(b_u_mCal, i);
+  i = b_y_mC->size[0];
+  b_y_mC->size[0] = (int)ndbl + 1;
+  emxEnsureCapacity((emxArray__common *)b_y_mC, i, sizeof(creal_T));
   absb = (int)ndbl;
   emxFree_int32_T(&r9);
   for (i = 0; i <= absb; i++) {
-    b_u_mCal->data[i] = y_mC->data[(int)(apnd + (double)i) - 1];
+    b_y_mC->data[i] = y_mC->data[(int)(apnd + (double)i) - 1];
   }
 
-  b_abs(b_u_mCal, idx_u_mCal_off);
+  b_abs(b_y_mC, idx_u_mCal_off);
   nx = idx_u_mCal_off->size[0];
   i = 0;
-  emxFree_creal_T(&b_u_mCal);
+  emxFree_creal_T(&b_y_mC);
   while (i + 1 <= nx) {
     idx_u_mCal_off->data[i] = log(idx_u_mCal_off->data[i]);
     i++;
@@ -265,8 +262,4 @@ double f_computeQL(const emxArray_real_T *Rise, const emxArray_creal_T *u_mCal,
   return QL;
 }
 
-/*
- * File trailer for f_computeQL.c
- *
- * [EOF]
- */
+/* End of code generation (f_computeQL.c) */

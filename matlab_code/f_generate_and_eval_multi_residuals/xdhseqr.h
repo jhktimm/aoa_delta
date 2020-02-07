@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xdhseqr.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xdhseqr.h
+ *
+ * Code generation for function 'xdhseqr'
+ *
  */
 
 #ifndef XDHSEQR_H
 #define XDHSEQR_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern int eml_dlahqr(double h[36]);
 
 #endif
 
-/*
- * File trailer for xdhseqr.h
- *
- * [EOF]
- */
+/* End of code generation (xdhseqr.h) */

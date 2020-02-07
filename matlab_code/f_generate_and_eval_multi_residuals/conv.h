@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: conv.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * conv.h
+ *
+ * Code generation for function 'conv'
+ *
  */
 
 #ifndef CONV_H
 #define CONV_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern void conv(const emxArray_real_T *A, const double B[5], emxArray_real_T *C
 
 #endif
 
-/*
- * File trailer for conv.h
- *
- * [EOF]
- */
+/* End of code generation (conv.h) */

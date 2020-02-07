@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_generate_online_parityRes1_full.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_generate_online_parityRes1_full.h
+ *
+ * Code generation for function 'f_generate_online_parityRes1_full'
+ *
  */
 
 #ifndef F_GENERATE_ONLINE_PARITYRES1_FULL_H
 #define F_GENERATE_ONLINE_PARITYRES1_FULL_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -28,8 +29,4 @@ extern void c_f_generate_online_parityRes1_(const emxArray_real_T *Probe_Ampl,
 
 #endif
 
-/*
- * File trailer for f_generate_online_parityRes1_full.h
- *
- * [EOF]
- */
+/* End of code generation (f_generate_online_parityRes1_full.h) */

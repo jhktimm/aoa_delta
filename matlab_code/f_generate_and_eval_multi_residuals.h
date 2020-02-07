@@ -1,7 +1,6 @@
 extern "C" {
 #include "f_generate_and_eval_multi_residuals/abs.h"
 #include "f_generate_and_eval_multi_residuals/calcSigmaPoints.h"
-#include "f_generate_and_eval_multi_residuals/calcUTParameters.h"
 #include "f_generate_and_eval_multi_residuals/conv.h"
 #include "f_generate_and_eval_multi_residuals/diff.h"
 #include "f_generate_and_eval_multi_residuals/eps.h"
@@ -13,7 +12,6 @@ extern "C" {
 #include "f_generate_and_eval_multi_residuals/f_compute_parity_Res2_full.h"
 #include "f_generate_and_eval_multi_residuals/f_computeQL.h"
 #include "f_generate_and_eval_multi_residuals/f_compute_ukf_residual_not_pers.h"
-#include "f_generate_and_eval_multi_residuals/f_generate_and_eval_multi_residuals_data.h"
 #include "f_generate_and_eval_multi_residuals/f_generate_and_eval_multi_residuals_emxAPI.h"
 #include "f_generate_and_eval_multi_residuals/f_generate_and_eval_multi_residuals_emxutil.h"
 #include "f_generate_and_eval_multi_residuals/f_generate_and_eval_multi_residuals.h"

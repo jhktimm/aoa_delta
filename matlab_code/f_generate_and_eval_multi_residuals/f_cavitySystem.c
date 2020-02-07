@@ -2,31 +2,20 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_cavitySystem.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_cavitySystem.c
+ *
+ * Code generation for function 'f_cavitySystem'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_cavitySystem.h"
 #include "inv.h"
 
 /* Function Definitions */
-
-/*
- * Coupled simulink model
- * Arguments    : const double x[6]
- *                const double u_mC[2]
- *                double fs
- *                const double tau_m[4]
- *                const double K_m[4]
- *                double QL
- *                double dx[6]
- * Return Type  : void
- */
 void f_cavitySystem(const double x[6], const double u_mC[2], double fs, const
                     double tau_m[4], const double K_m[4], double QL, double dx[6])
 {
@@ -38,10 +27,12 @@ void f_cavitySystem(const double x[6], const double u_mC[2], double fs, const
   double a0;
   signed char I[16];
   double b_I[16];
-  double y;
   double c_I[16];
+  double y;
   int i6;
   int i7;
+
+  /*  Coupled simulink model */
   Ts = 1.0 / fs;
   w12 = 4.0840704496667309E+9 / QL;
 
@@ -72,6 +63,11 @@ void f_cavitySystem(const double x[6], const double u_mC[2], double fs, const
     b_I[i + (i << 2)] = 1.0;
   }
 
+  for (i = 0; i < 16; i++) {
+    c_I[i] = b_I[i] - 0.5 * A[i] * Ts;
+  }
+
+  invNxN(c_I, b_I);
   y = x[2];
   for (i = 0; i < 3; i++) {
     y += x[i + 3];
@@ -85,11 +81,6 @@ void f_cavitySystem(const double x[6], const double u_mC[2], double fs, const
 
   dx[1] = (y * x[0] * Ts - a0 * x[1]) + w12 * u_mC[1];
   w12 = x[0] * x[0] + x[1] * x[1];
-  for (i = 0; i < 16; i++) {
-    c_I[i] = b_I[i] - 0.5 * A[i] * Ts;
-  }
-
-  invNxN(c_I, b_I);
   for (i = 0; i < 4; i++) {
     for (i6 = 0; i6 < 4; i6++) {
       c_I[i6 + (i << 2)] = (double)I[i6 + (i << 2)] + 0.5 * A[i6 + (i << 2)] *
@@ -112,8 +103,4 @@ void f_cavitySystem(const double x[6], const double u_mC[2], double fs, const
   }
 }
 
-/*
- * File trailer for f_cavitySystem.c
- *
- * [EOF]
- */
+/* End of code generation (f_cavitySystem.c) */

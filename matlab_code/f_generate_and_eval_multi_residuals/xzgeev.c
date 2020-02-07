@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzgeev.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzgeev.c
+ *
+ * Code generation for function 'xzgeev'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xzgeev.h"
@@ -18,14 +19,6 @@
 #include "f_generate_and_eval_multi_residuals_rtwutil.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const double A[36]
- *                int *info
- *                creal_T alpha1[6]
- *                creal_T beta1[6]
- * Return Type  : void
- */
 void b_xzgeev(const double A[36], int *info, creal_T alpha1[6], creal_T beta1[6])
 {
   int ii;
@@ -317,13 +310,6 @@ void b_xzgeev(const double A[36], int *info, creal_T alpha1[6], creal_T beta1[6]
   }
 }
 
-/*
- * Arguments    : const double A[4]
- *                int *info
- *                creal_T alpha1[2]
- *                creal_T beta1[2]
- * Return Type  : void
- */
 void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
 {
   int ii;
@@ -339,13 +325,11 @@ void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
   int ihi;
   boolean_T notdone;
   int j;
-  double stemp_im;
+  double cfrom1;
   double cto1;
   double mul;
   int nzcount;
-  int exitg3;
   int jj;
-  creal_T atmp;
   boolean_T exitg2;
   for (ii = 0; ii < 4; ii++) {
     At[ii].re = A[ii];
@@ -395,11 +379,11 @@ void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
       ctoc = anrmto;
       notdone = true;
       while (notdone) {
-        stemp_im = absxk * 2.0041683600089728E-292;
+        cfrom1 = absxk * 2.0041683600089728E-292;
         cto1 = ctoc / 4.9896007738368E+291;
-        if ((stemp_im > ctoc) && (ctoc != 0.0)) {
+        if ((cfrom1 > ctoc) && (ctoc != 0.0)) {
           mul = 2.0041683600089728E-292;
-          absxk = stemp_im;
+          absxk = cfrom1;
         } else if (cto1 > absxk) {
           mul = 4.9896007738368E+291;
           ctoc = cto1;
@@ -415,7 +399,7 @@ void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
       }
     }
 
-    ilo = 0;
+    ilo = 1;
     ihi = 2;
     i = 0;
     j = 0;
@@ -453,141 +437,97 @@ void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
     }
 
     if (!notdone) {
-      do {
-        exitg3 = 0;
-        i = 0;
-        j = 0;
-        notdone = false;
-        jj = ilo + 1;
-        exitg1 = false;
-        while ((!exitg1) && (jj <= 2)) {
-          nzcount = 0;
-          i = 2;
-          j = jj;
-          ii = ilo + 1;
-          exitg2 = false;
-          while ((!exitg2) && (ii <= 2)) {
-            if ((At[(ii + ((jj - 1) << 1)) - 1].re != 0.0) || (At[(ii + ((jj - 1)
-                   << 1)) - 1].im != 0.0) || (ii == jj)) {
-              if (nzcount == 0) {
-                i = ii;
-                nzcount = 1;
-                ii++;
-              } else {
-                nzcount = 2;
-                exitg2 = true;
-              }
-            } else {
+      i = 0;
+      j = 0;
+      notdone = false;
+      jj = 1;
+      exitg1 = false;
+      while ((!exitg1) && (jj <= 2)) {
+        nzcount = 0;
+        i = 2;
+        j = jj;
+        ii = 1;
+        exitg2 = false;
+        while ((!exitg2) && (ii <= 2)) {
+          if ((At[(ii + ((jj - 1) << 1)) - 1].re != 0.0) || (At[(ii + ((jj - 1) <<
+                 1)) - 1].im != 0.0) || (ii == jj)) {
+            if (nzcount == 0) {
+              i = ii;
+              nzcount = 1;
               ii++;
+            } else {
+              nzcount = 2;
+              exitg2 = true;
             }
-          }
-
-          if (nzcount < 2) {
-            notdone = true;
-            exitg1 = true;
           } else {
-            jj++;
+            ii++;
           }
         }
 
-        if (!notdone) {
-          exitg3 = 1;
+        if (nzcount < 2) {
+          notdone = true;
+          exitg1 = true;
         } else {
-          if (i != ilo + 1) {
-            for (ii = ilo; ii + 1 < 3; ii++) {
-              atmp = At[(i + (ii << 1)) - 1];
-              At[(i + (ii << 1)) - 1] = At[ilo + (ii << 1)];
-              At[ilo + (ii << 1)] = atmp;
-            }
-          }
+          jj++;
+        }
+      }
 
-          if (j != ilo + 1) {
-            for (ii = 0; ii + 1 < 3; ii++) {
-              atmp = At[ii + ((j - 1) << 1)];
-              At[ii + ((j - 1) << 1)] = At[ii + (ilo << 1)];
-              At[ii + (ilo << 1)] = atmp;
-            }
-          }
-
-          ilo++;
-          if (ilo + 1 == 2) {
-            exitg3 = 1;
+      if (notdone) {
+        if (i != 1) {
+          for (ii = 0; ii + 1 < 3; ii++) {
+            absxk = At[(i + (ii << 1)) - 1].re;
+            ctoc = At[(i + (ii << 1)) - 1].im;
+            At[(i + (ii << 1)) - 1] = At[ii << 1];
+            At[ii << 1].re = absxk;
+            At[ii << 1].im = ctoc;
           }
         }
-      } while (exitg3 == 0);
+
+        if (j != 1) {
+          for (ii = 0; ii + 1 < 3; ii++) {
+            absxk = At[ii + ((j - 1) << 1)].re;
+            ctoc = At[ii + ((j - 1) << 1)].im;
+            At[ii + ((j - 1) << 1)] = At[ii];
+            At[ii].re = absxk;
+            At[ii].im = ctoc;
+          }
+        }
+
+        ilo = 2;
+      }
     } else {
       if (i != 2) {
         for (ii = 0; ii < 2; ii++) {
-          atmp = At[(i + (ii << 1)) - 1];
-          At[(i + (ii << 1)) - 1] = At[1 + (ii << 1)];
-          At[1 + (ii << 1)] = atmp;
+          absxk = At[ii << 1].re;
+          ctoc = At[ii << 1].im;
+          At[ii << 1] = At[1 + (ii << 1)];
+          At[1 + (ii << 1)].re = absxk;
+          At[1 + (ii << 1)].im = ctoc;
         }
       }
 
       if (j != 2) {
         for (ii = 0; ii + 1 < 3; ii++) {
-          atmp = At[ii + ((j - 1) << 1)];
-          At[ii + ((j - 1) << 1)] = At[2 + ii];
-          At[2 + ii] = atmp;
+          absxk = At[ii].re;
+          ctoc = At[ii].im;
+          At[ii] = At[2 + ii];
+          At[2 + ii].re = absxk;
+          At[2 + ii].im = ctoc;
         }
       }
 
       ihi = 1;
     }
 
-    if (!(ihi < ilo + 3)) {
-      for (ii = ilo; ii + 1 < ihi - 1; ii++) {
-        for (nzcount = ihi - 1; nzcount + 1 > ii + 2; nzcount--) {
-          xzlartg(At[(nzcount + (ii << 1)) - 1], At[nzcount + (ii << 1)], &absxk,
-                  &atmp, &At[(nzcount + (ii << 1)) - 1]);
-          At[nzcount + (ii << 1)].re = 0.0;
-          At[nzcount + (ii << 1)].im = 0.0;
-          for (j = ii + 1; j + 1 < 3; j++) {
-            ctoc = absxk * At[(nzcount + (j << 1)) - 1].re + (atmp.re *
-              At[nzcount + (j << 1)].re - atmp.im * At[nzcount + (j << 1)].im);
-            stemp_im = absxk * At[(nzcount + (j << 1)) - 1].im + (atmp.re *
-              At[nzcount + (j << 1)].im + atmp.im * At[nzcount + (j << 1)].re);
-            cto1 = At[(nzcount + (j << 1)) - 1].re;
-            At[nzcount + (j << 1)].re = absxk * At[nzcount + (j << 1)].re -
-              (atmp.re * At[(nzcount + (j << 1)) - 1].re + atmp.im * At[(nzcount
-                + (j << 1)) - 1].im);
-            At[nzcount + (j << 1)].im = absxk * At[nzcount + (j << 1)].im -
-              (atmp.re * At[(nzcount + (j << 1)) - 1].im - atmp.im * cto1);
-            At[(nzcount + (j << 1)) - 1].re = ctoc;
-            At[(nzcount + (j << 1)) - 1].im = stemp_im;
-          }
-
-          atmp.re = -atmp.re;
-          atmp.im = -atmp.im;
-          for (i = 0; i + 1 <= ihi; i++) {
-            ctoc = absxk * At[i + (nzcount << 1)].re + (atmp.re * At[i +
-              ((nzcount - 1) << 1)].re - atmp.im * At[i + ((nzcount - 1) << 1)].
-              im);
-            stemp_im = absxk * At[i + (nzcount << 1)].im + (atmp.re * At[i +
-              ((nzcount - 1) << 1)].im + atmp.im * At[i + ((nzcount - 1) << 1)].
-              re);
-            cto1 = At[i + (nzcount << 1)].re;
-            At[i + ((nzcount - 1) << 1)].re = absxk * At[i + ((nzcount - 1) << 1)]
-              .re - (atmp.re * At[i + (nzcount << 1)].re + atmp.im * At[i +
-                     (nzcount << 1)].im);
-            At[i + ((nzcount - 1) << 1)].im = absxk * At[i + ((nzcount - 1) << 1)]
-              .im - (atmp.re * At[i + (nzcount << 1)].im - atmp.im * cto1);
-            At[i + (nzcount << 1)].re = ctoc;
-            At[i + (nzcount << 1)].im = stemp_im;
-          }
-        }
-      }
-    }
-
-    xzhgeqz(At, ilo + 1, ihi, info, alpha1, beta1);
+    xzhgeqz(At, ilo, ihi, info, alpha1, beta1);
     if ((*info == 0) && ilascl) {
       notdone = true;
       while (notdone) {
-        stemp_im = anrmto * 2.0041683600089728E-292;
+        cfrom1 = anrmto * 2.0041683600089728E-292;
         cto1 = anrm / 4.9896007738368E+291;
-        if ((stemp_im > anrm) && (anrm != 0.0)) {
+        if ((cfrom1 > anrm) && (anrm != 0.0)) {
           mul = 2.0041683600089728E-292;
-          anrmto = stemp_im;
+          anrmto = cfrom1;
         } else if (cto1 > anrmto) {
           mul = 4.9896007738368E+291;
           anrm = cto1;
@@ -605,8 +545,4 @@ void xzgeev(const double A[4], int *info, creal_T alpha1[2], creal_T beta1[2])
   }
 }
 
-/*
- * File trailer for xzgeev.c
- *
- * [EOF]
- */
+/* End of code generation (xzgeev.c) */

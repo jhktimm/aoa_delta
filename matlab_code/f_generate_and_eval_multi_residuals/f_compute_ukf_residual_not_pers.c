@@ -2,44 +2,25 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_compute_ukf_residual_not_pers.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_compute_ukf_residual_not_pers.c
+ *
+ * Code generation for function 'f_compute_ukf_residual_not_pers'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_compute_ukf_residual_not_pers.h"
 #include "f_cavitySystem.h"
 #include "calcSigmaPoints.h"
-#include "calcUTParameters.h"
 #include "mldivide.h"
 #include "f_generate_and_eval_multi_residuals_emxutil.h"
-#include "isSymmetricPositiveSemiDefinite.h"
 #include "UnscentedKalmanFilter1.h"
 #include "unscentedKalmanFilter.h"
-#include "f_generate_and_eval_multi_residuals_data.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const double initialStateGuess[6]
- *                const double MeasNoiseVar[4]
- *                const double ProcessVar[36]
- *                const emxArray_real_T *y_Meas
- *                const emxArray_real_T *u_Meas
- *                double fs
- *                double QL
- *                const double tau_m[4]
- *                const double K_m[4]
- *                emxArray_real_T *residual_mean
- *                emxArray_real_T *residual_Variance
- *                emxArray_real_T *residual_xi
- *                emxArray_real_T *residual_Info
- * Return Type  : void
- */
 void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   double MeasNoiseVar[4], const double ProcessVar[36], const emxArray_real_T
   *y_Meas, const emxArray_real_T *u_Meas, double fs, double QL, const double
@@ -60,10 +41,9 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   double zcov[4];
   double P[36];
   double a22;
-  double kappa;
+  double beta;
   double c;
   double Wcov[2];
-  double OOM;
   double X2[72];
   double Ymean[2];
   double Y2[24];
@@ -74,6 +54,9 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   double b_tempY[4];
   double b_Y2[4];
   double gain[12];
+  double b_y_Meas[2];
+  static const double dv1[4] = { 1.0, 0.0, 0.0, 1.0 };
+
   static const signed char b[12] = { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 };
 
   double Q[36];
@@ -81,6 +64,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   double c_Y2[72];
   double d_Y2[36];
 
+  /*  */
   /*  Initialize the object. */
   /*  % State transition function */
   /*  % Measurement function */
@@ -88,15 +72,14 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
 
   /*  Construct the filter */
   c_UnscentedKalmanFilter_set_Mea(&ukf, MeasNoiseVar);
-  b_isSymmetricPositiveSemiDefini(ProcessVar);
-  memcpy(&ukf.pProcessNoise[0], &ProcessVar[0], 36U * sizeof(double));
+  c_UnscentedKalmanFilter_set_Pro(&ukf, ProcessVar);
   ukf.Alpha = 0.01;
 
   /*  end */
   k = residual_mean->size[0] * residual_mean->size[1];
   residual_mean->size[0] = 2;
   residual_mean->size[1] = y_Meas->size[1];
-  emxEnsureCapacity_real_T(residual_mean, k);
+  emxEnsureCapacity((emxArray__common *)residual_mean, k, sizeof(double));
   i = y_Meas->size[1] << 1;
   for (k = 0; k < i; k++) {
     residual_mean->data[k] = 0.0;
@@ -107,16 +90,16 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   residual_Variance->size[0] = y_Meas->size[1];
   residual_Variance->size[1] = 2;
   residual_Variance->size[2] = 2;
-  emxEnsureCapacity_real_T2(residual_Variance, k);
+  emxEnsureCapacity((emxArray__common *)residual_Variance, k, sizeof(double));
   k = residual_Info->size[0] * residual_Info->size[1] * residual_Info->size[2];
   residual_Info->size[0] = y_Meas->size[1];
   residual_Info->size[1] = 2;
   residual_Info->size[2] = 2;
-  emxEnsureCapacity_real_T2(residual_Info, k);
+  emxEnsureCapacity((emxArray__common *)residual_Info, k, sizeof(double));
   k = residual_xi->size[0] * residual_xi->size[1];
   residual_xi->size[0] = 2;
   residual_xi->size[1] = y_Meas->size[1];
-  emxEnsureCapacity_real_T(residual_xi, k);
+  emxEnsureCapacity((emxArray__common *)residual_xi, k, sizeof(double));
   for (b_k = 0; b_k < y_Meas->size[1]; b_k++) {
     /*  Let k denote the current time. */
     /*  */
@@ -175,10 +158,25 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     memcpy(&P[0], &ukf.pStateCovariance[0], 36U * sizeof(double));
-    a21 = ukf.Alpha;
-    a22 = ukf.Beta;
-    kappa = ukf.Kappa;
-    calcUTParameters(a21, a22, kappa, &c, yk, Wcov, &OOM);
+    a22 = ukf.Alpha;
+    beta = ukf.Beta;
+    a21 = ukf.Kappa;
+    c = a22 * a22 * (6.0 + a21);
+    yk[0] = 1.0 - 6.0 / c;
+    yk[1] = 1.0 / (2.0 * c);
+    Wcov[0] = yk[0] + ((1.0 - a22 * a22) + beta);
+    Wcov[1] = yk[1];
+    if (yk[0] != 0.0) {
+      a22 = yk[0];
+      a21 = yk[0];
+      for (k = 0; k < 2; k++) {
+        yk[k] /= a21;
+        Wcov[k] /= a22;
+      }
+    } else {
+      a22 = 1.0;
+    }
+
     calcSigmaPoints(P, value, c, X2);
     for (i = 0; i < 12; i++) {
       /*  vdpMeasurementNonAdditiveNoiseFcn Example measurement function for discrete */
@@ -245,7 +243,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     for (k = 0; k < 2; k++) {
-      a21 = Ymean[k] * OOM;
+      a21 = Ymean[k] * a22;
       Ymean[k] = a21;
       tempY[k] -= a21;
     }
@@ -260,7 +258,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
       }
     }
 
-    a21 = Wcov[1] * OOM;
+    a21 = Wcov[1] * a22;
     for (k = 0; k < 6; k++) {
       for (r2 = 0; r2 < 2; r2++) {
         b_X2[k + 6 * r2] = 0.0;
@@ -286,7 +284,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
 
     for (k = 0; k < 2; k++) {
       for (r2 = 0; r2 < 2; r2++) {
-        Pyy[r2 + (k << 1)] = OOM * (Wcov[0] * b_tempY[r2 + (k << 1)] + Wcov[1] *
+        Pyy[r2 + (k << 1)] = a22 * (Wcov[0] * b_tempY[r2 + (k << 1)] + Wcov[1] *
           b_Y2[r2 + (k << 1)]) + zcov[r2 + (k << 1)];
       }
     }
@@ -308,13 +306,13 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     for (k = 0; k < 2; k++) {
-      yk[k] = y_Meas->data[k + y_Meas->size[0] * b_k] - Ymean[k];
+      b_y_Meas[k] = y_Meas->data[k + y_Meas->size[0] * b_k] - Ymean[k];
     }
 
     for (k = 0; k < 6; k++) {
       a21 = 0.0;
       for (r2 = 0; r2 < 2; r2++) {
-        a21 += gain[k + 6 * r2] * yk[r2];
+        a21 += gain[k + 6 * r2] * b_y_Meas[r2];
         b_X2[k + 6 * r2] = 0.0;
         for (i = 0; i < 2; i++) {
           b_X2[k + 6 * r2] += gain[k + 6 * i] * Pyy[i + (r2 << 1)];
@@ -387,7 +385,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
       }
     }
 
-    mldivide(b_tempY, dv0, zcov);
+    mldivide(b_tempY, dv1, zcov);
     for (k = 0; k < 2; k++) {
       for (r2 = 0; r2 < 2; r2++) {
         residual_Info->data[(b_k + residual_Info->size[0] * r2) +
@@ -414,7 +412,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
       }
     }
 
-    mldivide(b_tempY, dv0, zcov);
+    mldivide(b_tempY, dv1, zcov);
     for (k = 0; k < 2; k++) {
       residual_xi->data[k + residual_xi->size[0] * b_k] = 0.0;
     }
@@ -437,10 +435,25 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     memcpy(&P[0], &ukf.pStateCovariance[0], 36U * sizeof(double));
-    a21 = ukf.Alpha;
-    a22 = ukf.Beta;
-    kappa = ukf.Kappa;
-    calcUTParameters(a21, a22, kappa, &c, yk, Wcov, &OOM);
+    a22 = ukf.Alpha;
+    beta = ukf.Beta;
+    a21 = ukf.Kappa;
+    c = a22 * a22 * (6.0 + a21);
+    yk[0] = 1.0 - 6.0 / c;
+    yk[1] = 1.0 / (2.0 * c);
+    Wcov[0] = yk[0] + ((1.0 - a22 * a22) + beta);
+    Wcov[1] = yk[1];
+    if (yk[0] != 0.0) {
+      a22 = yk[0];
+      a21 = yk[0];
+      for (k = 0; k < 2; k++) {
+        yk[k] /= a21;
+        Wcov[k] /= a22;
+      }
+    } else {
+      a22 = 1.0;
+    }
+
     calcSigmaPoints(P, value, c, X2);
     for (i = 0; i < 12; i++) {
       f_cavitySystem(*(double (*)[6])&X2[6 * i], *(double (*)[2])&u_Meas->
@@ -463,7 +476,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     for (k = 0; k < 6; k++) {
-      a21 = value[k] * OOM;
+      a21 = value[k] * a22;
       value[k] = a21;
       c_tempY[k] -= a21;
     }
@@ -490,7 +503,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
 
     for (k = 0; k < 6; k++) {
       for (r2 = 0; r2 < 6; r2++) {
-        ukf.pStateCovariance[r2 + 6 * k] = OOM * (Wcov[0] * P[r2 + 6 * k] +
+        ukf.pStateCovariance[r2 + 6 * k] = a22 * (Wcov[0] * P[r2 + 6 * k] +
           Wcov[1] * d_Y2[r2 + 6 * k]) + Q[r2 + 6 * k];
       }
     }
@@ -516,17 +529,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   /*  hold on */
   /*  plot(residual_mean(100:end).') */
   /*   */
-  /*  figure(2223) */
-  /*  set(gca, 'ColorOrder',  cbrewer('qual', 'Dark2', 4)) */
-  /*  hold on */
-  /*  plot(residual_mean(1,100:end), residual_mean(2,100:end),'.') */
-  /*  xlabel('$r_I$') */
-  /*  ylabel('$r_Q$') */
   /*   */
 }
 
-/*
- * File trailer for f_compute_ukf_residual_not_pers.c
- *
- * [EOF]
- */
+/* End of code generation (f_compute_ukf_residual_not_pers.c) */

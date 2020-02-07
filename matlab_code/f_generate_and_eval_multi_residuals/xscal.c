@@ -2,25 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xscal.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xscal.c
+ *
+ * Code generation for function 'xscal'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xscal.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double a
- *                double x[25]
- *                int ix0
- * Return Type  : void
- */
 void b_xscal(double a, double x[25], int ix0)
 {
   int k;
@@ -29,12 +23,6 @@ void b_xscal(double a, double x[25], int ix0)
   }
 }
 
-/*
- * Arguments    : double a
- *                double x[16]
- *                int ix0
- * Return Type  : void
- */
 void xscal(double a, double x[16], int ix0)
 {
   int k;
@@ -43,8 +31,4 @@ void xscal(double a, double x[16], int ix0)
   }
 }
 
-/*
- * File trailer for xscal.c
- *
- * [EOF]
- */
+/* End of code generation (xscal.c) */

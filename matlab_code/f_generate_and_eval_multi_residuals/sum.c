@@ -2,23 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: sum.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * sum.c
+ *
+ * Code generation for function 'sum'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "sum.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const emxArray_boolean_T *x
- * Return Type  : double
- */
 double sum(const emxArray_boolean_T *x)
 {
   double y;
@@ -35,8 +31,4 @@ double sum(const emxArray_boolean_T *x)
   return y;
 }
 
-/*
- * File trailer for sum.c
- *
- * [EOF]
- */
+/* End of code generation (sum.c) */

@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xdlanv2.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xdlanv2.h
+ *
+ * Code generation for function 'xdlanv2'
+ *
  */
 
 #ifndef XDLANV2_H
 #define XDLANV2_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -27,8 +28,4 @@ extern void xdlanv2(double *a, double *b, double *c, double *d, double *rt1r,
 
 #endif
 
-/*
- * File trailer for xdlanv2.h
- *
- * [EOF]
- */
+/* End of code generation (xdlanv2.h) */

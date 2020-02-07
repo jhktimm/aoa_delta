@@ -2,27 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xdotc.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xdotc.c
+ *
+ * Code generation for function 'xdotc'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xdotc.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : int n
- *                const double x[16]
- *                int ix0
- *                const double y[16]
- *                int iy0
- * Return Type  : double
- */
 double b_xdotc(int n, const double x[16], int ix0, const double y[16], int iy0)
 {
   double d;
@@ -41,14 +33,6 @@ double b_xdotc(int n, const double x[16], int ix0, const double y[16], int iy0)
   return d;
 }
 
-/*
- * Arguments    : int n
- *                const double x[25]
- *                int ix0
- *                const double y[25]
- *                int iy0
- * Return Type  : double
- */
 double c_xdotc(int n, const double x[25], int ix0, const double y[25], int iy0)
 {
   double d;
@@ -69,14 +53,6 @@ double c_xdotc(int n, const double x[25], int ix0, const double y[25], int iy0)
   return d;
 }
 
-/*
- * Arguments    : int n
- *                const double x[20]
- *                int ix0
- *                const double y[20]
- *                int iy0
- * Return Type  : double
- */
 double xdotc(int n, const double x[20], int ix0, const double y[20], int iy0)
 {
   double d;
@@ -95,8 +71,4 @@ double xdotc(int n, const double x[20], int ix0, const double y[20], int iy0)
   return d;
 }
 
-/*
- * File trailer for xdotc.c
- *
- * [EOF]
- */
+/* End of code generation (xdotc.c) */

@@ -2,39 +2,34 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_GLT.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_GLT.c
+ *
+ * Code generation for function 'f_GLT'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_GLT.h"
 #include "f_generate_and_eval_multi_residuals_emxutil.h"
 #include "mldivide.h"
-#include "f_generate_and_eval_multi_residuals_data.h"
 
 /* Function Definitions */
-
-/*
- * The Generalized likelihood test adapted from S.Ding Model Based Fault Detection,
- *  Algorithm 10.4
- * Arguments    : double Sigma
- *                const emxArray_real_T *y
- *                emxArray_real_T *s_max
- * Return Type  : void
- */
 void b_f_GLT(double Sigma, const emxArray_real_T *y, emxArray_real_T *s_max)
 {
   int ii;
   int loop_ub;
   double y_bar;
+
+  /*  The Generalized likelihood test adapted from S.Ding Model Based Fault Detection, */
+  /*  Algorithm 10.4 */
+  /*  */
   ii = s_max->size[0] * s_max->size[1];
   s_max->size[0] = 1;
   s_max->size[1] = y->size[1];
-  emxEnsureCapacity_real_T(s_max, ii);
+  emxEnsureCapacity((emxArray__common *)s_max, ii, sizeof(double));
   loop_ub = y->size[1];
   for (ii = 0; ii < loop_ub; ii++) {
     s_max->data[ii] = 0.0;
@@ -57,31 +52,28 @@ void b_f_GLT(double Sigma, const emxArray_real_T *y, emxArray_real_T *s_max)
   /*  plot(s_max(45:end)) */
 }
 
-/*
- * The Generalized likelihood test adapted from S.Ding Model Based Fault Detection,
- *  Algorithm 10.4
- * Arguments    : const double Sigma[4]
- *                const emxArray_real_T *y
- *                emxArray_real_T *s_max
- * Return Type  : void
- */
 void f_GLT(const double Sigma[4], const emxArray_real_T *y, emxArray_real_T
            *s_max)
 {
   int i9;
   int loop_ub;
   int n;
-  double b[4];
   int ii;
+  double s;
   int k;
+  static const double dv2[4] = { 1.0, 0.0, 0.0, 1.0 };
+
+  double b[4];
   double y_bar[2];
-  int xoffset;
-  double b_y_bar;
-  double dv2[2];
+  double dv3[2];
+
+  /*  The Generalized likelihood test adapted from S.Ding Model Based Fault Detection, */
+  /*  Algorithm 10.4 */
+  /*  */
   i9 = s_max->size[0] * s_max->size[1];
   s_max->size[0] = 1;
   s_max->size[1] = y->size[1];
-  emxEnsureCapacity_real_T(s_max, i9);
+  emxEnsureCapacity((emxArray__common *)s_max, i9, sizeof(double));
   loop_ub = y->size[1];
   for (i9 = 0; i9 < loop_ub; i9++) {
     s_max->data[i9] = 0.0;
@@ -98,39 +90,33 @@ void f_GLT(const double Sigma[4], const emxArray_real_T *y, emxArray_real_T
     n = loop_ub;
   }
 
-  if (0 <= n - 12) {
-    mldivide(Sigma, dv0, b);
-  }
-
   for (ii = 0; ii <= n - 12; ii++) {
     for (loop_ub = 0; loop_ub < 2; loop_ub++) {
-      y_bar[loop_ub] = y->data[loop_ub % 2 + y->size[0] * (loop_ub / 2 + ii)];
-    }
-
-    for (k = 0; k < 10; k++) {
-      xoffset = (k + 1) << 1;
-      for (loop_ub = 0; loop_ub < 2; loop_ub++) {
-        i9 = xoffset + loop_ub;
-        b_y_bar = y_bar[loop_ub] + y->data[i9 % 2 + y->size[0] * (i9 / 2 + ii)];
-        y_bar[loop_ub] = b_y_bar;
+      s = y->data[loop_ub % 2 + y->size[0] * (loop_ub / 2 + ii)];
+      for (k = 0; k < 10; k++) {
+        i9 = loop_ub + ((k + 1) << 1);
+        s += y->data[i9 % 2 + y->size[0] * (i9 / 2 + ii)];
       }
+
+      y_bar[loop_ub] = s;
     }
 
     for (i9 = 0; i9 < 2; i9++) {
       y_bar[i9] *= 0.1;
     }
 
-    b_y_bar = 0.0;
+    mldivide(Sigma, dv2, b);
+    s = 0.0;
     for (i9 = 0; i9 < 2; i9++) {
-      dv2[i9] = 0.0;
+      dv3[i9] = 0.0;
       for (loop_ub = 0; loop_ub < 2; loop_ub++) {
-        dv2[i9] += 5.0 * y_bar[loop_ub] * b[loop_ub + (i9 << 1)];
+        dv3[i9] += 5.0 * y_bar[loop_ub] * b[loop_ub + (i9 << 1)];
       }
 
-      b_y_bar += dv2[i9] * y_bar[i9];
+      s += dv3[i9] * y_bar[i9];
     }
 
-    s_max->data[ii] = b_y_bar;
+    s_max->data[ii] = s;
   }
 
   /*  figure(103)  */
@@ -140,8 +126,4 @@ void f_GLT(const double Sigma[4], const emxArray_real_T *y, emxArray_real_T
   /*  plot(s_max(45:end)) */
 }
 
-/*
- * File trailer for f_GLT.c
- *
- * [EOF]
- */
+/* End of code generation (f_GLT.c) */

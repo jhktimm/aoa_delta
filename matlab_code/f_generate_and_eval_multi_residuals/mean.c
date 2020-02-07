@@ -2,23 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: mean.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * mean.c
+ *
+ * Code generation for function 'mean'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "mean.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const emxArray_real_T *x
- * Return Type  : double
- */
 double mean(const emxArray_real_T *x)
 {
   double y;
@@ -36,8 +32,4 @@ double mean(const emxArray_real_T *x)
   return y;
 }
 
-/*
- * File trailer for mean.c
- *
- * [EOF]
- */
+/* End of code generation (mean.c) */

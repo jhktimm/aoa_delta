@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: unscentedKalmanFilter.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * unscentedKalmanFilter.c
+ *
+ * Code generation for function 'unscentedKalmanFilter'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "unscentedKalmanFilter.h"
@@ -18,49 +19,51 @@ static void d_unscentedKalmanFilter_unscent(unscentedKalmanFilter **UKF, const
   double varargin_3[6]);
 
 /* Function Definitions */
-
-/*
- * Arguments    : unscentedKalmanFilter **UKF
- *                const double varargin_3[6]
- * Return Type  : void
- */
 static void d_unscentedKalmanFilter_unscent(unscentedKalmanFilter **UKF, const
   double varargin_3[6])
 {
+  unscentedKalmanFilter *obj;
   int i;
+  obj = *UKF;
+  *UKF = obj;
+  obj = *UKF;
+  *UKF = obj;
+  obj = *UKF;
   for (i = 0; i < 6; i++) {
-    (*UKF)->pState[i] = varargin_3[i];
+    obj->pState[i] = varargin_3[i];
   }
 
+  obj = *UKF;
   for (i = 0; i < 36; i++) {
-    (*UKF)->pStateCovariance[i] = 0.0;
+    obj->pStateCovariance[i] = 0.0;
   }
 
   for (i = 0; i < 6; i++) {
-    (*UKF)->pStateCovariance[i + 6 * i] = 1.0;
+    obj->pStateCovariance[i + 6 * i] = 1.0;
   }
 
-  (*UKF)->pIsValidStateTransitionFcn = false;
+  obj = *UKF;
+  obj->pIsValidStateTransitionFcn = false;
+  obj = *UKF;
+  obj->pIsValidMeasurementFcn = false;
   (*UKF)->pIsValidMeasurementFcn = false;
-  (*UKF)->pIsValidMeasurementFcn = false;
   (*UKF)->pIsValidStateTransitionFcn = false;
-  (*UKF)->Alpha = 0.001;
-  (*UKF)->Beta = 2.0;
-  (*UKF)->Kappa = 0.0;
+  obj = *UKF;
+  obj->Alpha = 0.001;
+  obj = *UKF;
+  obj->Beta = 2.0;
+  obj = *UKF;
+  obj->Kappa = 0.0;
+  obj = *UKF;
   for (i = 0; i < 36; i++) {
-    (*UKF)->pProcessNoise[i] = 0.0;
+    obj->pProcessNoise[i] = 0.0;
   }
 
   for (i = 0; i < 6; i++) {
-    (*UKF)->pProcessNoise[i + 6 * i] = 1.0;
+    obj->pProcessNoise[i + 6 * i] = 1.0;
   }
 }
 
-/*
- * Arguments    : unscentedKalmanFilter *UKF
- *                const double varargin_3[6]
- * Return Type  : unscentedKalmanFilter *
- */
 unscentedKalmanFilter *c_unscentedKalmanFilter_unscent(unscentedKalmanFilter
   *UKF, const double varargin_3[6])
 {
@@ -70,8 +73,4 @@ unscentedKalmanFilter *c_unscentedKalmanFilter_unscent(unscentedKalmanFilter
   return b_UKF;
 }
 
-/*
- * File trailer for unscentedKalmanFilter.c
- *
- * [EOF]
- */
+/* End of code generation (unscentedKalmanFilter.c) */

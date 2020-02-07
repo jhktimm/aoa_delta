@@ -2,30 +2,20 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_compute_parity_Res1_full.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_compute_parity_Res1_full.c
+ *
+ * Code generation for function 'f_compute_parity_Res1_full'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_compute_parity_Res1_full.h"
 #include "f_generate_and_eval_multi_residuals_emxutil.h"
 
 /* Function Definitions */
-
-/*
- * f_computeR1 computes the residual- denoted by residual 1- as defined in
- *  the Safeprocess paper.
- * Arguments    : const emxArray_creal_T *u_mC
- *                const emxArray_creal_T *y_mC
- *                double fs
- *                double QL
- *                emxArray_real_T *r_1
- * Return Type  : void
- */
 void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   emxArray_creal_T *y_mC, double fs, double QL, emxArray_real_T *r_1)
 {
@@ -51,10 +41,12 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   int i21;
   emxInit_real_T1(&u1, 1);
 
+  /*  f_computeR1 computes the residual- denoted by residual 1- as defined in */
+  /*  the Safeprocess paper. */
   /* -------------- input and states of the system--------------- */
   i11 = u1->size[0];
   u1->size[0] = u_mC->size[0];
-  emxEnsureCapacity_real_T1(u1, i11);
+  emxEnsureCapacity((emxArray__common *)u1, i11, sizeof(double));
   loop_ub = u_mC->size[0];
   for (i11 = 0; i11 < loop_ub; i11++) {
     u1->data[i11] = u_mC->data[i11].re;
@@ -63,7 +55,7 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   emxInit_real_T1(&u2, 1);
   i11 = u2->size[0];
   u2->size[0] = u_mC->size[0];
-  emxEnsureCapacity_real_T1(u2, i11);
+  emxEnsureCapacity((emxArray__common *)u2, i11, sizeof(double));
   loop_ub = u_mC->size[0];
   for (i11 = 0; i11 < loop_ub; i11++) {
     u2->data[i11] = u_mC->data[i11].im;
@@ -72,7 +64,7 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   emxInit_real_T1(&x1, 1);
   i11 = x1->size[0];
   x1->size[0] = y_mC->size[0];
-  emxEnsureCapacity_real_T1(x1, i11);
+  emxEnsureCapacity((emxArray__common *)x1, i11, sizeof(double));
   loop_ub = y_mC->size[0];
   for (i11 = 0; i11 < loop_ub; i11++) {
     x1->data[i11] = y_mC->data[i11].re;
@@ -81,7 +73,7 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   emxInit_real_T1(&x2, 1);
   i11 = x2->size[0];
   x2->size[0] = y_mC->size[0];
-  emxEnsureCapacity_real_T1(x2, i11);
+  emxEnsureCapacity((emxArray__common *)x2, i11, sizeof(double));
   loop_ub = y_mC->size[0];
   for (i11 = 0; i11 < loop_ub; i11++) {
     x2->data[i11] = y_mC->data[i11].im;
@@ -117,7 +109,7 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   i21 = !(2 > x2->size[0] - 1);
   loop_ub = r_1->size[0];
   r_1->size[0] = i12 - i11;
-  emxEnsureCapacity_real_T1(r_1, loop_ub);
+  emxEnsureCapacity((emxArray__common *)r_1, loop_ub, sizeof(double));
   loop_ub = i12 - i11;
   for (i12 = 0; i12 < loop_ub; i12++) {
     r_1->data[i12] = ((-x1->data[i11 + i12] + x1->data[i13 + i12]) + (-Ts *
@@ -133,8 +125,4 @@ void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
   emxFree_real_T(&u1);
 }
 
-/*
- * File trailer for f_compute_parity_Res1_full.c
- *
- * [EOF]
- */
+/* End of code generation (f_compute_parity_Res1_full.c) */

@@ -2,24 +2,20 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xhseqr.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xhseqr.c
+ *
+ * Code generation for function 'xhseqr'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xhseqr.h"
 #include "xdlanv2.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double h[4]
- * Return Type  : int
- */
 int xhseqr(double h[4])
 {
   int info;
@@ -85,9 +81,10 @@ int xhseqr(double h[4])
     }
 
     if ((k != i + 1) && (k == i)) {
-      htmp2 = h[(i + (i << 1)) - 1];
-      htmp1 = h[i + ((i - 1) << 1)];
+      htmp2 = h[i << 1];
+      htmp1 = h[i];
       aa = h[i + (i << 1)];
+      h[(i + ((i - 1) << 1)) - 1] = h[0];
       xdlanv2(&h[(i + ((i - 1) << 1)) - 1], &htmp2, &htmp1, &aa, &s, &ab, &ba,
               &unusedU3, &cs, &sn);
       h[(i + (i << 1)) - 1] = htmp2;
@@ -105,8 +102,4 @@ int xhseqr(double h[4])
   return info;
 }
 
-/*
- * File trailer for xhseqr.c
- *
- * [EOF]
- */
+/* End of code generation (xhseqr.c) */

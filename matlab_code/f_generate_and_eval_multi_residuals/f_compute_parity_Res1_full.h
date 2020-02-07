@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_compute_parity_Res1_full.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_compute_parity_Res1_full.h
+ *
+ * Code generation for function 'f_compute_parity_Res1_full'
+ *
  */
 
 #ifndef F_COMPUTE_PARITY_RES1_FULL_H
 #define F_COMPUTE_PARITY_RES1_FULL_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -26,8 +27,4 @@ extern void f_compute_parity_Res1_full(const emxArray_creal_T *u_mC, const
 
 #endif
 
-/*
- * File trailer for f_compute_parity_Res1_full.h
- *
- * [EOF]
- */
+/* End of code generation (f_compute_parity_Res1_full.h) */
