@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
  /// main 'loop' over the events
  TTF2Looper looper(fileList);
  while(looper.getData()) {
-  std::cout << "  numberOfChannels: " << numberOfChannels << " " << std::endl;
+  std::cout << "  numberOfChannels: " << looper.numberOfChannels << " " << std::endl;
   for (int i = 0; i < looper.numberOfChannels; i++) {
    ///this also set set this channel to the data, not only getting the name
    auto channelName = looper.getChannel(i);
