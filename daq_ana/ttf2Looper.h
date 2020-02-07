@@ -1,6 +1,7 @@
 #ifndef TTF2LOOPER_H
 #define TTF2LOOPER_H
 
+#include <sstream>
 #include <daq_server_util_def.h>
 #include <ttf2_daq_data.h>
 #include <ttf2_daq_reader_2010.h>
@@ -8,8 +9,15 @@
 #include <parse_chan_descr.h>
 #include <ttf2_daq_slicer.h>
 
-struct DoocsAddressHelper {
-  DoocsAddressHelper(std::string doocsadr){
+///
+/// \brief The AddressHelper struct
+///
+/// Little helper class, parsing names like:
+/// XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3
+/// in to pieces.
+struct AddressHelper {
+  AddressHelper(std::string doocsadr){
+      fullName = doocsadr;
       std::stringstream ststChannelName(doocsadr);
       getline(ststChannelName,strFacility,'/');
       getline(ststChannelName,strDevice,'/');
@@ -21,6 +29,8 @@ struct DoocsAddressHelper {
       getline(strstream_name, M_str, '.');
       getline(strstream_name, A_str, '.');
       getline(strstream_name, L_str, '.');
+
+      shortName = A_str + '.' + L_str + '.' + M_str + '.' + C_str;
   }
 
   void print() {
@@ -28,6 +38,8 @@ struct DoocsAddressHelper {
     std::cout << "C_str: " << C_str << " M_str: " <<  M_str << " A_str: " <<  A_str << " L_str: " <<  L_str << "\n";
   }
 
+  std::string fullName;
+  std::string shortName;
   std::string strFacility;
   std::string strDevice;
   std::string strLocation;
@@ -38,11 +50,31 @@ struct DoocsAddressHelper {
   std::string L_str;
 };
 
+///
+/// \brief The TTF2Looper struct
+///
+/// This is a helper class to loop over raw data.
+/// Cunstruct with TTF2Looper looper(fileList);
+/// Main lopp should be: while(looper.getData())
+/// The subloop for (int i = 0; i < looper.numberOfChannels; i++) {
+/// and auto channelName = looper.getChannel(i);
+/// This also set set this channel i to the data, not only getting the name.
+/// Than you have access to the data with looper.data .
 struct TTF2Looper {
 
  TTF2Looper();
  TTF2Looper(std::vector<char*> fileList);
  ~TTF2Looper();
+
+ /// Bool get Data for main loop
+ /// Also set the numberOfChannels
+ bool getData();
+
+ /// Subloop of data.
+ /// Returns name of the Channel and set this channel to the data.
+ /// Loop over to max = numberOfChannels for all data.
+ AddressHelper getChannel(int i);
+
 
  /// List of raw files to be opend, full path
  std::vector<char*> fileList;
@@ -54,16 +86,16 @@ struct TTF2Looper {
  /// is trhown.
  std::string path();
 
+
  /// Opens the raw data a first time, to get a list of channels.
+ /// Normaly this is done with the xml files.
  std::vector<daq_channel_entry*> getChannelList();
-
- bool readerOk(){return ((reader_2010.get_data(NULL, &res)) == TTF2_DAQ_READER_OK);}
-
  daq_server_request request;
  ttf2_daq_reader_2010 reader_2010;
  vector<ttf2_channel_entry_long*> res;
-
+ /// This is the payload, data!
  ttf2_daq_getdata data;
+ int numberOfChannels;
 
 };
 
