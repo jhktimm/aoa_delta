@@ -2,31 +2,25 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xdhseqr.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xdhseqr.c
+ *
+ * Code generation for function 'xdhseqr'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xdhseqr.h"
 #include "xdlanv2.h"
 #include "xzlarfg.h"
-#include "sqrt.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double h[36]
- * Return Type  : int
- */
 int eml_dlahqr(double h[36])
 {
   int info;
   int j;
-  double v[3];
   int i;
   boolean_T exitg1;
   int L;
@@ -49,9 +43,9 @@ int eml_dlahqr(double h[36])
   int m;
   double d11;
   int b_k;
+  double v[3];
   info = 0;
   for (j = 0; j < 3; j++) {
-    v[j] = 0.0;
     h[(j + 6 * j) + 2] = 0.0;
     h[(j + 6 * j) + 3] = 0.0;
   }
@@ -64,7 +58,7 @@ int eml_dlahqr(double h[36])
     goto150 = false;
     its = 0;
     exitg2 = false;
-    while ((!exitg2) && (its < 301)) {
+    while ((!exitg2) && (its < 31)) {
       k = i;
       exitg3 = false;
       while ((!exitg3) && ((k + 1 > L) && (!(fabs(h[k + 6 * (k - 1)]) <=
@@ -159,8 +153,7 @@ int eml_dlahqr(double h[36])
           ba /= s;
           ab = (tst + ba) / 2.0;
           tst = (tst - ab) * (ba - ab) - aa * htmp1;
-          htmp1 = fabs(tst);
-          b_sqrt(&htmp1);
+          htmp1 = sqrt(fabs(tst));
           if (tst >= 0.0) {
             rt1r = ab * s;
             rt2r = rt1r;
@@ -329,8 +322,4 @@ int eml_dlahqr(double h[36])
   return info;
 }
 
-/*
- * File trailer for xdhseqr.c
- *
- * [EOF]
- */
+/* End of code generation (xdhseqr.c) */

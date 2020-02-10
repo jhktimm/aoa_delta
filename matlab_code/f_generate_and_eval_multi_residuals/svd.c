@@ -2,34 +2,26 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: svd.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * svd.c
+ *
+ * Code generation for function 'svd'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "svd.h"
-#include "xrot.h"
-#include "xrotg.h"
-#include "sqrt.h"
-#include "xswap.h"
-#include "xscal.h"
 #include "xaxpy.h"
 #include "xdotc.h"
 #include "xnrm2.h"
+#include "xscal.h"
+#include "xrot.h"
+#include "xrotg.h"
+#include "xswap.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const double A[20]
- *                double U[16]
- *                double s[4]
- *                double V[25]
- * Return Type  : void
- */
 void svd(const double A[20], double U[16], double s[4], double V[25])
 {
   double b_A[20];
@@ -39,14 +31,14 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
   double work[4];
   int q;
   int m;
-  int qq;
+  int iter;
   boolean_T apply_transform;
-  double nrm;
+  double ztest0;
   int qp1jj;
   int qs;
   double snorm;
   double rt;
-  double r;
+  double ztest;
   int exitg1;
   boolean_T exitg2;
   double f;
@@ -66,31 +58,31 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
   memset(&U[0], 0, sizeof(double) << 4);
   memset(&V[0], 0, 25U * sizeof(double));
   for (q = 0; q < 3; q++) {
-    qq = q + (q << 2);
+    iter = q + (q << 2);
     apply_transform = false;
-    nrm = c_xnrm2(4 - q, b_A, qq + 1);
-    if (nrm > 0.0) {
+    ztest0 = c_xnrm2(4 - q, b_A, iter + 1);
+    if (ztest0 > 0.0) {
       apply_transform = true;
-      if (b_A[qq] < 0.0) {
-        b_s[q] = -nrm;
+      if (b_A[iter] < 0.0) {
+        b_s[q] = -ztest0;
       } else {
-        b_s[q] = nrm;
+        b_s[q] = ztest0;
       }
 
       if (fabs(b_s[q]) >= 1.0020841800044864E-292) {
-        nrm = 1.0 / b_s[q];
-        i = (qq - q) + 4;
-        for (qp1jj = qq; qp1jj + 1 <= i; qp1jj++) {
-          b_A[qp1jj] *= nrm;
+        ztest0 = 1.0 / b_s[q];
+        i = (iter - q) + 4;
+        for (qp1jj = iter; qp1jj + 1 <= i; qp1jj++) {
+          b_A[qp1jj] *= ztest0;
         }
       } else {
-        i = (qq - q) + 4;
-        for (qp1jj = qq; qp1jj + 1 <= i; qp1jj++) {
+        i = (iter - q) + 4;
+        for (qp1jj = iter; qp1jj + 1 <= i; qp1jj++) {
           b_A[qp1jj] /= b_s[q];
         }
       }
 
-      b_A[qq]++;
+      b_A[iter]++;
       b_s[q] = -b_s[q];
     } else {
       b_s[q] = 0.0;
@@ -99,8 +91,8 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
     for (qs = q + 1; qs + 1 < 6; qs++) {
       i = q + (qs << 2);
       if (apply_transform) {
-        xaxpy(4 - q, -(xdotc(4 - q, b_A, qq + 1, b_A, i + 1) / b_A[q + (q << 2)]),
-              qq + 1, b_A, i + 1);
+        xaxpy(4 - q, -(xdotc(4 - q, b_A, iter + 1, b_A, i + 1) / b_A[q + (q << 2)]),
+              iter + 1, b_A, i + 1);
       }
 
       e[qs] = b_A[i];
@@ -110,25 +102,25 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
       U[qp1jj + (q << 2)] = b_A[qp1jj + (q << 2)];
     }
 
-    nrm = d_xnrm2(4 - q, e, q + 2);
-    if (nrm == 0.0) {
+    ztest0 = d_xnrm2(4 - q, e, q + 2);
+    if (ztest0 == 0.0) {
       e[q] = 0.0;
     } else {
       if (e[q + 1] < 0.0) {
-        e[q] = -nrm;
+        e[q] = -ztest0;
       } else {
-        e[q] = nrm;
+        e[q] = ztest0;
       }
 
-      nrm = e[q];
+      ztest0 = e[q];
       if (fabs(e[q]) >= 1.0020841800044864E-292) {
-        nrm = 1.0 / e[q];
+        ztest0 = 1.0 / e[q];
         for (qp1jj = q + 1; qp1jj + 1 < 6; qp1jj++) {
-          e[qp1jj] *= nrm;
+          e[qp1jj] *= ztest0;
         }
       } else {
         for (qp1jj = q + 1; qp1jj + 1 < 6; qp1jj++) {
-          e[qp1jj] /= nrm;
+          e[qp1jj] /= ztest0;
         }
       }
 
@@ -162,19 +154,20 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
   }
 
   U[15] = 1.0;
-  for (q = 2; q >= 0; q--) {
-    qq = q + (q << 2);
+  for (q = 2; q >= 0; q += -1) {
+    iter = q + (q << 2);
     if (b_s[q] != 0.0) {
       for (qs = q + 1; qs + 1 < 5; qs++) {
         i = (q + (qs << 2)) + 1;
-        d_xaxpy(4 - q, -(b_xdotc(4 - q, U, qq + 1, U, i) / U[qq]), qq + 1, U, i);
+        d_xaxpy(4 - q, -(b_xdotc(4 - q, U, iter + 1, U, i) / U[iter]), iter + 1,
+                U, i);
       }
 
       for (qp1jj = q; qp1jj + 1 < 5; qp1jj++) {
         U[qp1jj + (q << 2)] = -U[qp1jj + (q << 2)];
       }
 
-      U[qq]++;
+      U[iter]++;
       for (qp1jj = 1; qp1jj <= q; qp1jj++) {
         U[(qp1jj + (q << 2)) - 1] = 0.0;
       }
@@ -183,11 +176,11 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
         U[qp1jj + (q << 2)] = 0.0;
       }
 
-      U[qq] = 1.0;
+      U[iter] = 1.0;
     }
   }
 
-  for (q = 4; q >= 0; q--) {
+  for (q = 4; q >= 0; q += -1) {
     if ((q + 1 <= 3) && (e[q] != 0.0)) {
       i = (q + 5 * q) + 2;
       for (qs = q + 1; qs + 1 < 6; qs++) {
@@ -204,47 +197,47 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
   }
 
   for (q = 0; q < 5; q++) {
-    nrm = e[q];
+    ztest0 = e[q];
     if (b_s[q] != 0.0) {
       rt = fabs(b_s[q]);
-      r = b_s[q] / rt;
+      ztest = b_s[q] / rt;
       b_s[q] = rt;
       if (q + 1 < 5) {
-        nrm = e[q] / r;
+        ztest0 = e[q] / ztest;
       }
 
       if (q + 1 <= 4) {
-        xscal(r, U, 1 + (q << 2));
+        xscal(ztest, U, 1 + (q << 2));
       }
     }
 
-    if ((q + 1 < 5) && (nrm != 0.0)) {
-      rt = fabs(nrm);
-      r = rt / nrm;
-      nrm = rt;
-      b_s[q + 1] *= r;
-      b_xscal(r, V, 1 + 5 * (q + 1));
+    if ((q + 1 < 5) && (ztest0 != 0.0)) {
+      rt = fabs(ztest0);
+      ztest = rt / ztest0;
+      ztest0 = rt;
+      b_s[q + 1] *= ztest;
+      b_xscal(ztest, V, 1 + 5 * (q + 1));
     }
 
-    e[q] = nrm;
+    e[q] = ztest0;
   }
 
-  qq = 0;
+  iter = 0;
   snorm = 0.0;
   for (qp1jj = 0; qp1jj < 5; qp1jj++) {
-    nrm = fabs(b_s[qp1jj]);
-    r = fabs(e[qp1jj]);
-    if ((nrm > r) || rtIsNaN(r)) {
+    ztest0 = fabs(b_s[qp1jj]);
+    ztest = fabs(e[qp1jj]);
+    if ((ztest0 > ztest) || rtIsNaN(ztest)) {
     } else {
-      nrm = r;
+      ztest0 = ztest;
     }
 
-    if (!((snorm > nrm) || rtIsNaN(nrm))) {
-      snorm = nrm;
+    if (!((snorm > ztest0) || rtIsNaN(ztest0))) {
+      snorm = ztest0;
     }
   }
 
-  while ((m + 2 > 0) && (!(qq >= 75))) {
+  while ((m + 2 > 0) && (!(iter >= 75))) {
     qp1jj = m;
     do {
       exitg1 = 0;
@@ -252,10 +245,10 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
       if (qp1jj + 1 == 0) {
         exitg1 = 1;
       } else {
-        nrm = fabs(e[qp1jj]);
-        if ((nrm <= 2.2204460492503131E-16 * (fabs(b_s[qp1jj]) + fabs(b_s[qp1jj
-               + 1]))) || (nrm <= 1.0020841800044864E-292) || ((qq > 20) && (nrm
-              <= 2.2204460492503131E-16 * snorm))) {
+        ztest0 = fabs(e[qp1jj]);
+        if ((ztest0 <= 2.2204460492503131E-16 * (fabs(b_s[qp1jj]) + fabs
+              (b_s[qp1jj + 1]))) || (ztest0 <= 1.0020841800044864E-292) ||
+            ((iter > 20) && (ztest0 <= 2.2204460492503131E-16 * snorm))) {
           e[qp1jj] = 0.0;
           exitg1 = 1;
         } else {
@@ -275,17 +268,17 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
         if (i == qp1jj + 1) {
           exitg2 = true;
         } else {
-          nrm = 0.0;
+          ztest0 = 0.0;
           if (i < m + 2) {
-            nrm = fabs(e[i - 1]);
+            ztest0 = fabs(e[i - 1]);
           }
 
           if (i > qp1jj + 2) {
-            nrm += fabs(e[i - 2]);
+            ztest0 += fabs(e[i - 2]);
           }
 
-          r = fabs(b_s[i - 1]);
-          if ((r <= 2.2204460492503131E-16 * nrm) || (r <=
+          ztest = fabs(b_s[i - 1]);
+          if ((ztest <= 2.2204460492503131E-16 * ztest0) || (ztest <=
                1.0020841800044864E-292)) {
             b_s[i - 1] = 0.0;
             exitg2 = true;
@@ -310,13 +303,13 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
       f = e[m];
       e[m] = 0.0;
       for (qp1jj = m; qp1jj + 1 >= q + 1; qp1jj--) {
-        xrotg(&b_s[qp1jj], &f, &nrm, &r);
+        xrotg(&b_s[qp1jj], &f, &ztest0, &ztest);
         if (qp1jj + 1 > q + 1) {
-          f = -r * e[qp1jj - 1];
-          e[qp1jj - 1] *= nrm;
+          f = -ztest * e[qp1jj - 1];
+          e[qp1jj - 1] *= ztest0;
         }
 
-        xrot(V, 1 + 5 * qp1jj, 1 + 5 * (m + 1), nrm, r);
+        xrot(V, 1 + 5 * qp1jj, 1 + 5 * (m + 1), ztest0, ztest);
       }
       break;
 
@@ -324,10 +317,10 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
       f = e[q - 1];
       e[q - 1] = 0.0;
       for (qp1jj = q; qp1jj + 1 <= m + 2; qp1jj++) {
-        xrotg(&b_s[qp1jj], &f, &nrm, &r);
-        f = -r * e[qp1jj];
-        e[qp1jj] *= nrm;
-        b_xrot(U, 1 + (qp1jj << 2), 1 + ((q - 1) << 2), nrm, r);
+        xrotg(&b_s[qp1jj], &f, &ztest0, &ztest);
+        f = -ztest * e[qp1jj];
+        e[qp1jj] *= ztest0;
+        b_xrot(U, 1 + (qp1jj << 2), 1 + ((q - 1) << 2), ztest0, ztest);
       }
       break;
 
@@ -364,50 +357,49 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
       }
 
       f = b_s[m + 1] / mtmp;
-      nrm = b_s[m] / mtmp;
-      r = e[m] / mtmp;
+      ztest0 = b_s[m] / mtmp;
+      ztest = e[m] / mtmp;
       sqds = b_s[q] / mtmp;
-      rt = ((nrm + f) * (nrm - f) + r * r) / 2.0;
-      nrm = f * r;
-      nrm *= nrm;
-      if ((rt != 0.0) || (nrm != 0.0)) {
-        r = rt * rt + nrm;
-        b_sqrt(&r);
+      rt = ((ztest0 + f) * (ztest0 - f) + ztest * ztest) / 2.0;
+      ztest0 = f * ztest;
+      ztest0 *= ztest0;
+      if ((rt != 0.0) || (ztest0 != 0.0)) {
+        ztest = sqrt(rt * rt + ztest0);
         if (rt < 0.0) {
-          r = -r;
+          ztest = -ztest;
         }
 
-        r = nrm / (rt + r);
+        ztest = ztest0 / (rt + ztest);
       } else {
-        r = 0.0;
+        ztest = 0.0;
       }
 
-      f = (sqds + f) * (sqds - f) + r;
+      f = (sqds + f) * (sqds - f) + ztest;
       rt = sqds * (e[q] / mtmp);
       for (qp1jj = q + 1; qp1jj <= m + 1; qp1jj++) {
-        xrotg(&f, &rt, &nrm, &r);
+        xrotg(&f, &rt, &ztest0, &ztest);
         if (qp1jj > q + 1) {
           e[qp1jj - 2] = f;
         }
 
-        f = nrm * b_s[qp1jj - 1] + r * e[qp1jj - 1];
-        e[qp1jj - 1] = nrm * e[qp1jj - 1] - r * b_s[qp1jj - 1];
-        rt = r * b_s[qp1jj];
-        b_s[qp1jj] *= nrm;
-        xrot(V, 1 + 5 * (qp1jj - 1), 1 + 5 * qp1jj, nrm, r);
+        f = ztest0 * b_s[qp1jj - 1] + ztest * e[qp1jj - 1];
+        e[qp1jj - 1] = ztest0 * e[qp1jj - 1] - ztest * b_s[qp1jj - 1];
+        rt = ztest * b_s[qp1jj];
+        b_s[qp1jj] *= ztest0;
+        xrot(V, 1 + 5 * (qp1jj - 1), 1 + 5 * qp1jj, ztest0, ztest);
         b_s[qp1jj - 1] = f;
-        xrotg(&b_s[qp1jj - 1], &rt, &nrm, &r);
-        f = nrm * e[qp1jj - 1] + r * b_s[qp1jj];
-        b_s[qp1jj] = -r * e[qp1jj - 1] + nrm * b_s[qp1jj];
-        rt = r * e[qp1jj];
-        e[qp1jj] *= nrm;
+        xrotg(&b_s[qp1jj - 1], &rt, &ztest0, &ztest);
+        f = ztest0 * e[qp1jj - 1] + ztest * b_s[qp1jj];
+        b_s[qp1jj] = -ztest * e[qp1jj - 1] + ztest0 * b_s[qp1jj];
+        rt = ztest * e[qp1jj];
+        e[qp1jj] *= ztest0;
         if (qp1jj < 4) {
-          b_xrot(U, 1 + ((qp1jj - 1) << 2), 1 + (qp1jj << 2), nrm, r);
+          b_xrot(U, 1 + ((qp1jj - 1) << 2), 1 + (qp1jj << 2), ztest0, ztest);
         }
       }
 
       e[m] = f;
-      qq++;
+      iter++;
       break;
 
      default:
@@ -430,7 +422,7 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
         i++;
       }
 
-      qq = 0;
+      iter = 0;
       m--;
       break;
     }
@@ -441,8 +433,4 @@ void svd(const double A[20], double U[16], double s[4], double V[25])
   }
 }
 
-/*
- * File trailer for svd.c
- *
- * [EOF]
- */
+/* End of code generation (svd.c) */

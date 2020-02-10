@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_generate_and_eval_multi_residuals_rtwutil.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_generate_and_eval_multi_residuals_rtwutil.h
+ *
+ * Code generation for function 'f_generate_and_eval_multi_residuals_rtwutil'
+ *
  */
 
 #ifndef F_GENERATE_AND_EVAL_MULTI_RESIDUALS_RTWUTIL_H
 #define F_GENERATE_AND_EVAL_MULTI_RESIDUALS_RTWUTIL_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern double rt_hypotd_snf(double u0, double u1);
 
 #endif
 
-/*
- * File trailer for f_generate_and_eval_multi_residuals_rtwutil.h
- *
- * [EOF]
- */
+/* End of code generation (f_generate_and_eval_multi_residuals_rtwutil.h) */

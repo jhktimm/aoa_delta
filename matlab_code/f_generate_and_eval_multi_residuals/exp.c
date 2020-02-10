@@ -2,23 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: exp.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * exp.c
+ *
+ * Code generation for function 'exp'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "exp.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : emxArray_creal_T *x
- * Return Type  : void
- */
 void b_exp(emxArray_creal_T *x)
 {
   int nx;
@@ -45,8 +41,4 @@ void b_exp(emxArray_creal_T *x)
   }
 }
 
-/*
- * File trailer for exp.c
- *
- * [EOF]
- */
+/* End of code generation (exp.c) */

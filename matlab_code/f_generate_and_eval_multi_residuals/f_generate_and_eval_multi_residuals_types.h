@@ -2,19 +2,41 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_generate_and_eval_multi_residuals_types.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_generate_and_eval_multi_residuals_types.h
+ *
+ * Code generation for function 'f_generate_and_eval_multi_residuals'
+ *
  */
 
 #ifndef F_GENERATE_AND_EVAL_MULTI_RESIDUALS_TYPES_H
 #define F_GENERATE_AND_EVAL_MULTI_RESIDUALS_TYPES_H
 
-/* Include Files */
+/* Include files */
 #include "rtwtypes.h"
 
 /* Type Definitions */
+#ifndef struct_emxArray__common
+#define struct_emxArray__common
+
+struct emxArray__common
+{
+  void *data;
+  int *size;
+  int allocatedSize;
+  int numDimensions;
+  boolean_T canFreeData;
+};
+
+#endif                                 /*struct_emxArray__common*/
+
+#ifndef typedef_emxArray__common
+#define typedef_emxArray__common
+
+typedef struct emxArray__common emxArray__common;
+
+#endif                                 /*typedef_emxArray__common*/
+
 #ifndef struct_emxArray_boolean_T
 #define struct_emxArray_boolean_T
 
@@ -117,8 +139,4 @@ typedef struct {
 #endif                                 /*typedef_unscentedKalmanFilter*/
 #endif
 
-/*
- * File trailer for f_generate_and_eval_multi_residuals_types.h
- *
- * [EOF]
- */
+/* End of code generation (f_generate_and_eval_multi_residuals_types.h) */

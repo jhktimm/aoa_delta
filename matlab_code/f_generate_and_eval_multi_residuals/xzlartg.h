@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzlartg.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzlartg.h
+ *
+ * Code generation for function 'xzlartg'
+ *
  */
 
 #ifndef XZLARTG_H
 #define XZLARTG_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -27,8 +28,4 @@ extern void xzlartg(const creal_T f, const creal_T g, double *cs, creal_T *sn,
 
 #endif
 
-/*
- * File trailer for xzlartg.h
- *
- * [EOF]
- */
+/* End of code generation (xzlartg.h) */

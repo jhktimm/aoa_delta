@@ -2,10 +2,11 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: main.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * main.c
+ *
+ * Code generation for function 'main'
+ *
  */
 
 /*************************************************************************/
@@ -32,7 +33,7 @@
 /* otherwise use them as required by your application.                   */
 /*                                                                       */
 /*************************************************************************/
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "main.h"
@@ -52,11 +53,6 @@ static double argInit_real_T(void);
 static void main_f_generate_and_eval_multi_residuals(void);
 
 /* Function Definitions */
-
-/*
- * Arguments    : double result[2]
- * Return Type  : void
- */
 static void argInit_2x1_real_T(double result[2])
 {
   int idx0;
@@ -69,10 +65,6 @@ static void argInit_2x1_real_T(double result[2])
   }
 }
 
-/*
- * Arguments    : double result[4]
- * Return Type  : void
- */
 static void argInit_2x2_real_T(double result[4])
 {
   int idx0;
@@ -88,10 +80,6 @@ static void argInit_2x2_real_T(double result[4])
   }
 }
 
-/*
- * Arguments    : creal_T result[4]
- * Return Type  : void
- */
 static void argInit_4x1_creal_T(creal_T result[4])
 {
   int idx0;
@@ -104,10 +92,6 @@ static void argInit_4x1_creal_T(creal_T result[4])
   }
 }
 
-/*
- * Arguments    : double result[4]
- * Return Type  : void
- */
 static void argInit_4x1_real_T(double result[4])
 {
   int idx0;
@@ -120,10 +104,6 @@ static void argInit_4x1_real_T(double result[4])
   }
 }
 
-/*
- * Arguments    : double result[36]
- * Return Type  : void
- */
 static void argInit_6x6_real_T(double result[36])
 {
   int idx0;
@@ -139,10 +119,6 @@ static void argInit_6x6_real_T(double result[36])
   }
 }
 
-/*
- * Arguments    : void
- * Return Type  : emxArray_real_T *
- */
 static emxArray_real_T *argInit_Unboundedx1_real_T(void)
 {
   emxArray_real_T *result;
@@ -164,10 +140,6 @@ static emxArray_real_T *argInit_Unboundedx1_real_T(void)
   return result;
 }
 
-/*
- * Arguments    : void
- * Return Type  : creal_T
- */
 static creal_T argInit_creal_T(void)
 {
   creal_T result;
@@ -179,19 +151,11 @@ static creal_T argInit_creal_T(void)
   return result;
 }
 
-/*
- * Arguments    : void
- * Return Type  : double
- */
 static double argInit_real_T(void)
 {
   return 0.0;
 }
 
-/*
- * Arguments    : void
- * Return Type  : void
- */
 static void main_f_generate_and_eval_multi_residuals(void)
 {
   emxArray_real_T *s_max_UKF;
@@ -316,11 +280,6 @@ static void main_f_generate_and_eval_multi_residuals(void)
   emxDestroyArray_real_T(PA);
 }
 
-/*
- * Arguments    : int argc
- *                const char * const argv[]
- * Return Type  : int
- */
 int main(int argc, const char * const argv[])
 {
   (void)argc;
@@ -340,8 +299,4 @@ int main(int argc, const char * const argv[])
   return 0;
 }
 
-/*
- * File trailer for main.c
- *
- * [EOF]
- */
+/* End of code generation (main.c) */

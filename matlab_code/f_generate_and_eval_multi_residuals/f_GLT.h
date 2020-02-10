@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_GLT.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_GLT.h
+ *
+ * Code generation for function 'f_GLT'
+ *
  */
 
 #ifndef F_GLT_H
 #define F_GLT_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -28,8 +29,4 @@ extern void f_GLT(const double Sigma[4], const emxArray_real_T *y,
 
 #endif
 
-/*
- * File trailer for f_GLT.h
- *
- * [EOF]
- */
+/* End of code generation (f_GLT.h) */

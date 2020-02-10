@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_cavitySystem.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_cavitySystem.h
+ *
+ * Code generation for function 'f_cavitySystem'
+ *
  */
 
 #ifndef F_CAVITYSYSTEM_H
 #define F_CAVITYSYSTEM_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -26,8 +27,4 @@ extern void f_cavitySystem(const double x[6], const double u_mC[2], double fs,
 
 #endif
 
-/*
- * File trailer for f_cavitySystem.h
- *
- * [EOF]
- */
+/* End of code generation (f_cavitySystem.h) */

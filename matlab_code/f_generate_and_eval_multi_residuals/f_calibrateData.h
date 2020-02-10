@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_calibrateData.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_calibrateData.h
+ *
+ * Code generation for function 'f_calibrateData'
+ *
  */
 
 #ifndef F_CALIBRATEDATA_H
 #define F_CALIBRATEDATA_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -27,8 +28,4 @@ extern void f_calibrateData(const emxArray_creal_T *Forw, const emxArray_creal_T
 
 #endif
 
-/*
- * File trailer for f_calibrateData.h
- *
- * [EOF]
- */
+/* End of code generation (f_calibrateData.h) */

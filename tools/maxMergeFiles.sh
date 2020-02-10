@@ -13,7 +13,13 @@ source setFixedParameter.sh
 numberOfFilesPerMerge=100
 
 #./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge} ${resultDirectory}*${1}*
+
+
+echo "./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge} -inputDir=${resultDirectory} -searchPattern=${1}"
 ./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge} -inputDir=${resultDirectory} -searchPattern=${1}
+
+
+
 # if file list too long... does not work, full path hase to be input
 #find  ${resultDirectory} -name "*${1}*" -print0 | xargs -0 ./mergeFiles -o -outDir=${mergeDirectory} -size=${numberOfFilesPerMerge}
 

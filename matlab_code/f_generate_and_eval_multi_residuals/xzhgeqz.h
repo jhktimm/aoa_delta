@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzhgeqz.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzhgeqz.h
+ *
+ * Code generation for function 'xzhgeqz'
+ *
  */
 
 #ifndef XZHGEQZ_H
 #define XZHGEQZ_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -28,8 +29,4 @@ extern void xzhgeqz(const creal_T A[4], int ilo, int ihi, int *info, creal_T
 
 #endif
 
-/*
- * File trailer for xzhgeqz.h
- *
- * [EOF]
- */
+/* End of code generation (xzhgeqz.h) */

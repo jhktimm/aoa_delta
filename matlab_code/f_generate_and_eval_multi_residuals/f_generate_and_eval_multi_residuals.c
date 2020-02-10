@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: f_generate_and_eval_multi_residuals.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * f_generate_and_eval_multi_residuals.c
+ *
+ * Code generation for function 'f_generate_and_eval_multi_residuals'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "f_generate_and_eval_multi_residuals_emxutil.h"
@@ -28,11 +29,6 @@
 static double rt_roundd_snf(double u);
 
 /* Function Definitions */
-
-/*
- * Arguments    : double u
- * Return Type  : double
- */
 static double rt_roundd_snf(double u)
 {
   double y;
@@ -51,51 +47,6 @@ static double rt_roundd_snf(double u)
   return y;
 }
 
-/*
- * This function evaluates the residual
- * Arguments    : const emxArray_real_T *PA
- *                emxArray_real_T *PP
- *                const emxArray_real_T *FA
- *                const emxArray_real_T *FP
- *                const emxArray_real_T *RA
- *                const emxArray_real_T *RP
- *                double FS
- *                double F0
- *                const creal_T cal_coeff[4]
- *                const double tau_m[4]
- *                const double K_m[4]
- *                const double X0[4]
- *                double QL_nom
- *                const emxArray_real_T *dw_trace_nom
- *                double DELAY
- *                double FILLING
- *                double FLATTOP
- *                const double Sigma_nom_UKF[4]
- *                const double r_mean_nom_UKF[2]
- *                const double MeasNoiseVar[4]
- *                const double ProcessVar[36]
- *                double Sigma_nom_dw
- *                const emxArray_real_T *r_PS1_nom
- *                double Sigma_nom_PS1
- *                emxArray_real_T *s_max_UKF
- *                emxArray_real_T *s_max_dw
- *                emxArray_real_T *s_max_PS1
- *                emxArray_real_T *res_PS2
- *                double *classis_UKF
- *                double *classis_PS
- *                double *classis_dw
- *                double *strengthis_UKF
- *                double *strengthis_PS
- *                double *strengthis_dw
- *                double *QL
- *                double *dw_stat
- *                double *SP_F
- *                double *SP_P
- *                double *PC
- *                double *calib_check
- *                double *dec_hq
- * Return Type  : void
- */
 void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   emxArray_real_T *PP, const emxArray_real_T *FA, const emxArray_real_T *FP,
   const emxArray_real_T *RA, const emxArray_real_T *RP, double FS, double F0,
@@ -139,10 +90,24 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   emxArray_int32_T *ii;
   emxArray_real_T *r1;
   emxArray_real_T *r2;
+  emxArray_creal_T *b_u_mCal;
+  emxArray_creal_T *c_u_mCal;
+  emxArray_real_T *b_PA;
+  emxArray_real_T *b_res_PS1;
+  emxArray_real_T *b_s_max_dw;
+  emxArray_boolean_T *c_s_max_dw;
+  emxArray_real_T *c_res_PS1;
+  emxArray_creal_T *d_u_mCal;
+  emxArray_creal_T *b_y_mC;
   emxArray_creal_T *c_FA;
   emxArray_creal_T *b_RA;
-  emxArray_real_T *b_res_PS1;
+  emxArray_real_T *b_s_max_UKF;
+  emxArray_boolean_T *c_s_max_UKF;
+  emxArray_real_T *b_s_max_PS1;
+  emxArray_boolean_T *c_s_max_PS1;
+  emxArray_real_T *d_res_PS1;
   emxArray_boolean_T *b_PP;
+  emxArray_real_T *c_PA;
   boolean_T guard1 = false;
   int exitg1;
   double b_classis_UKF;
@@ -154,6 +119,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   double b_calib_check;
 
   /* .. */
+  /*  This function evaluates the residual */
   fs = FS * 1.0E+6;
   emxInit_real_T(&Rise, 2);
   emxInit_real_T(&Flattop, 2);
@@ -165,24 +131,24 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       Rise->data[0] = rtNaN;
     } else if (b_x < x) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 0;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
     } else if ((rtIsInf(x) || rtIsInf(b_x)) && (x == b_x)) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       Rise->data[0] = rtNaN;
     } else if (x == x) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = (int)(b_x - x) + 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       nm1d2 = (int)(b_x - x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Rise->data[Rise->size[0] * i0] = x + (double)i0;
@@ -215,7 +181,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = n;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       if (n > 0) {
         Rise->data[0] = x;
         if (n > 1) {
@@ -242,19 +208,19 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       Flattop->data[0] = rtNaN;
     } else if (d < Rise->data[Rise->size[1] - 1] + 1.0) {
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 0;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
     } else if ((rtIsInf(Rise->data[Rise->size[1] - 1] + 1.0) || rtIsInf(d)) &&
                (Rise->data[Rise->size[1] - 1] + 1.0 == d)) {
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       Flattop->data[0] = rtNaN;
     } else if (floor(Rise->data[Rise->size[1] - 1] + 1.0) == Rise->data
                [Rise->size[1] - 1] + 1.0) {
@@ -262,7 +228,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = (int)floor(d - b_x) + 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       nm1d2 = (int)floor(d - b_x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Flattop->data[Flattop->size[0] * i0] = b_x + (double)i0;
@@ -295,7 +261,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = n;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       if (n > 0) {
         Flattop->data[0] = Rise->data[Rise->size[1] - 1] + 1.0;
         if (n > 1) {
@@ -323,19 +289,19 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       Decay->data[0] = rtNaN;
     } else if (1821.0 < Flattop->data[Flattop->size[1] - 1] + 1.0) {
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 0;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
     } else if (rtIsInf(Flattop->data[Flattop->size[1] - 1] + 1.0) &&
                (Flattop->data[Flattop->size[1] - 1] + 1.0 == 1821.0)) {
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       Decay->data[0] = rtNaN;
     } else if (floor(Flattop->data[Flattop->size[1] - 1] + 1.0) == Flattop->
                data[Flattop->size[1] - 1] + 1.0) {
@@ -343,7 +309,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = (int)floor(1821.0 - b_x) + 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       nm1d2 = (int)floor(1821.0 - b_x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Decay->data[Decay->size[0] * i0] = b_x + (double)i0;
@@ -374,7 +340,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = n;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       if (n > 0) {
         Decay->data[0] = Flattop->data[Flattop->size[1] - 1] + 1.0;
         if (n > 1) {
@@ -404,24 +370,24 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       Rise->data[0] = rtNaN;
     } else if (b_x < x) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 0;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
     } else if ((rtIsInf(x) || rtIsInf(b_x)) && (x == b_x)) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       Rise->data[0] = rtNaN;
     } else if (x == x) {
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = (int)(b_x - x) + 1;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       nm1d2 = (int)(b_x - x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Rise->data[Rise->size[0] * i0] = x + (double)i0;
@@ -454,7 +420,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Rise->size[0] * Rise->size[1];
       Rise->size[0] = 1;
       Rise->size[1] = n;
-      emxEnsureCapacity_real_T(Rise, i0);
+      emxEnsureCapacity((emxArray__common *)Rise, i0, sizeof(double));
       if (n > 0) {
         Rise->data[0] = x;
         if (n > 1) {
@@ -481,19 +447,19 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       Flattop->data[0] = rtNaN;
     } else if (d < Rise->data[Rise->size[1] - 1] + 1.0) {
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 0;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
     } else if ((rtIsInf(Rise->data[Rise->size[1] - 1] + 1.0) || rtIsInf(d)) &&
                (Rise->data[Rise->size[1] - 1] + 1.0 == d)) {
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       Flattop->data[0] = rtNaN;
     } else if (floor(Rise->data[Rise->size[1] - 1] + 1.0) == Rise->data
                [Rise->size[1] - 1] + 1.0) {
@@ -501,7 +467,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = (int)floor(d - b_x) + 1;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       nm1d2 = (int)floor(d - b_x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Flattop->data[Flattop->size[0] * i0] = b_x + (double)i0;
@@ -534,7 +500,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Flattop->size[0] * Flattop->size[1];
       Flattop->size[0] = 1;
       Flattop->size[1] = n;
-      emxEnsureCapacity_real_T(Flattop, i0);
+      emxEnsureCapacity((emxArray__common *)Flattop, i0, sizeof(double));
       if (n > 0) {
         Flattop->data[0] = Rise->data[Rise->size[1] - 1] + 1.0;
         if (n > 1) {
@@ -562,19 +528,19 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       Decay->data[0] = rtNaN;
     } else if (16384.0 < Flattop->data[Flattop->size[1] - 1] + 1.0) {
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 0;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
     } else if (rtIsInf(Flattop->data[Flattop->size[1] - 1] + 1.0) &&
                (Flattop->data[Flattop->size[1] - 1] + 1.0 == 16384.0)) {
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       Decay->data[0] = rtNaN;
     } else if (floor(Flattop->data[Flattop->size[1] - 1] + 1.0) == Flattop->
                data[Flattop->size[1] - 1] + 1.0) {
@@ -582,7 +548,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = (int)floor(16384.0 - b_x) + 1;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       nm1d2 = (int)floor(16384.0 - b_x);
       for (i0 = 0; i0 <= nm1d2; i0++) {
         Decay->data[Decay->size[0] * i0] = b_x + (double)i0;
@@ -613,7 +579,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = Decay->size[0] * Decay->size[1];
       Decay->size[0] = 1;
       Decay->size[1] = n;
-      emxEnsureCapacity_real_T(Decay, i0);
+      emxEnsureCapacity((emxArray__common *)Decay, i0, sizeof(double));
       if (n > 0) {
         Decay->data[0] = Flattop->data[Flattop->size[1] - 1] + 1.0;
         if (n > 1) {
@@ -641,7 +607,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   emxInit_real_T1(&b_FA, 1);
   i0 = b_FA->size[0];
   b_FA->size[0] = Rise->size[1];
-  emxEnsureCapacity_real_T1(b_FA, i0);
+  emxEnsureCapacity((emxArray__common *)b_FA, i0, sizeof(double));
   nm1d2 = Rise->size[1];
   for (i0 = 0; i0 < nm1d2; i0++) {
     b_FA->data[i0] = FA->data[(int)Rise->data[Rise->size[0] * i0] - 1];
@@ -659,21 +625,35 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   emxInit_int32_T(&ii, 1);
   emxInit_real_T(&r1, 2);
   emxInit_real_T1(&r2, 1);
+  emxInit_creal_T(&b_u_mCal, 1);
+  emxInit_creal_T(&c_u_mCal, 1);
+  emxInit_real_T1(&b_PA, 1);
+  emxInit_real_T1(&b_res_PS1, 1);
+  emxInit_real_T1(&b_s_max_dw, 1);
+  emxInit_boolean_T(&c_s_max_dw, 1);
+  emxInit_real_T(&c_res_PS1, 2);
+  emxInit_creal_T(&d_u_mCal, 1);
+  emxInit_creal_T(&b_y_mC, 1);
   emxInit_creal_T(&c_FA, 1);
   emxInit_creal_T(&b_RA, 1);
-  emxInit_real_T(&b_res_PS1, 2);
+  emxInit_real_T1(&b_s_max_UKF, 1);
+  emxInit_boolean_T(&c_s_max_UKF, 1);
+  emxInit_real_T1(&b_s_max_PS1, 1);
+  emxInit_boolean_T(&c_s_max_PS1, 1);
+  emxInit_real_T(&d_res_PS1, 2);
   emxInit_boolean_T(&b_PP, 1);
+  emxInit_real_T1(&c_PA, 1);
   guard1 = false;
   if (mean(b_FA) > 3.0) {
-    i0 = b_FA->size[0];
-    b_FA->size[0] = Flattop->size[1];
-    emxEnsureCapacity_real_T1(b_FA, i0);
+    i0 = c_PA->size[0];
+    c_PA->size[0] = Flattop->size[1];
+    emxEnsureCapacity((emxArray__common *)c_PA, i0, sizeof(double));
     nm1d2 = Flattop->size[1];
     for (i0 = 0; i0 < nm1d2; i0++) {
-      b_FA->data[i0] = PA->data[(int)Flattop->data[Flattop->size[0] * i0] - 1];
+      c_PA->data[i0] = PA->data[(int)Flattop->data[Flattop->size[0] * i0] - 1];
     }
 
-    if (mean(b_FA) > 3.0) {
+    if (mean(c_PA) > 3.0) {
       do {
         exitg1 = 0;
         if (70 > PP->size[0]) {
@@ -686,7 +666,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
         n = b_PP->size[0];
         b_PP->size[0] = idx - i0;
-        emxEnsureCapacity_boolean_T(b_PP, n);
+        emxEnsureCapacity((emxArray__common *)b_PP, n, sizeof(boolean_T));
         nm1d2 = idx - i0;
         for (idx = 0; idx < nm1d2; idx++) {
           b_PP->data[idx] = (PP->data[i0 + idx] == 0.0);
@@ -703,7 +683,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
           n = c_x->size[0];
           c_x->size[0] = idx - i0;
-          emxEnsureCapacity_boolean_T(c_x, n);
+          emxEnsureCapacity((emxArray__common *)c_x, n, sizeof(boolean_T));
           nm1d2 = idx - i0;
           for (idx = 0; idx < nm1d2; idx++) {
             c_x->data[idx] = (PP->data[i0 + idx] == 0.0);
@@ -713,7 +693,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           idx = 0;
           i0 = ii->size[0];
           ii->size[0] = c_x->size[0];
-          emxEnsureCapacity_int32_T(ii, i0);
+          emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
           b_ii = 1;
           exitg2 = false;
           while ((!exitg2) && (b_ii <= nm1d2)) {
@@ -734,7 +714,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
             if (idx == 0) {
               i0 = ii->size[0];
               ii->size[0] = 0;
-              emxEnsureCapacity_int32_T(ii, i0);
+              emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
             }
           } else {
             i0 = ii->size[0];
@@ -744,12 +724,12 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
               ii->size[0] = idx;
             }
 
-            emxEnsureCapacity_int32_T(ii, i0);
+            emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
           }
 
           i0 = res_PS1->size[0];
           res_PS1->size[0] = ii->size[0];
-          emxEnsureCapacity_real_T1(res_PS1, i0);
+          emxEnsureCapacity((emxArray__common *)res_PS1, i0, sizeof(double));
           nm1d2 = ii->size[0];
           for (i0 = 0; i0 < nm1d2; i0++) {
             res_PS1->data[i0] = ii->data[i0];
@@ -757,7 +737,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
           i0 = ii->size[0];
           ii->size[0] = res_PS1->size[0];
-          emxEnsureCapacity_int32_T(ii, i0);
+          emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
           nm1d2 = res_PS1->size[0];
           for (i0 = 0; i0 < nm1d2; i0++) {
             ii->data[i0] = (int)((70.0 + res_PS1->data[i0]) - 1.0);
@@ -765,7 +745,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
           i0 = r2->size[0];
           r2->size[0] = res_PS1->size[0];
-          emxEnsureCapacity_real_T1(r2, i0);
+          emxEnsureCapacity((emxArray__common *)r2, i0, sizeof(double));
           nm1d2 = res_PS1->size[0];
           for (i0 = 0; i0 < nm1d2; i0++) {
             r2->data[i0] = PP->data[(int)((70.0 + res_PS1->data[i0]) - 2.0) - 1];
@@ -798,7 +778,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       i0 = y->size[0] * y->size[1];
       y->size[0] = 2;
       y->size[1] = n;
-      emxEnsureCapacity_real_T(y, i0);
+      emxEnsureCapacity((emxArray__common *)y, i0, sizeof(double));
       nm1d2 = n << 1;
       for (i0 = 0; i0 < nm1d2; i0++) {
         y->data[i0] = 0.0;
@@ -825,7 +805,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       f_GLT(Sigma_nom_UKF, y, r1);
       i0 = s_max_UKF->size[0];
       s_max_UKF->size[0] = r1->size[1];
-      emxEnsureCapacity_real_T1(s_max_UKF, i0);
+      emxEnsureCapacity((emxArray__common *)s_max_UKF, i0, sizeof(double));
       nm1d2 = r1->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
         s_max_UKF->data[i0] = r1->data[r1->size[0] * i0];
@@ -835,20 +815,20 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       c_f_generate_online_parityRes1_(PA, PP, FA, FP, RP, FS, QL_nom, res_PS1);
       c_f_generate_online_parityRes2_(PA, PP, FA, FP, RA, RP, FS, cal_coeff,
         tau_m, K_m, QL_nom, res_PS2);
-      i0 = b_res_PS1->size[0] * b_res_PS1->size[1];
-      b_res_PS1->size[0] = 1;
-      b_res_PS1->size[1] = res_PS1->size[0];
-      emxEnsureCapacity_real_T(b_res_PS1, i0);
+      i0 = d_res_PS1->size[0] * d_res_PS1->size[1];
+      d_res_PS1->size[0] = 1;
+      d_res_PS1->size[1] = res_PS1->size[0];
+      emxEnsureCapacity((emxArray__common *)d_res_PS1, i0, sizeof(double));
       nm1d2 = res_PS1->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
-        b_res_PS1->data[b_res_PS1->size[0] * i0] = res_PS1->data[i0] -
+        d_res_PS1->data[d_res_PS1->size[0] * i0] = res_PS1->data[i0] -
           r_PS1_nom->data[i0];
       }
 
-      b_f_GLT(Sigma_nom_PS1, b_res_PS1, r1);
+      b_f_GLT(Sigma_nom_PS1, d_res_PS1, r1);
       i0 = s_max_PS1->size[0];
       s_max_PS1->size[0] = r1->size[1];
-      emxEnsureCapacity_real_T1(s_max_PS1, i0);
+      emxEnsureCapacity((emxArray__common *)s_max_PS1, i0, sizeof(double));
       nm1d2 = r1->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
         s_max_PS1->data[i0] = r1->data[r1->size[0] * i0];
@@ -862,15 +842,15 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_PS1->size[0];
       }
 
-      n = b_PP->size[0];
-      b_PP->size[0] = idx - i0;
-      emxEnsureCapacity_boolean_T(b_PP, n);
+      n = c_s_max_PS1->size[0];
+      c_s_max_PS1->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)c_s_max_PS1, n, sizeof(boolean_T));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_PP->data[idx] = (s_max_PS1->data[i0 + idx] > 10.8);
+        c_s_max_PS1->data[idx] = (s_max_PS1->data[i0 + idx] > 10.8);
       }
 
-      b_classis_PS = sum(b_PP);
+      b_classis_PS = sum(c_s_max_PS1);
       if (40 > s_max_PS1->size[0]) {
         i0 = 0;
         idx = 0;
@@ -879,15 +859,15 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_PS1->size[0];
       }
 
-      n = b_FA->size[0];
-      b_FA->size[0] = idx - i0;
-      emxEnsureCapacity_real_T1(b_FA, n);
+      n = b_s_max_PS1->size[0];
+      b_s_max_PS1->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)b_s_max_PS1, n, sizeof(double));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_FA->data[idx] = s_max_PS1->data[i0 + idx];
+        b_s_max_PS1->data[idx] = s_max_PS1->data[i0 + idx];
       }
 
-      b_strengthis_PS = mean(b_FA);
+      b_strengthis_PS = mean(b_s_max_PS1);
 
       /*     %% Check if GLT is above a threshold. */
       if (40 > s_max_UKF->size[0]) {
@@ -898,15 +878,15 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_UKF->size[0];
       }
 
-      n = b_PP->size[0];
-      b_PP->size[0] = idx - i0;
-      emxEnsureCapacity_boolean_T(b_PP, n);
+      n = c_s_max_UKF->size[0];
+      c_s_max_UKF->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)c_s_max_UKF, n, sizeof(boolean_T));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_PP->data[idx] = (s_max_UKF->data[i0 + idx] > 13.8);
+        c_s_max_UKF->data[idx] = (s_max_UKF->data[i0 + idx] > 13.8);
       }
 
-      b_classis_UKF = sum(b_PP);
+      b_classis_UKF = sum(c_s_max_UKF);
       if (40 > s_max_UKF->size[0]) {
         i0 = 0;
         idx = 0;
@@ -915,20 +895,20 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_UKF->size[0];
       }
 
-      n = b_FA->size[0];
-      b_FA->size[0] = idx - i0;
-      emxEnsureCapacity_real_T1(b_FA, n);
+      n = b_s_max_UKF->size[0];
+      b_s_max_UKF->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)b_s_max_UKF, n, sizeof(double));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_FA->data[idx] = s_max_UKF->data[i0 + idx];
+        b_s_max_UKF->data[idx] = s_max_UKF->data[i0 + idx];
       }
 
-      b_strengthis_UKF = mean(b_FA);
+      b_strengthis_UKF = mean(b_s_max_UKF);
 
       /*     %% Get QL value and static detuning value */
       i0 = y_mC->size[0];
       y_mC->size[0] = PP->size[0];
-      emxEnsureCapacity_creal_T(y_mC, i0);
+      emxEnsureCapacity((emxArray__common *)y_mC, i0, sizeof(creal_T));
       nm1d2 = PP->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         b_x = 0.0 * PP->data[i0];
@@ -940,7 +920,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           d = 0.0;
           b_x = ndbl / 180.0;
         } else {
-          d = rtNaN;
+          d = b_x / 180.0;
           b_x = ndbl / 180.0;
         }
 
@@ -951,7 +931,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       b_exp(y_mC);
       i0 = y_mC->size[0];
       y_mC->size[0] = PA->size[0];
-      emxEnsureCapacity_creal_T(y_mC, i0);
+      emxEnsureCapacity((emxArray__common *)y_mC, i0, sizeof(creal_T));
       nm1d2 = PA->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         y_mC->data[i0].re *= PA->data[i0];
@@ -959,11 +939,9 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       }
 
       /*  Complex Probe measurement */
-      /*  Complex Forward measurement */
-      /*  Reflected */
       i0 = u_mCal->size[0];
       u_mCal->size[0] = FP->size[0];
-      emxEnsureCapacity_creal_T(u_mCal, i0);
+      emxEnsureCapacity((emxArray__common *)u_mCal, i0, sizeof(creal_T));
       nm1d2 = FP->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         b_x = 0.0 * FP->data[i0];
@@ -975,7 +953,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           d = 0.0;
           b_x = ndbl / 180.0;
         } else {
-          d = rtNaN;
+          d = b_x / 180.0;
           b_x = ndbl / 180.0;
         }
 
@@ -984,9 +962,11 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       }
 
       b_exp(u_mCal);
+
+      /*  Complex Forward measurement */
       i0 = r_mCal->size[0];
       r_mCal->size[0] = RP->size[0];
-      emxEnsureCapacity_creal_T(r_mCal, i0);
+      emxEnsureCapacity((emxArray__common *)r_mCal, i0, sizeof(creal_T));
       nm1d2 = RP->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         b_x = 0.0 * RP->data[i0];
@@ -998,7 +978,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           d = 0.0;
           b_x = ndbl / 180.0;
         } else {
-          d = rtNaN;
+          d = b_x / 180.0;
           b_x = ndbl / 180.0;
         }
 
@@ -1007,9 +987,11 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       }
 
       b_exp(r_mCal);
+
+      /*  Reflected */
       i0 = c_FA->size[0];
       c_FA->size[0] = FA->size[0];
-      emxEnsureCapacity_creal_T(c_FA, i0);
+      emxEnsureCapacity((emxArray__common *)c_FA, i0, sizeof(creal_T));
       nm1d2 = FA->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         c_FA->data[i0].re = FA->data[i0] * u_mCal->data[i0].re;
@@ -1018,7 +1000,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
       i0 = b_RA->size[0];
       b_RA->size[0] = RA->size[0];
-      emxEnsureCapacity_creal_T(b_RA, i0);
+      emxEnsureCapacity((emxArray__common *)b_RA, i0, sizeof(creal_T));
       nm1d2 = RA->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         b_RA->data[i0].re = RA->data[i0] * r_mCal->data[i0].re;
@@ -1026,22 +1008,22 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       }
 
       f_calibrateData(c_FA, b_RA, cal_coeff, u_mCal, r_mCal);
-      i0 = c_FA->size[0];
-      c_FA->size[0] = Flattop->size[1];
-      emxEnsureCapacity_creal_T(c_FA, i0);
+      i0 = b_y_mC->size[0];
+      b_y_mC->size[0] = Flattop->size[1];
+      emxEnsureCapacity((emxArray__common *)b_y_mC, i0, sizeof(creal_T));
       nm1d2 = Flattop->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
-        c_FA->data[i0].re = y_mC->data[(int)Flattop->data[Flattop->size[0] * i0]
-          - 1].re - (u_mCal->data[(int)Flattop->data[Flattop->size[0] * i0] - 1]
-                     .re + r_mCal->data[(int)Flattop->data[Flattop->size[0] * i0]
-                     - 1].re);
-        c_FA->data[i0].im = y_mC->data[(int)Flattop->data[Flattop->size[0] * i0]
-          - 1].im - (u_mCal->data[(int)Flattop->data[Flattop->size[0] * i0] - 1]
-                     .im + r_mCal->data[(int)Flattop->data[Flattop->size[0] * i0]
-                     - 1].im);
+        b_y_mC->data[i0].re = y_mC->data[(int)Flattop->data[Flattop->size[0] *
+          i0] - 1].re - (u_mCal->data[(int)Flattop->data[Flattop->size[0] * i0]
+                         - 1].re + r_mCal->data[(int)Flattop->data[Flattop->
+                         size[0] * i0] - 1].re);
+        b_y_mC->data[i0].im = y_mC->data[(int)Flattop->data[Flattop->size[0] *
+          i0] - 1].im - (u_mCal->data[(int)Flattop->data[Flattop->size[0] * i0]
+                         - 1].im + r_mCal->data[(int)Flattop->data[Flattop->
+                         size[0] * i0] - 1].im);
       }
 
-      b_abs(c_FA, r2);
+      b_abs(b_y_mC, r2);
       if (mean(r2) < 0.05) {
         if (25 > Decay->size[1] - 1) {
           i0 = 0;
@@ -1051,15 +1033,15 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           idx = Decay->size[1] - 1;
         }
 
-        n = c_FA->size[0];
-        c_FA->size[0] = idx - i0;
-        emxEnsureCapacity_creal_T(c_FA, n);
+        n = d_u_mCal->size[0];
+        d_u_mCal->size[0] = idx - i0;
+        emxEnsureCapacity((emxArray__common *)d_u_mCal, n, sizeof(creal_T));
         nm1d2 = idx - i0;
         for (idx = 0; idx < nm1d2; idx++) {
-          c_FA->data[idx] = u_mCal->data[(int)Decay->data[i0 + idx] - 1];
+          d_u_mCal->data[idx] = u_mCal->data[(int)Decay->data[i0 + idx] - 1];
         }
 
-        b_abs(c_FA, r2);
+        b_abs(d_u_mCal, r2);
         if (mean(r2) < 0.8) {
           b_calib_check = 1.0;
         } else {
@@ -1087,20 +1069,20 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         n = 44;
       }
 
-      nm1d2 = b_res_PS1->size[0] * b_res_PS1->size[1];
-      b_res_PS1->size[0] = 1;
-      b_res_PS1->size[1] = idx - i0;
-      emxEnsureCapacity_real_T(b_res_PS1, nm1d2);
+      nm1d2 = c_res_PS1->size[0] * c_res_PS1->size[1];
+      c_res_PS1->size[0] = 1;
+      c_res_PS1->size[1] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)c_res_PS1, nm1d2, sizeof(double));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_res_PS1->data[b_res_PS1->size[0] * idx] = res_PS1->data[i0 + idx] -
+        c_res_PS1->data[c_res_PS1->size[0] * idx] = res_PS1->data[i0 + idx] -
           dw_trace_nom->data[n + idx];
       }
 
-      b_f_GLT(Sigma_nom_dw, b_res_PS1, r1);
+      b_f_GLT(Sigma_nom_dw, c_res_PS1, r1);
       i0 = s_max_dw->size[0];
       s_max_dw->size[0] = r1->size[1];
-      emxEnsureCapacity_real_T1(s_max_dw, i0);
+      emxEnsureCapacity((emxArray__common *)s_max_dw, i0, sizeof(double));
       nm1d2 = r1->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
         s_max_dw->data[i0] = r1->data[r1->size[0] * i0];
@@ -1114,15 +1096,15 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_dw->size[0];
       }
 
-      n = b_PP->size[0];
-      b_PP->size[0] = idx - i0;
-      emxEnsureCapacity_boolean_T(b_PP, n);
+      n = c_s_max_dw->size[0];
+      c_s_max_dw->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)c_s_max_dw, n, sizeof(boolean_T));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_PP->data[idx] = (s_max_dw->data[i0 + idx] > 10.8);
+        c_s_max_dw->data[idx] = (s_max_dw->data[i0 + idx] > 10.8);
       }
 
-      b_x = sum(b_PP);
+      b_x = sum(c_s_max_dw);
       if (40 > s_max_dw->size[0]) {
         i0 = 0;
         idx = 0;
@@ -1131,58 +1113,59 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         idx = s_max_dw->size[0];
       }
 
-      n = b_FA->size[0];
-      b_FA->size[0] = idx - i0;
-      emxEnsureCapacity_real_T1(b_FA, n);
+      n = b_s_max_dw->size[0];
+      b_s_max_dw->size[0] = idx - i0;
+      emxEnsureCapacity((emxArray__common *)b_s_max_dw, n, sizeof(double));
       nm1d2 = idx - i0;
       for (idx = 0; idx < nm1d2; idx++) {
-        b_FA->data[idx] = s_max_dw->data[i0 + idx];
+        b_s_max_dw->data[idx] = s_max_dw->data[i0 + idx];
       }
 
-      d = mean(b_FA);
+      d = mean(b_s_max_dw);
 
       /*     %% */
-      i0 = b_FA->size[0];
-      b_FA->size[0] = Flattop->size[1];
-      emxEnsureCapacity_real_T1(b_FA, i0);
+      i0 = b_res_PS1->size[0];
+      b_res_PS1->size[0] = Flattop->size[1];
+      emxEnsureCapacity((emxArray__common *)b_res_PS1, i0, sizeof(double));
       nm1d2 = Flattop->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
-        b_FA->data[i0] = res_PS1->data[(int)Flattop->data[Flattop->size[0] * i0]
-          - 1];
+        b_res_PS1->data[i0] = res_PS1->data[(int)Flattop->data[Flattop->size[0] *
+          i0] - 1];
       }
 
-      ndbl = mean(b_FA);
-      i0 = b_FA->size[0];
-      b_FA->size[0] = Flattop->size[1];
-      emxEnsureCapacity_real_T1(b_FA, i0);
+      ndbl = mean(b_res_PS1);
+      i0 = b_PA->size[0];
+      b_PA->size[0] = Flattop->size[1];
+      emxEnsureCapacity((emxArray__common *)b_PA, i0, sizeof(double));
       nm1d2 = Flattop->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
-        b_FA->data[i0] = PA->data[(int)Flattop->data[Flattop->size[0] * i0] - 1];
+        b_PA->data[i0] = PA->data[(int)Flattop->data[Flattop->size[0] * i0] - 1];
       }
 
-      cdiff = mean(b_FA);
-      i0 = c_FA->size[0];
-      c_FA->size[0] = Rise->size[1];
-      emxEnsureCapacity_creal_T(c_FA, i0);
+      cdiff = mean(b_PA);
+      i0 = c_u_mCal->size[0];
+      c_u_mCal->size[0] = Rise->size[1];
+      emxEnsureCapacity((emxArray__common *)c_u_mCal, i0, sizeof(creal_T));
       nm1d2 = Rise->size[1];
       for (i0 = 0; i0 < nm1d2; i0++) {
-        c_FA->data[i0] = u_mCal->data[(int)Rise->data[Rise->size[0] * i0] - 1];
+        c_u_mCal->data[i0] = u_mCal->data[(int)Rise->data[Rise->size[0] * i0] -
+          1];
       }
 
-      b_abs(c_FA, r2);
+      b_abs(c_u_mCal, r2);
       apnd = mean(r2);
       nm1d2 = u_mCal->size[0];
-      i0 = c_FA->size[0];
-      c_FA->size[0] = nm1d2;
-      emxEnsureCapacity_creal_T(c_FA, i0);
+      i0 = b_u_mCal->size[0];
+      b_u_mCal->size[0] = nm1d2;
+      emxEnsureCapacity((emxArray__common *)b_u_mCal, i0, sizeof(creal_T));
       for (i0 = 0; i0 < nm1d2; i0++) {
-        c_FA->data[i0] = u_mCal->data[i0];
+        b_u_mCal->data[i0] = u_mCal->data[i0];
       }
 
-      b_abs(c_FA, r2);
+      b_abs(b_u_mCal, r2);
       i0 = c_x->size[0];
       c_x->size[0] = r2->size[0];
-      emxEnsureCapacity_boolean_T(c_x, i0);
+      emxEnsureCapacity((emxArray__common *)c_x, i0, sizeof(boolean_T));
       nm1d2 = r2->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         c_x->data[i0] = (r2->data[i0] < 1.5);
@@ -1192,7 +1175,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
       idx = 0;
       i0 = ii->size[0];
       ii->size[0] = c_x->size[0];
-      emxEnsureCapacity_int32_T(ii, i0);
+      emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
       b_ii = 1;
       exitg2 = false;
       while ((!exitg2) && (b_ii <= nm1d2)) {
@@ -1213,7 +1196,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
         if (idx == 0) {
           i0 = ii->size[0];
           ii->size[0] = 0;
-          emxEnsureCapacity_int32_T(ii, i0);
+          emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
         }
       } else {
         i0 = ii->size[0];
@@ -1223,12 +1206,12 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
           ii->size[0] = idx;
         }
 
-        emxEnsureCapacity_int32_T(ii, i0);
+        emxEnsureCapacity((emxArray__common *)ii, i0, sizeof(int));
       }
 
       i0 = res_PS1->size[0];
       res_PS1->size[0] = ii->size[0];
-      emxEnsureCapacity_real_T1(res_PS1, i0);
+      emxEnsureCapacity((emxArray__common *)res_PS1, i0, sizeof(double));
       nm1d2 = ii->size[0];
       for (i0 = 0; i0 < nm1d2; i0++) {
         res_PS1->data[i0] = ii->data[i0];
@@ -1244,7 +1227,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
       i0 = r0->size[0];
       r0->size[0] = nm1d2;
-      emxEnsureCapacity_int32_T(r0, i0);
+      emxEnsureCapacity((emxArray__common *)r0, i0, sizeof(int));
       nm1d2 = 0;
       for (idx = 0; idx <= n; idx++) {
         if (res_PS1->data[idx] > (double)(unsigned int)Rise->data[0] + 3.0) {
@@ -1267,7 +1250,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   if (guard1) {
     i0 = s_max_UKF->size[0];
     s_max_UKF->size[0] = PA->size[0];
-    emxEnsureCapacity_real_T1(s_max_UKF, i0);
+    emxEnsureCapacity((emxArray__common *)s_max_UKF, i0, sizeof(double));
     nm1d2 = PA->size[0];
     for (i0 = 0; i0 < nm1d2; i0++) {
       s_max_UKF->data[i0] = rtNaN;
@@ -1284,14 +1267,14 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
     nm1d2 = idx - i0;
     i0 = s_max_dw->size[0];
     s_max_dw->size[0] = nm1d2;
-    emxEnsureCapacity_real_T1(s_max_dw, i0);
+    emxEnsureCapacity((emxArray__common *)s_max_dw, i0, sizeof(double));
     for (i0 = 0; i0 < nm1d2; i0++) {
       s_max_dw->data[i0] = rtNaN;
     }
 
     i0 = s_max_PS1->size[0];
     s_max_PS1->size[0] = r_PS1_nom->size[0];
-    emxEnsureCapacity_real_T1(s_max_PS1, i0);
+    emxEnsureCapacity((emxArray__common *)s_max_PS1, i0, sizeof(double));
     nm1d2 = r_PS1_nom->size[0];
     for (i0 = 0; i0 < nm1d2; i0++) {
       s_max_PS1->data[i0] = rtNaN;
@@ -1299,7 +1282,7 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
 
     i0 = res_PS2->size[0];
     res_PS2->size[0] = PA->size[0];
-    emxEnsureCapacity_real_T1(res_PS2, i0);
+    emxEnsureCapacity((emxArray__common *)res_PS2, i0, sizeof(double));
     nm1d2 = PA->size[0];
     for (i0 = 0; i0 < nm1d2; i0++) {
       res_PS2->data[i0] = rtNaN;
@@ -1321,10 +1304,24 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   }
 
   emxFree_real_T(&b_FA);
+  emxFree_real_T(&c_PA);
   emxFree_boolean_T(&b_PP);
-  emxFree_real_T(&b_res_PS1);
+  emxFree_real_T(&d_res_PS1);
+  emxFree_boolean_T(&c_s_max_PS1);
+  emxFree_real_T(&b_s_max_PS1);
+  emxFree_boolean_T(&c_s_max_UKF);
+  emxFree_real_T(&b_s_max_UKF);
   emxFree_creal_T(&b_RA);
   emxFree_creal_T(&c_FA);
+  emxFree_creal_T(&b_y_mC);
+  emxFree_creal_T(&d_u_mCal);
+  emxFree_real_T(&c_res_PS1);
+  emxFree_boolean_T(&c_s_max_dw);
+  emxFree_real_T(&b_s_max_dw);
+  emxFree_real_T(&b_res_PS1);
+  emxFree_real_T(&b_PA);
+  emxFree_creal_T(&c_u_mCal);
+  emxFree_creal_T(&b_u_mCal);
   emxFree_real_T(&r2);
   emxFree_real_T(&r1);
   emxFree_int32_T(&ii);
@@ -1367,8 +1364,4 @@ void f_generate_and_eval_multi_residuals(const emxArray_real_T *PA,
   *dec_hq = absb;
 }
 
-/*
- * File trailer for f_generate_and_eval_multi_residuals.c
- *
- * [EOF]
- */
+/* End of code generation (f_generate_and_eval_multi_residuals.c) */

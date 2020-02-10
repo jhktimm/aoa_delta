@@ -2,25 +2,20 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: diff.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * diff.c
+ *
+ * Code generation for function 'diff'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "diff.h"
 #include "f_generate_and_eval_multi_residuals_emxutil.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const emxArray_real_T *x
- *                emxArray_real_T *y
- * Return Type  : void
- */
 void diff(const emxArray_real_T *x, emxArray_real_T *y)
 {
   int orderForDim;
@@ -32,7 +27,7 @@ void diff(const emxArray_real_T *x, emxArray_real_T *y)
   if (x->size[0] == 0) {
     iyLead = y->size[0];
     y->size[0] = 0;
-    emxEnsureCapacity_real_T1(y, iyLead);
+    emxEnsureCapacity((emxArray__common *)y, iyLead, sizeof(double));
   } else {
     orderForDim = x->size[0] - 1;
     if (!(orderForDim < 1)) {
@@ -42,12 +37,12 @@ void diff(const emxArray_real_T *x, emxArray_real_T *y)
     if (orderForDim < 1) {
       iyLead = y->size[0];
       y->size[0] = 0;
-      emxEnsureCapacity_real_T1(y, iyLead);
+      emxEnsureCapacity((emxArray__common *)y, iyLead, sizeof(double));
     } else {
       orderForDim = x->size[0] - 1;
       iyLead = y->size[0];
       y->size[0] = orderForDim;
-      emxEnsureCapacity_real_T1(y, iyLead);
+      emxEnsureCapacity((emxArray__common *)y, iyLead, sizeof(double));
       if (!(y->size[0] == 0)) {
         orderForDim = 1;
         iyLead = 0;
@@ -66,8 +61,4 @@ void diff(const emxArray_real_T *x, emxArray_real_T *y)
   }
 }
 
-/*
- * File trailer for diff.c
- *
- * [EOF]
- */
+/* End of code generation (diff.c) */

@@ -2,10 +2,11 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: rtGetNaN.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * rtGetNaN.c
+ *
+ * Code generation for function 'f_generate_and_eval_multi_residuals'
+ *
  */
 
 /*
@@ -22,37 +23,42 @@
  */
 real_T rtGetNaN(void)
 {
+  size_t bitsPerReal = sizeof(real_T) * (NumBitsPerChar);
   real_T nan = 0.0;
-  uint16_T one = 1U;
-  enum {
-    LittleEndian,
-    BigEndian
-  } machByteOrder = (*((uint8_T *) &one) == 1U) ? LittleEndian : BigEndian;
-  switch (machByteOrder) {
-   case LittleEndian:
-    {
-      union {
-        LittleEndianIEEEDouble bitVal;
-        real_T fltVal;
-      } tmpVal;
+  if (bitsPerReal == 32U) {
+    nan = rtGetNaNF();
+  } else {
+    uint16_T one = 1U;
+    enum {
+      LittleEndian,
+      BigEndian
+    } machByteOrder = (*((uint8_T *) &one) == 1U) ? LittleEndian : BigEndian;
+    switch (machByteOrder) {
+     case LittleEndian:
+      {
+        union {
+          LittleEndianIEEEDouble bitVal;
+          real_T fltVal;
+        } tmpVal;
 
-      tmpVal.bitVal.words.wordH = 0xFFF80000U;
-      tmpVal.bitVal.words.wordL = 0x00000000U;
-      nan = tmpVal.fltVal;
-      break;
-    }
+        tmpVal.bitVal.words.wordH = 0xFFF80000U;
+        tmpVal.bitVal.words.wordL = 0x00000000U;
+        nan = tmpVal.fltVal;
+        break;
+      }
 
-   case BigEndian:
-    {
-      union {
-        BigEndianIEEEDouble bitVal;
-        real_T fltVal;
-      } tmpVal;
+     case BigEndian:
+      {
+        union {
+          BigEndianIEEEDouble bitVal;
+          real_T fltVal;
+        } tmpVal;
 
-      tmpVal.bitVal.words.wordH = 0x7FFFFFFFU;
-      tmpVal.bitVal.words.wordL = 0xFFFFFFFFU;
-      nan = tmpVal.fltVal;
-      break;
+        tmpVal.bitVal.words.wordH = 0x7FFFFFFFU;
+        tmpVal.bitVal.words.wordL = 0xFFFFFFFFU;
+        nan = tmpVal.fltVal;
+        break;
+      }
     }
   }
 
@@ -90,8 +96,4 @@ real32_T rtGetNaNF(void)
   return nanF.wordL.wordLreal;
 }
 
-/*
- * File trailer for rtGetNaN.c
- *
- * [EOF]
- */
+/* End of code generation (rtGetNaN.c) */

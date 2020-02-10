@@ -13,6 +13,9 @@
 #include <thread>
 #include <chrono>
 #include <dirent.h>
+#include <cmath>
+
+bool dummy = false;
 
 std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<char*> *rest) {
  std::map<std::string,std::string> resMap;
@@ -75,22 +78,24 @@ std::pair<std::string,std::pair<long,std::string>> parseFileName(std::string ful
 }
 
 void merge(std::string outFileName, std::vector<std::string> files) {
- std::ofstream outFile(outFileName);
- std::cout << " merge into file: "  << outFileName << std::endl;
- std::string line;
- bool first = true;
- for (auto f : files) {
-  std::ifstream inFile(f);
-  if (!first) {
-   getline(inFile,line);
+ std::cout << " merge  "<< files.size() << " fiels into file: "  << outFileName << std::endl;
+ if(!dummy) {
+  std::ofstream outFile(outFileName);
+  std::string line;
+  bool first = true;
+  for (auto f : files) {
+   std::ifstream inFile(f);
+   if (!first) {
+    getline(inFile,line);
+   }
+   while(getline(inFile, line)) {
+    outFile << line << std::endl;
+   }
+   inFile.close();
+   first = false;
   }
-  while(getline(inFile, line)) {
-   outFile << line << std::endl;
-  }
-  inFile.close();
-  first = false;
+  outFile.close();
  }
- outFile.close();
 }
 
 void bundle(std::pair<std::string,std::map<long,std::string>> cav, int fileNumber, std::string outDir, bool verbose, int numOfTHreads){
@@ -98,15 +103,18 @@ void bundle(std::pair<std::string,std::map<long,std::string>> cav, int fileNumbe
  std::string mergedFileName;
  std::vector<std::string> fileList;
  std::vector<std::thread> threads;
+ if (cav.second.size()<fileNumber) {
+  std::cout << " number of files to be merged:" << fileNumber << " set to size of list: " << cav.second.size()  << std::endl;
+  fileNumber=cav.second.size();
+ }
  for (auto p : cav.second) {
   fileList.push_back(p.second);
   if (i==1) {
    mergedFileName = outDir + p.second.substr( p.second.rfind('/') + 1 );
   }
-  if (verbose) std::cout << " file: "  << p.second << std::endl;
+  if (verbose) std::cout << "  add file: "  << p.second << std::endl;
   if (i==fileNumber) {
    threads.push_back(std::thread(merge,mergedFileName,fileList));
-//   merge(mergedFileName,fileList);
    i = 1;
    fileList.clear();
   } else {
@@ -117,6 +125,8 @@ void bundle(std::pair<std::string,std::map<long,std::string>> cav, int fileNumbe
    threads.clear();
   }
  }
+ //very last thread
+ if (!fileList.empty()) threads.push_back(std::thread(merge,mergedFileName,fileList));
  for (size_t x = 0; x < threads.size(); ++x) threads[x].join();
 }
 
@@ -128,6 +138,8 @@ int main(int argc, char *argv[])
  std::vector<std::pair<std::string,std::string>> options{
   {"-help","show this"},
   {"-verbose","show debug infos"},
+  {"-dummy","no merge"},
+  {"-uid","only find UID"},
   {"o","optimal number of cores, overrides -j"},
   {"size","number of files to merge, default 100"},
   {"j","number of threads, default 1"},
@@ -145,6 +157,10 @@ int main(int argc, char *argv[])
  bool verbose = false;
  if (args.count("--verbose")) verbose=true;
 
+ bool uid = false;
+ if (args.count("--uid")) uid=true;
+
+ if (args.count("--dummy")) dummy=true;
 
  auto sizeStr = args["-size"];
  if (sizeStr.empty()) sizeStr="100";
@@ -190,53 +206,64 @@ int main(int argc, char *argv[])
  std::map<std::string,std::map<long,std::string>> cavityMap;
 
  if (fileList.empty()) {
-   if ( inputDir.empty() && searchPattern.empty() ) {
-    std::cerr << "you have to specify -inputDir=<> and -searchPattern=<>. See --help\n";
-    return 1;
-   }
-   DIR *dir;
-   struct dirent *ent;
-   if ((dir = opendir (inputDir.c_str())) != NULL) {
-     while ((ent = readdir (dir)) != NULL) {
-       std::string checkFileName(ent->d_name);
-       if (checkFileName.find(searchPattern)!=std::string::npos) {
-//         printf ("%s\n", ent->d_name);
-         auto ret = parseFileName(inputDir+checkFileName);
-         cavityMap[ret.first][ret.second.first] = ret.second.second;
-       }
+  if ( inputDir.empty() && searchPattern.empty() ) {
+   std::cerr << "you have to specify -inputDir=<> and -searchPattern=<>. See --help\n";
+   return 1;
+  }
+  DIR *dir;
+  struct dirent *ent;
+  if ((dir = opendir (inputDir.c_str())) != NULL) {
+   while ((ent = readdir (dir)) != NULL) {
+    std::string checkFileName(ent->d_name);
+    if (checkFileName.find(searchPattern)!=std::string::npos) {
+     //         printf ("%s\n", ent->d_name);
+     auto ret = parseFileName(inputDir+checkFileName);
+     cavityMap[ret.first][ret.second.first] = ret.second.second;
+    }
 
-     }
-     closedir (dir);
-   } else {
-     /* could not open directory */
-     perror ("");
-     return EXIT_FAILURE;
    }
+   closedir (dir);
+  } else {
+   /* could not open directory */
+   perror ("");
+   return EXIT_FAILURE;
+  }
  } else {
-   for (auto file: fileList) {
-    auto ret = parseFileName(file);
-    cavityMap[ret.first][ret.second.first] = ret.second.second;
-   }
+  for (auto file: fileList) {
+   auto ret = parseFileName(file);
+   cavityMap[ret.first][ret.second.first] = ret.second.second;
+  }
  }
 
  if (optimal) {
   numThreads = static_cast<int>(std::thread::hardware_concurrency());
   std::cout << "Optimal number of threads = "
-                <<  numThreads << std::endl;
+            <<  numThreads << std::endl;
  }
- std::cout << "cavityMap.size(): " << cavityMap.size() << std::endl;
  std::vector<std::thread> threads;
  int i = 0;
  start = std::chrono::system_clock::now();
-// int numThreadsBundle = numThreads;
-// int numThreadsMain = 1;
- int numThreadsBundle = 4;
- int numThreadsMain = numThreads/numThreadsBundle;
- std::cout << "numThreadsBundle: " << numThreadsBundle << std::endl;
- std::cout << "numThreadsMain: " << numThreadsMain << std::endl;
+
+ std::cout << "Total number of unique identifier data(UID) to be merged: " << cavityMap.size() << std::endl;
+ if (cavityMap.size()==0) return 1;
+ if (uid) {
+  for (auto cav : cavityMap) {
+   std::cout << "found unique identifier(UID): " << cav.first << " with: " << cav.second.size() <<  " files" <<  std::endl;
+  }
+  return 0;
+ }
+ int numThreadsMain=numThreads;
+ int numThreadsBundle=1;
+ if (numThreads > cavityMap.size()) {
+  numThreadsBundle = std::ceil(numThreads/cavityMap.size());
+  numThreadsMain = numThreads/numThreadsBundle;
+ }
+ std::cout << "numThreadsTotal: " << numThreads << std::endl;
+ std::cout << "numThreadsBundle for files: " << numThreadsBundle << std::endl;
+ std::cout << "numThreadsMain for UID: " << numThreadsMain << std::endl;
 
  for (auto cav : cavityMap) {
-  std::cout << "found unique file description: " << cav.first << " i: " << i <<  std::endl;
+  std::cout << "found unique identifier(UID): " << cav.first << " with: " << cav.second.size() <<  " files, thread number: " << i <<  std::endl;
   threads.push_back(std::thread(bundle,cav,size,outDir, verbose, numThreadsBundle));
   if (i == numThreadsMain - 1 ) {
    for (size_t x = 0; x < threads.size(); ++x) threads[x].join();
@@ -250,7 +277,7 @@ int main(int argc, char *argv[])
  for (size_t x = 0; x < threads.size(); ++x) threads[x].join();
  end = std::chrono::system_clock::now();
  int elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>
-                              (end-start).count();
+   (end-start).count();
  std::cout << "elapsed time: " << elapsed_seconds << "s\n";
-
+ return 0;
 }

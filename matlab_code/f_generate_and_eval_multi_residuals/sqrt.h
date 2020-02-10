@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: sqrt.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * sqrt.h
+ *
+ * Code generation for function 'sqrt'
+ *
  */
 
 #ifndef SQRT_H
 #define SQRT_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -21,13 +22,8 @@
 #include "f_generate_and_eval_multi_residuals_types.h"
 
 /* Function Declarations */
-extern void b_sqrt(double *x);
-extern void c_sqrt(creal_T *x);
+extern void b_sqrt(creal_T *x);
 
 #endif
 
-/*
- * File trailer for sqrt.h
- *
- * [EOF]
- */
+/* End of code generation (sqrt.h) */

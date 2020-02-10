@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: sqrt.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * sqrt.c
+ *
+ * Code generation for function 'sqrt'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "sqrt.h"
@@ -16,21 +17,7 @@
 #include "f_generate_and_eval_multi_residuals_rtwutil.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double *x
- * Return Type  : void
- */
-void b_sqrt(double *x)
-{
-  *x = sqrt(*x);
-}
-
-/*
- * Arguments    : creal_T *x
- * Return Type  : void
- */
-void c_sqrt(creal_T *x)
+void b_sqrt(creal_T *x)
 {
   double xr;
   double xi;
@@ -104,8 +91,4 @@ void c_sqrt(creal_T *x)
   x->im = xr;
 }
 
-/*
- * File trailer for sqrt.c
- *
- * [EOF]
- */
+/* End of code generation (sqrt.c) */

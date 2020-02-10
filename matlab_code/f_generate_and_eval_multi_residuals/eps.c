@@ -2,23 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: eps.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * eps.c
+ *
+ * Code generation for function 'eps'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "eps.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double x
- * Return Type  : double
- */
 double eps(double x)
 {
   double r;
@@ -39,8 +35,4 @@ double eps(double x)
   return r;
 }
 
-/*
- * File trailer for eps.c
- *
- * [EOF]
- */
+/* End of code generation (eps.c) */
