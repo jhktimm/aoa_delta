@@ -44,30 +44,31 @@ AddressHelper TTF2Looper::getChannel(int i) {
 
 bool TTF2Looper::getData() {
  bool readerOk = ((reader_2010.get_data(NULL, &res)) == TTF2_DAQ_READER_OK);
- bool numberOfChannelsOk = false;
+// bool numberOfChannelsOk = false;
  if (readerOk) {
   data.Clean();
   data.SetRes(&res);
   numberOfChannels = reader_2010.get_number_of_channels();
-  numberOfChannelsOk = ( res.size() == (uint) numberOfChannels );
-  if (!numberOfChannelsOk) std::cerr << "Number of channels not ok. res != get" << std::endl;
+//  numberOfChannelsOk = ( res.size() == (uint) numberOfChannels );
+//  if (!numberOfChannelsOk) std::cerr << "Number of channels not ok. res != get" << std::endl;
   std::cout << "Operating event number: " << reader_2010.get_number_of_events() << std::endl;
  } else {  std::cerr << "TTF2_DAQ_READER_OK not ok or finish." << std::endl;}
- return readerOk && numberOfChannelsOk;
+ return readerOk;
+// return readerOk && numberOfChannelsOk;
 }
 
 /////////////////////////////////////////////////////////////////////////
 
 std::vector<daq_channel_entry*>  TTF2Looper::getChannelList() {
  /// check if we have to add all channels
- daq_server_request request_dummy;
- ttf2_daq_reader_2010 reader_dummy;
- reader_dummy.set_data_dir((char*) path().c_str());
+// daq_server_request request_dummy;
+// ttf2_daq_reader_2010 reader_dummy;
+ reader_2010.set_data_dir((char*) path().c_str());
 
- reader_dummy.init(&fileList, &request_dummy.chan_list);
- vector<chan_descr_2010*> vc;
+ reader_2010.init(&fileList, &request.chan_list);
+ std::vector<chan_descr_2010*> vc;
  vc.clear();
- reader_dummy.fill_chan_descr(reader_dummy.get_file_name(0), &vc);
+ reader_2010.fill_chan_descr(reader_2010.get_file_name(0), &vc);
  std::vector<daq_channel_entry*> ch_list;
  for(u_int i=0; i<vc.size(); i++) {
    chan_descr_2010* ent = vc[i];

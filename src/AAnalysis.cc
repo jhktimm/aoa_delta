@@ -44,8 +44,8 @@ void AAnalysis::init(int samp, int div)
 {
   this->samples = samp;//adresse
   this->div = div;
-  std::cout << "samples set to: " << this->samples << "\n";
-  std::cout << "div set to: " << this->div << "\n";
+//  std::cout << "samples set to: " << this->samples << "\n";
+//  std::cout << "div set to: " << this->div << "\n";
   this->init();
 }
 

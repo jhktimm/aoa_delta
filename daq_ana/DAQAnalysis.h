@@ -10,6 +10,7 @@
 struct DAQAnalysis : public AAnalysis {
     DAQAnalysis() : AAnalysis() {}
     DAQAnalysis(int samples, int div) : AAnalysis(samples, div) {}
+//    virtual ~DAQAnalysis(){}
 
 	using AAnalysis::set_data;
 	
