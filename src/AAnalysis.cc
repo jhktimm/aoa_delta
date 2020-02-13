@@ -112,6 +112,7 @@ void AAnalysis::init()
   //~ this->tmp_vrefl_phase->reserve(samp);
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void AAnalysis::getParameters(std::string jsonfilename)
 {
@@ -126,41 +127,60 @@ void AAnalysis::getParameters(std::string jsonfilename)
 
     Json::Value obj;
 
+    bool valuesEmpty = false;
+
+
     JSONCPP_STRING errs;
 //    reader.parse(jsonfile, obj);
     auto jsonOK = Json::parseFromStream(builder, jsonfile, &obj, &errs);
     if (!jsonOK) std::cout << " error parsing jason file('"<<jsonfilename<<"'):" << errs << std::endl;
     const Json::Value j_tau_m = obj["tau_m"];
+    valuesEmpty += j_tau_m.empty();
+    listOfJosonsEmpty.insert(std::make_pair(j_tau_m.));
     const Json::Value j_K_m = obj["K_m"];
+    valuesEmpty += j_K_m.empty();
+
     const Json::Value j_X0 = obj["X0"];
+    valuesEmpty += j_X0.empty();
     const Json::Value j_QL_nom = obj["QL_nom"];
+    valuesEmpty += j_QL_nom.empty();
     this->QL_nom = j_QL_nom.asDouble();
     const Json::Value j_cal_coeff_real = obj["cal_coeff_real"];
+    valuesEmpty += j_cal_coeff_real.empty();
     const Json::Value j_cal_coeff_imag = obj["cal_coeff_imag"];
+    valuesEmpty += j_cal_coeff_imag.empty();
     for (int idx0 = 0; idx0 < 4; idx0++) {
       calCoeff[idx0].re = j_cal_coeff_real[idx0].asDouble();
       calCoeff[idx0].im = j_cal_coeff_imag[idx0].asDouble();
     }
 
     const Json::Value j_Sigma_nom_PS1 = obj["Sigma_nom_PS1"];
+    valuesEmpty += j_Sigma_nom_PS1.empty();
     this->Sigma_nom_PS1 = j_Sigma_nom_PS1.asDouble();
     const Json::Value j_Sigma_nom_dw = obj["Sigma_nom_dw"];
+    valuesEmpty += j_Sigma_nom_dw.empty();
     this->Sigma_nom_dw = j_Sigma_nom_dw.asDouble();
 
-    const Json::Value j_Sigma_nom = obj["Sigma_nom"];
+    const Json::Value j_Sigma_nom = obj["Sigma_nom_UKF"];
+    valuesEmpty += j_Sigma_nom.empty();
+//    const Json::Value j_Sigma_nom = obj["Sigma_nom"];
     this->Sigma_nom[0]=j_Sigma_nom[0][0].asDouble();
     this->Sigma_nom[1]=j_Sigma_nom[0][1].asDouble();
     this->Sigma_nom[2]=j_Sigma_nom[1][0].asDouble();
     this->Sigma_nom[3]=j_Sigma_nom[1][1].asDouble();
     const Json::Value j_MeasNoiseVar = obj["MeasNoiseVar"];
+    valuesEmpty += j_MeasNoiseVar.empty();
     this->MeasNoiseVar[0]=j_MeasNoiseVar[0][0].asDouble();
     this->MeasNoiseVar[1]=j_MeasNoiseVar[0][1].asDouble();
     this->MeasNoiseVar[2]=j_MeasNoiseVar[1][0].asDouble();
     this->MeasNoiseVar[3]=j_MeasNoiseVar[1][1].asDouble();
-    const Json::Value j_r_mean_nom = obj["r_mean_nom"];
+    const Json::Value j_r_mean_nom = obj["r_mean_nom_UKF"];
+    valuesEmpty += j_r_mean_nom.empty();
+//    const Json::Value j_r_mean_nom = obj["r_mean_nom"];
     this->r_mean_nom[0]=j_r_mean_nom[0].asDouble();
     this->r_mean_nom[1]=j_r_mean_nom[1].asDouble();
     const Json::Value j_ProcessVar = obj["ProcessVar"];
+    valuesEmpty += j_ProcessVar.empty();
     for ( uint x = 0; x < 6; ++x ) {
       for ( uint y = 0; y < 6; ++y ) {
         this->ProcessVar[6*x+y]=j_ProcessVar[x][y].asDouble();
@@ -169,19 +189,26 @@ void AAnalysis::getParameters(std::string jsonfilename)
 
 
     const Json::Value j_dw_trace_nom = obj["dw_trace_nom"];
+    valuesEmpty += j_dw_trace_nom.empty();
     for (uint i = 0; i <  j_dw_trace_nom.size(); ++i) {
       this->dw_trace_nom->data[i] = j_dw_trace_nom[i].asDouble();
     }
     const Json::Value j_r_PS1_nom = obj["r_PS1_nom"];
+    valuesEmpty += j_r_PS1_nom.empty();
     for (uint i = 0; i <  j_r_PS1_nom.size(); ++i) {
       this->r_PS1_nom->data[i] = j_r_PS1_nom[i].asDouble();
     }
+
 
 
     for ( uint index = 0; index < j_tau_m.size(); ++index ) {
       this->tau_m[index] = j_tau_m[index].asDouble();
       this->K_m[index] = j_K_m[index].asDouble();
       this->X0[index] = j_X0[index].asDouble();
+
+    }
+    if (valuesEmpty) {
+      std::cout << "!!!!!     Error values not fount in:" << jsonfilename << "\n";
     }
   } else {
     std::cout << "!!!!!     Error opening file:" << jsonfilename << "\n";
