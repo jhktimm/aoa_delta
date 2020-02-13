@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <map>
+#include <utility>
 #include <thread>
 #include <sstream>
 
@@ -91,6 +93,7 @@ public:
  //inputs
  emxArray_real_T *dw_trace_nom; //new
  emxArray_real_T *r_PS1_nom; //new
+
 
  double Sigma_nom_PS1;//new
  double Sigma_nom_dw;//new

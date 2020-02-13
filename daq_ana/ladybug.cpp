@@ -29,11 +29,11 @@ std::map<std::string,std::string> arguments(int argc, char* argv[], std::vector<
  return resMap;
 }
 
-void justDoIt(ttf2_daq_getdata* data, std::string parameterDirector,std::string fileNameToSave) {
+void justDoIt(ttf2_daq_getdata* data, std::string parameterDirector,std::string fileNameToSave, std::string fullName) {
   double samples = 1820, div = 9;
   DAQAnalysis * oa = new DAQAnalysis(samples,div);
  /// set data to the
- oa->set_data(&looper.data);
+ oa->set_data(data);
  /// prepair for calculations
  oa->getAutoParameters(parameterDirector);
  /// skiping same channels
@@ -44,7 +44,7 @@ void justDoIt(ttf2_daq_getdata* data, std::string parameterDirector,std::string 
  channelsToSkip.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M4.A12.L3");//   "
  bool calculateThisChannel = true;
  for  (auto channelToSkip: channelsToSkip) {
-   if( channelToSkip.compare(channelName.fullName) == 0) calculateThisChannel = false ;
+   if( channelToSkip.compare(fullName) == 0) calculateThisChannel = false ;
  }
  /// do calculations
  if (calculateThisChannel) oa->get_res();
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
    auto channelName = looper.getChannel(i);
    std::cout << "   channel name: " << channelName.shortName << " " << std::endl;
    auto fileNameToSave = resultDirectory + channelName.shortName + '_' + prefix + ".dat" ;
-   justDoIt(&looper.data,parameterDirector,fileNameToSave);
+   justDoIt(&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
   }
  }
  std::cout << "ladybug: fino" << std::endl;
