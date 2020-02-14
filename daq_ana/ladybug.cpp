@@ -131,11 +131,11 @@ int main(int argc, char *argv[])
  int nuumberOfRunningThreads = 0;
  while(looper.getData()) {
   if(looper.numberOfChannels == looper.res.size()) {
-    std::cout << "  numberOfChannels: " << looper.numberOfChannels << " " << std::endl;
+    std::cout << "  numberOfChannels: " << looper.numberOfChannels << " names: " << std::endl;
     for (int i = 0; i < looper.numberOfChannels; i++) {
      ///this also set set this channel to the data, not only getting the name
      auto channelName = looper.getChannel(i);
-     std::cout << "   channel name: " << channelName.shortName << " " << std::endl;
+     std::cout << channelName.shortName << " ";
      auto fileNameToSave = resultDirectory + channelName.shortName + '_' + prefix + ".dat" ;
      threads.push_back(std::thread(justDoIt,oaVec[nuumberOfRunningThreads],&looper.data,parameterDirector,fileNameToSave,channelName.fullName));
 //     justDoIt(&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
@@ -149,6 +149,7 @@ int main(int argc, char *argv[])
           ++nuumberOfRunningThreads;
          }
     }
+    std::cout << std::endl;
     //catch the last threads
     for (size_t x = 0; x < threads.size(); ++x) threads[x].join();
   } else {

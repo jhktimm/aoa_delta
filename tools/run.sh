@@ -6,8 +6,8 @@ echo "Indexing data director: ${dataDirectory}"
 echo "Please wait..."
 ls ${dataDirectory} > ${runName}.index
 ((numberOfFiles=$((`cat ${runName}.index | wc -l`))))
-#((numberOfArrays=numberOfFiles/(10*100)))
-((numberOfArrays=numberOfFiles/(40*100)))
+((numberOfArrays=numberOfFiles/(10*100)))
+#((numberOfArrays=numberOfFiles/(40*100)))
 echo "Found ${numberOfFiles} files."
 echo "Number of arrays: ${numberOfArrays}."
 arrayRange=0-${numberOfArrays}
