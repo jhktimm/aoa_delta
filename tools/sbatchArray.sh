@@ -8,8 +8,8 @@
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
 export LD_PRELOAD=""
-nprocs=10
-#nprocs=40
+#nprocs=10
+nprocs=40
 #export nprocs=$((`/usr/bin/nproc`))
 source /etc/profile.d/modules.sh
 echo "SLURM_JOB_ID           $SLURM_JOB_ID"
@@ -39,6 +39,7 @@ echo real nprocs $((`/usr/bin/nproc`))
 echo number $number
 ((number=$START+($arrayRun*$nprocs)))
 echo number $number
+docker --version
 docker pull jhktimm/aoa
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
@@ -50,8 +51,8 @@ while [  $COUNTER -lt $nprocs ]; do
   done
 
   echo "#!/bin/bash" > tmp${number}
-  echo "./ladybug -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
-#  echo "./daqanalysis -j=4 -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
+#  echo "./ladybug -j=4 -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
+  echo "./daqanalysis -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
 
 #   echo "sleep 120" >> tmp${number}
 
