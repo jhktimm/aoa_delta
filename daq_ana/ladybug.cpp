@@ -122,9 +122,9 @@ int main(int argc, char *argv[])
 
  std::vector<DAQAnalysis*> oaVec;
  for (int i=0; i<numberOfCores; ++i) {
-//  DAQAnalysis oa(samples,div);
-   DAQAnalysis * oa = new DAQAnalysis(samples,div);
-   oaVec.push_back(oa);
+  DAQAnalysis oa(samples,div);
+//   DAQAnalysis * oa = new DAQAnalysis(samples,div);
+   oaVec.push_back(&oa);
  }
  /// main 'loop' over the events
  TTF2Looper looper(fileList);
@@ -140,7 +140,9 @@ int main(int argc, char *argv[])
      threads.push_back(std::thread(justDoIt,oaVec[nuumberOfRunningThreads],&looper.data,parameterDirector,fileNameToSave,channelName.fullName));
 //     justDoIt(&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
          if (nuumberOfRunningThreads == numberOfCores - 1 ) {
-          for (size_t x = 0; x < threads.size(); ++x) threads[x].join();
+          for (size_t x = 0; x < threads.size(); ++x) {
+            threads[x].join();
+          }
           threads.clear();
           nuumberOfRunningThreads=0;
          } else {
