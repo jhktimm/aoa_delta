@@ -51,7 +51,7 @@ while [  $COUNTER -lt $nprocs ]; do
   done
 
   echo "#!/bin/bash" > tmp${number}
-#  echo "./ladybug -j=4 -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
+#  echo "./ladybug -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
   echo "./daqanalysis -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
 
 #   echo "sleep 120" >> tmp${number}
@@ -76,9 +76,7 @@ while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
   sleep 60;
 #   sleep 1;
 done
-after=$(date +%s)
-echo "stop at ${before}"
-echo "elapsed time:" $((after - $before)) "seconds"
 echo running docker container: $numberOfRunningDockerContainer
-echo stop at `date`
-echo end job $SLURM_JOB_ID $SLURM_ARRAY_JOB_ID
+after=$(date +%s)
+echo "start was${before}, stop at ${after} `date`"
+echo "end job ${SLURM_JOB_ID $SLURM_ARRAY_JOB_ID}, elapsed time:" $((after - $before)) "seconds"
