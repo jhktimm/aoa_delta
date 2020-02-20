@@ -7,8 +7,14 @@
 #SBATCH --cpus-per-task 40
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
+
+containerName=ladybugContainer
+function runningApps () {
+   numberOfRunningAppication=$((`docker exec ${containerName} ps | grep $1 | wc -l`))
+   echo ${numberOfRunningAppication}
+}
+
 export LD_PRELOAD=""
-#nprocs=10
 nprocs=40
 #export nprocs=$((`/usr/bin/nproc`))
 source /etc/profile.d/modules.sh
@@ -24,8 +30,11 @@ filepath=""
 postfix=""
 source setFixedParameter.sh
 source $1
+echo "aoaDirectory=${aoaDirectory}"
 echo "dataDirectory=${dataDirectory}"
+echo "logDirectory=${logDirectory}"
 echo "parameterDirectory=${parameterDirectory}"
+echo "resultDirectory=${resultDirectory}"
 before=$(date +%s)
 echo "start at ${before}"
 COUNTER=0
@@ -39,8 +48,20 @@ echo real nprocs $((`/usr/bin/nproc`))
 echo number $number
 ((number=$START+($arrayRun*$nprocs)))
 echo number $number
+
+###starting container
 docker --version
-docker pull jhktimm/aoa
+#docker pull jhktimm/aoa
+dockerrun \
+  -w /space/aoa_delta/workdir \
+  -v ${aoaDirectory}:/space/aoa_delta \
+  -v ${resultDirectory}:/results \
+  -v ${dataDirectory}:/data \
+  -v ${logDirectory}:/logs \
+  --name ${containerName} \
+  -dit jhktimm/aoa  bash
+
+
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
   postfix="${runName}_`./getFileList -coreNumber=${COUNTER} -arrayNumber=${arrayRun} -indexFile=${runName}.index -outputFile=${number}_fileList.txt`"
@@ -51,17 +72,18 @@ while [  $COUNTER -lt $nprocs ]; do
   done
 
   echo "#!/bin/bash" > tmp${number}
-#  echo "./ladybug -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
-  echo "./daqanalysis -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
-
-#   echo "sleep 120" >> tmp${number}
-
+  echo "./ladybug -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
+#  echo "./daqanalysis -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
   cat tmp${number}
-
   chmod +x tmp${number}
   pwd
-  dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
+
+  ###execute ladybugs in container
+  dockerexec -d ${containerName} ./tmp${number}
+#  dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
   sleep 0.3
+
+  ###clean up
   rm tmp${number}
   rm ${number}_fileList.txt
   filepath=""
@@ -69,14 +91,20 @@ while [  $COUNTER -lt $nprocs ]; do
   let number=number+1
 done
 
-numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
-while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
-  numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
-  echo `date` running docker container: $numberOfRunningDockerContainer
-  sleep 60;
-#   sleep 1;
+
+###wait for all ladybugs
+#numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
+while [[ $((`runningApps ladybug`)) -ne 0 ]] ; do
+#while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
+#  numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
+#  echo `date` running docker container: $numberOfRunningDockerContainer
+  echo "`runningApps ladybug` ladybugs flying"
+  sleep 120;
 done
-echo running docker container: $numberOfRunningDockerContainer
+#echo running docker container: $numberOfRunningDockerContainer
+docker container stop ${containerName}
+docker container rm ${containerName}
 after=$(date +%s)
-echo "start was${before}, stop at ${after} `date`"
-echo "end job ${SLURM_JOB_ID $SLURM_ARRAY_JOB_ID}, elapsed time:" $((after - $before)) "seconds"
+echo "`date` : start ${before}, stop ${after} "
+echo "elapsed time: `date -u --date=@$((after - before)) +%H:%M:%S`"
+echo "end job ${SLURM_JOB_ID} ${SLURM_ARRAY_JOB_ID}"

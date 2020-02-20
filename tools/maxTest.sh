@@ -9,6 +9,12 @@
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
 
+containerName=testC
+function runningApps () {
+   numberOfRunningAppication=$((`docker exec ${containerName} ps | grep $1 | wc -l`))
+   echo ${numberOfRunningAppication}
+}
+
 export LD_PRELOAD=""
 #nprocs=10
 nprocs=40
@@ -28,32 +34,41 @@ source setFixedParameter.sh
 source $1
 echo "dataDirectory=${dataDirectory}"
 echo "parameterDirectory=${parameterDirectory}"
+echo "aoaDirectory=${aoaDirectory}"
 before=$(date +%s)
 echo "start at ${before}"
 
 
 echo "#!/bin/bash" > ${aoaDirectory}/workdir/tmp
 echo "echo Hallo from container" >> ${aoaDirectory}/workdir/tmp
+echo "ps" >> ${aoaDirectory}/workdir/tmp
+echo "sleep 18" >> ${aoaDirectory}/workdir/tmp
+echo "echo fino container > fino.txt" >> ${aoaDirectory}/workdir/tmp
 
 chmod +x ${aoaDirectory}/workdir/tmp
 
 
-#dockerrun \
-dockercluster \
-  jhktimm/aoa \
+docker run -it \
+  -d\
   -w /space/aoa_delta/workdir \
   --tmpfs /tmp \
   -v ${aoaDirectory}:/space/aoa_delta  \
-  -v ${sshfsDir}:/space/sshfsDir  \
-  -v ${softLinkTosshfs}:/space/sshfsSoftlinktDir
-#  ./tmp
+  --name ${containerName} \
+  jhktimm/aoa \
+  bash
 
-while [[ `docker container ls | grep jhktimm | wc -l` -ne 1 ]] ; do sleep 0.2 done
+docker container ls
 
-eche `docker container ls`
+docker exec -d ${containerName} ./tmp
+docker exec -d ${containerName} ./tmp
 
-dockerexec ./tmp
-
+while [[ $((`runningApps sleep`)) -ne 0 ]] ; do
+  sleep $((2*3))
+  echo "`runningApps tmp` tmp running"
+  echo "`runningApps sleep` sleep running"
+done
+docker container stop ${containerName}
+docker container rm ${containerName}
 after=$(date +%s)
-echo "start was${before}, stop at ${after} `date`"
-echo "end job ${SLURM_JOB_ID $SLURM_ARRAY_JOB_ID}, elapsed time:" $((after - $before)) "seconds"
+echo "`date` : start ${before}, stop ${after} "
+echo "elapsed time: `date -u --date=@$((after - before)) +%H:%M:%S`"
