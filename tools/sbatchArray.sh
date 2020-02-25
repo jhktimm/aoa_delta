@@ -8,11 +8,13 @@
 #SBATCH --output    job-%x-%A-%a-%j-%N.out
 #SBATCH --error     job-%x-%A-%a-%j-%N.err            # File to which STDERR will be written
 
-containerName=ladybugContainer
+containerName=docker_${SLURM_JOB_ID}
 function runningApps () {
    numberOfRunningAppication=$((`docker exec ${containerName} ps | grep $1 | wc -l`))
    echo ${numberOfRunningAppication}
 }
+#docker_4186235
+#SLURM_JOB_ID           4186235
 
 export LD_PRELOAD=""
 nprocs=40
@@ -61,6 +63,8 @@ dockerrun \
   --name ${containerName} \
   -dit jhktimm/aoa  bash
 
+docker container ls
+pwd
 
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
@@ -72,6 +76,7 @@ while [  $COUNTER -lt $nprocs ]; do
   done
 
   echo "#!/bin/bash" > tmp${number}
+  echo "pwd" >> tmp${number}
   echo "./ladybug -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
 #  echo "./daqanalysis -r=/results/ -p=${postfix} -t=${parameterDirectory} ${filepath} >> /logs/log_daq_${postfix}_Array${SLURM_ARRAY_JOB_ID}_ID${SLURM_JOB_ID}.log" >> tmp${number}
   cat tmp${number}
@@ -79,7 +84,8 @@ while [  $COUNTER -lt $nprocs ]; do
   pwd
 
   ###execute ladybugs in container
-  dockerexec -d ${containerName} ./tmp${number}
+#  dockerexec -d ${containerName} ./tmp${number}
+  docker exec -u `id -u`:`id -g` -d ${containerName} ./tmp${number}
 #  dockerrun -w /space/aoa_delta/workdir -v ${aoaDirectory}:/space/aoa_delta  -v ${resultDirectory}:/results  -v ${dataDirectory}:/data  -v ${logDirectory}:/logs  -dit jhktimm/aoa  ./tmp${number}
   sleep 0.3
 
@@ -94,6 +100,7 @@ done
 
 ###wait for all ladybugs
 #numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
+echo "`runningApps ladybug` ladybugs flying"
 while [[ $((`runningApps ladybug`)) -ne 0 ]] ; do
 #while [[ $numberOfRunningDockerContainer -ne 0 ]] ; do
 #  numberOfRunningDockerContainer=`docker container ls | grep jhktimm | wc -l`
