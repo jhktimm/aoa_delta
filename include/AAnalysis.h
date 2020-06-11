@@ -12,7 +12,7 @@
 #include <thread>
 #include <sstream>
 
-#include "../matlab_code/f_generate_and_eval_multi_residuals.h"
+#include "../matlab_code/f_generate_and_eval_multi_residuals_dwfix.h"
 //#include "../matlab_code/f_generate_and_eval_residual6.h"
 
 #include "../include/aoa_daq_datasclass.h"
@@ -93,6 +93,7 @@ public:
  //inputs
  emxArray_real_T *dw_trace_nom; //new
  emxArray_real_T *r_PS1_nom; //new
+ emxArray_real_T *dwfix; //dwfix
 
 
  double Sigma_nom_PS1;//new
@@ -101,24 +102,55 @@ public:
  creal_T calCoeff[4];
 
  double QL_nom;
- double Sigma_nom[4];
- double r_mean_nom[2];
+ double Sigma_nom_UKF[4];
+ double r_mean_nom_UKF[2];  //dwfix
  double MeasNoiseVar[4];
  double ProcessVar[36];
-
+ double alpha{1}; //dwfix 
+ 
+ double Sigma_nom_UKF_dwfix[4]; //dwfix
+ double r_mean_nom_UKF_dwfix[2]; //dwfix
  //    emxArray_creal_T *r_cmplx;
  //outputs not to be saved
- emxArray_real_T *s_max;//ukf
+ emxArray_real_T *s_max_UKF; //dwfix
+ emxArray_real_T *s_max_UKF_dwfix; //dwfix
  emxArray_real_T *s_max_dw; //new
  emxArray_real_T *s_max_PS1; //new
  emxArray_real_T *res_PS2; //new
 
- double *classis;
+ double *classis_UKF; //dwfix
+ double *classis_dwfix; //dwfix
  double *classis_ps;//new
  double *classis_dw;//new
- double *strengthis;
+ double *strengthis_UKF; //dwfix
+ double *strengthis_dwfix; //dwfix
  double *strengthis_ps;//new
  double *strengthis_dw;//new
+ 
+ double *max_UKF;//dwfix
+ double *max_dwfix;//dwfix
+ double *max_PS;//dwfix
+ double *max_dw;//dwfix
+ double *median_UKF;//dwfix
+ double *median_dwfix;//dwfix
+ double *median_PS;//dwfix
+ double *median_dw;//dwfix
+ double *mode_UKF;//dwfix
+ double *mode_dwfix;//dwfix
+ double *mode_PS;//dwfix
+ double *mode_dw;//dwfix
+ double *var_UKF;//dwfix
+ double *var_dwfix;//dwfix
+ double *var_PS;//dwfix
+ double *var_dw;//dwfix
+ double *rm_I;//dwfix
+ double *rm_Q;//dwfix
+ double *rm_I_dwfix;//dwfix
+ double *rm_Q_dwfix;//dwfix
+ double *rvar_1;//dwfix
+ double *rvar_2;//dwfix
+ double *rvar_3;//dwfix
+ 
  double *QL;
  double *dw_stat;
  double *SP_F;
@@ -129,6 +161,7 @@ public:
  double *PC;
  double *calib_check;
  double *dec_hq;
+ double *zpth;//dwfix 
 
 };
 

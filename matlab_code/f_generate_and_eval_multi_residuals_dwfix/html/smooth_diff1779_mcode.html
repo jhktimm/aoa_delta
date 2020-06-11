@@ -1,0 +1,52 @@
+<html>
+<body>
+<script src="resources/eml_report_loadable_data.js"></script>
+<pre class="code">
+<span class="srcline"><span class="lineno"><a href="227,1" id="srcline1"> 1</a></span><span class="line"><span class="keyword">function</span> <span class="var type1" id="S2T251U3">h</span>=smooth_diff(<span class="var type2" id="S3T2V3U6">n</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="227,2" id="srcline2"> 2</a></span><span class="line"><span class="comment">% A smoothed differentiation filter (digital differentiator). </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,3" id="srcline3"> 3</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,4" id="srcline4"> 4</a></span><span class="line"><span class="comment">% Such a filter has the following advantages:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,5" id="srcline5"> 5</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,6" id="srcline6"> 6</a></span><span class="line"><span class="comment">% First, the filter involves both the smoothing operation and differentation operation. </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,7" id="srcline7"> 7</a></span><span class="line"><span class="comment">% It can be regarded as a low-pass differention filter (digital differentiator). </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,8" id="srcline8"> 8</a></span><span class="line"><span class="comment">% It is well known that the common differentiation operation amplifies the high-frequency noises.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,9" id="srcline9"> 9</a></span><span class="line"><span class="comment">% Therefore, the smoothded differentiation filter would be valuable in experimental (noisy) data processing. </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,10" id="srcline10">10</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,11" id="srcline11">11</a></span><span class="line"><span class="comment">% Secondly, the filter coefficients are all convenient integers (simple units) except for an integer scaling factor,</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,12" id="srcline12">12</a></span><span class="line"><span class="comment">% as may be especially significant in some applications such as those in some single-chip microcomputers</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,13" id="srcline13">13</a></span><span class="line"><span class="comment">% or digital signal processors. </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,14" id="srcline14">14</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,15" id="srcline15">15</a></span><span class="line"><span class="comment">% Usage:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,16" id="srcline16">16</a></span><span class="line"><span class="comment">% h=smooth_diff(n)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,17" id="srcline17">17</a></span><span class="line"><span class="comment">% n: filter length (positive integer larger no less than 2)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,18" id="srcline18">18</a></span><span class="line"><span class="comment">% h: filter coefficients (anti-symmetry)</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,19" id="srcline19">19</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,20" id="srcline20">20</a></span><span class="line"><span class="comment">% Examples:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,21" id="srcline21">21</a></span><span class="line"><span class="comment">% smooth_demo</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,22" id="srcline22">22</a></span><span class="line"><span class="comment">%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,23" id="srcline23">23</a></span><span class="line"><span class="comment">% Author:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,24" id="srcline24">24</a></span><span class="line"><span class="comment">% Jianwen Luo &lt;luojw@bme.tsinghua.edu.cn, luojw@ieee.org&gt; 2004-11-02</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,25" id="srcline25">25</a></span><span class="line"><span class="comment">% Department of Biomedical Engineering, Department of Electrical Engineering</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,26" id="srcline26">26</a></span><span class="line"><span class="comment">% Tsinghua University, Beijing 100084, P. R. China  </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,27" id="srcline27">27</a></span><span class="line"><span class="comment">% </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,28" id="srcline28">28</a></span><span class="line"><span class="comment">% References:</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,29" id="srcline29">29</a></span><span class="line"><span class="comment">% Usui, S.; Amidror, I., </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,30" id="srcline30">30</a></span><span class="line"><span class="comment">% Digital Low-Pass Differentiation for Biological Signal-Processing. </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,31" id="srcline31">31</a></span><span class="line"><span class="comment">% IEEE Transactions on Biomedical Engineering 1982, 29, (10), 686-693.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,32" id="srcline32">32</a></span><span class="line"><span class="comment">% Luo, J. W.; Bai, J.; He, P.; Ying, K., </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,33" id="srcline33">33</a></span><span class="line"><span class="comment">% Axial strain calculation using a low-pass digital differentiator in ultrasound elastography. </span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,34" id="srcline34">34</a></span><span class="line"><span class="comment">% IEEE Transactions on Ultrasonics Ferroelectrics and Frequency Control 2004, 51, (9), 1119-1127.</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,35" id="srcline35">35</a></span><span class="line"><span class="keyword">if</span> <span class="var type1" id="S3T2U11">n</span>&gt;=2 &amp;&amp; floor(<span class="var type1" id="S3T2U16">n</span>)==ceil(<span class="var type1" id="S3T2U19">n</span>)</span></span>
+<span class="srcline"><span class="lineno"><a href="227,36" id="srcline36">36</a></span><span class="line">    <span class="keyword">if</span> mod(<span class="var type1" id="S3T2U25">n</span>,2)==1<span class="comment">%is odd</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,37" id="srcline37">37</a></span><span class="line">        <span class="mxinfo " id="T2:U7"><span class="var type1" id="S7T2U30">m</span>=<span class="mxinfo " id="T2:U9">fix((<span class="var type1" id="S3T2U36">n</span>-1)/2)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="227,38" id="srcline38">38</a></span><span class="line">        <span class="mxinfo " id="T251:U11"><span class="var type1" id="S2T251U41">h</span>=<span class="mxinfo " id="T251:U13"><span class="mxinfo " id="T251:U14">[-ones(1,<span class="var type1" id="S7T2U50">m</span>) 0 ones(1,<span class="var type1" id="S7T2U55">m</span>)]/<span class="var type1" id="S7T2U56">m</span></span>/(<span class="var type1" id="S7T2U59">m</span>+1)</span></span>;</span></span>
+<span class="srcline"><span class="lineno"><a href="227,39" id="srcline39">39</a></span><span class="line">    <span class="keyword">else</span><span class="comment">%is even</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,40" id="srcline40">40</a></span><span class="line">        <span class="var type0" id="S7T0U64">m</span>=fix(<span class="var type0" id="S3T0U68">n</span>/2);</span></span>
+<span class="srcline"><span class="lineno"><a href="227,41" id="srcline41">41</a></span><span class="line">        <span class="var type0" id="S2T0U72">h</span>=[-ones(1,<span class="var type0" id="S7T0U80">m</span>) ones(1,<span class="var type0" id="S7T0U84">m</span>)]/<span class="var type0" id="S7T0U86">m</span>^2;</span></span>
+<span class="srcline"><span class="lineno"><a href="227,42" id="srcline42">42</a></span><span class="line">    <span class="keyword">end</span></span></span>
+<span class="srcline"><span class="lineno"><a href="227,43" id="srcline43">43</a></span><span class="line"><span class="keyword">else</span>    </span></span>
+<span class="srcline"><span class="lineno"><a href="227,44" id="srcline44">44</a></span><span class="line">    error(<span class="string">'The input parameter (n) should be a positive integer larger no less than 2.'</span>);</span></span>
+<span class="srcline"><span class="lineno"><a href="227,45" id="srcline45">45</a></span><span class="line"><span class="keyword"><span class="keyword">end</span></span></span></span>
+</pre>
+</body>
+</html>

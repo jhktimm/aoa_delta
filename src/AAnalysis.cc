@@ -54,7 +54,8 @@ void AAnalysis::init()
 {
   
   //  emxInitArray_creal_T(&r_cmplx, 1);
-  emxInitArray_real_T(&s_max, 1);
+  emxInitArray_real_T(&s_max_UKF, 1);
+  emxInitArray_real_T(&s_max_UKF_dwfix, 1);
   emxInitArray_real_T(&s_max_dw, 1);
   emxInitArray_real_T(&s_max_PS1, 1);
   emxInitArray_real_T(&res_PS2, 1);
@@ -70,6 +71,7 @@ void AAnalysis::init()
   this->Refl_Ampl = emxCreateND_real_T(1, iv0);
   this->Refl_Phase = emxCreateND_real_T(1, iv0);
   this->dw_trace_nom = emxCreateND_real_T(1, iv0);
+  this->dwfix = emxCreateND_real_T(1, iv0);
   static int iv1[1] = { 1818 };
   this->r_PS1_nom = emxCreateND_real_T(1, iv1);
 
@@ -86,30 +88,51 @@ void AAnalysis::init()
     this->calCoeff[i].im  = 0;
     this->calCoeff[i].re  = 0;
   }
-
-  classis = new double;
-  classis_dw = new double;
-  classis_ps = new double;
-  strengthis = new double;
-  strengthis_ps = new double;
-  strengthis_dw = new double;
+  
+  classis_UKF = new double; //dwfix
+  classis_dwfix = new double; //dwfix
+  classis_ps = new double;//new
+  classis_dw = new double;//new
+  strengthis_UKF = new double; //dwfix
+  strengthis_dwfix = new double; //dwfix
+  strengthis_ps = new double;//new
+  strengthis_dw = new double;//new
+ 
+  max_UKF = new double;//dwfix
+  max_dwfix = new double;//dwfix
+  max_PS = new double;//dwfix
+  max_dw = new double;//dwfix
+  median_UKF = new double;//dwfix
+  median_dwfix = new double;//dwfix
+  median_PS = new double;//dwfix
+  median_dw = new double;//dwfix
+  mode_UKF = new double;//dwfix
+  mode_dwfix = new double;//dwfix
+  mode_PS = new double;//dwfix
+  mode_dw = new double;//dwfix
+  var_UKF = new double;//dwfix
+  var_dwfix = new double;//dwfix
+  var_PS = new double;//dwfix
+  var_dw = new double;//dwfix
+  rm_I = new double;//dwfix
+  rm_Q = new double;//dwfix
+  rm_I_dwfix = new double;//dwfix
+  rm_Q_dwfix = new double;//dwfix
+  rvar_1 = new double;//dwfix
+  rvar_2 = new double;//dwfix
+  rvar_3 = new double;//dwfix
+ 
   QL = new double;
   dw_stat = new double;
   SP_F = new double;
   SP_P = new double;
-//  strengtVar = new double;
-//  maxis = new double;
-//  minis = new double;
+// strengtVar;//old
+// maxis;//old
+// minis;//old
   PC = new double;
   calib_check = new double;
   dec_hq = new double;
-
-  //~ this->tmp_probe_ampl->reserve(samp);
-  //~ this->tmp_probe_phase->reserve(samp);
-  //~ this->tmp_vforw_ampl->reserve(samp);
-  //~ this->tmp_vforw_phase->reserve(samp);
-  //~ this->tmp_vrefl_ampl->reserve(samp);
-  //~ this->tmp_vrefl_phase->reserve(samp);
+  zpth = new double;//dwfix 
 }
 
 
@@ -169,14 +192,25 @@ void AAnalysis::getParameters(std::string jsonfilename)
     listOfJosonsEmpty.insert(std::make_pair("Sigma_nom_dw", j_Sigma_nom_dw.empty()));
     this->Sigma_nom_dw = j_Sigma_nom_dw.asDouble();
 
-    const Json::Value j_Sigma_nom = obj["Sigma_nom_UKF"];
-    valuesEmpty += j_Sigma_nom.empty();
-    listOfJosonsEmpty.insert(std::make_pair("Sigma_nom_UKF", j_Sigma_nom.empty()));
+    const Json::Value j_Sigma_nom_UKF = obj["Sigma_nom_UKF"];
+    valuesEmpty += j_Sigma_nom_UKF.empty();
+    listOfJosonsEmpty.insert(std::make_pair("Sigma_nom_UKF", j_Sigma_nom_UKF.empty()));
 //    const Json::Value j_Sigma_nom = obj["Sigma_nom"];
-    this->Sigma_nom[0]=j_Sigma_nom[0][0].asDouble();
-    this->Sigma_nom[1]=j_Sigma_nom[0][1].asDouble();
-    this->Sigma_nom[2]=j_Sigma_nom[1][0].asDouble();
-    this->Sigma_nom[3]=j_Sigma_nom[1][1].asDouble();
+    this->Sigma_nom_UKF[0]=j_Sigma_nom_UKF[0][0].asDouble();
+    this->Sigma_nom_UKF[1]=j_Sigma_nom_UKF[0][1].asDouble();
+    this->Sigma_nom_UKF[2]=j_Sigma_nom_UKF[1][0].asDouble();
+    this->Sigma_nom_UKF[3]=j_Sigma_nom_UKF[1][1].asDouble();
+    
+    const Json::Value j_Sigma_nom_UKF_dwfix = obj["Sigma_nom_UKF_dwfix"];
+    valuesEmpty += j_Sigma_nom_UKF_dwfix.empty();
+    listOfJosonsEmpty.insert(std::make_pair("Sigma_nom_UKF_dwfix", j_Sigma_nom_UKF_dwfix.empty()));
+//    const Json::Value j_Sigma_nom = obj["Sigma_nom"];
+    this->Sigma_nom_UKF_dwfix[0]=j_Sigma_nom_UKF_dwfix[0][0].asDouble();
+    this->Sigma_nom_UKF_dwfix[1]=j_Sigma_nom_UKF_dwfix[0][1].asDouble();
+    this->Sigma_nom_UKF_dwfix[2]=j_Sigma_nom_UKF_dwfix[1][0].asDouble();
+    this->Sigma_nom_UKF_dwfix[3]=j_Sigma_nom_UKF_dwfix[1][1].asDouble();
+    
+    
     const Json::Value j_MeasNoiseVar = obj["MeasNoiseVar"];
     valuesEmpty += j_MeasNoiseVar.empty();
     listOfJosonsEmpty.insert(std::make_pair("MeasNoiseVar", j_MeasNoiseVar.empty()));
@@ -184,12 +218,22 @@ void AAnalysis::getParameters(std::string jsonfilename)
     this->MeasNoiseVar[1]=j_MeasNoiseVar[0][1].asDouble();
     this->MeasNoiseVar[2]=j_MeasNoiseVar[1][0].asDouble();
     this->MeasNoiseVar[3]=j_MeasNoiseVar[1][1].asDouble();
-    const Json::Value j_r_mean_nom = obj["r_mean_nom_UKF"];
-    valuesEmpty += j_r_mean_nom.empty();
-    listOfJosonsEmpty.insert(std::make_pair("r_mean_nom_UKF", j_r_mean_nom.empty()));
+    
+    const Json::Value j_r_mean_nom_UKF = obj["r_mean_nom_UKF"];
+    valuesEmpty += j_r_mean_nom_UKF.empty();
+    listOfJosonsEmpty.insert(std::make_pair("r_mean_nom_UKF", j_r_mean_nom_UKF.empty()));
 //    const Json::Value j_r_mean_nom = obj["r_mean_nom"];
-    this->r_mean_nom[0]=j_r_mean_nom[0].asDouble();
-    this->r_mean_nom[1]=j_r_mean_nom[1].asDouble();
+    this->r_mean_nom_UKF[0]=j_r_mean_nom_UKF[0].asDouble();
+    this->r_mean_nom_UKF[1]=j_r_mean_nom_UKF[1].asDouble();
+    
+     const Json::Value j_r_mean_nom_UKF_dwfix = obj["r_mean_nom_UKF_dwfix"];
+    valuesEmpty += j_r_mean_nom_UKF_dwfix.empty();
+    listOfJosonsEmpty.insert(std::make_pair("r_mean_nom_UKF_dwfix", j_r_mean_nom_UKF_dwfix.empty()));
+//    const Json::Value j_r_mean_nom = obj["r_mean_nom"];
+    this->r_mean_nom_UKF_dwfix[0]=j_r_mean_nom_UKF_dwfix[0].asDouble();
+    this->r_mean_nom_UKF_dwfix[1]=j_r_mean_nom_UKF_dwfix[1].asDouble();
+    
+    
     const Json::Value j_ProcessVar = obj["ProcessVar"];
     valuesEmpty += j_ProcessVar.empty();
     listOfJosonsEmpty.insert(std::make_pair("ProcessVar", j_ProcessVar.empty()));
@@ -200,11 +244,11 @@ void AAnalysis::getParameters(std::string jsonfilename)
     }
 
 
-    const Json::Value j_dw_trace_nom = obj["dw_trace_nom"];
-    listOfJosonsEmpty.insert(std::make_pair("dw_trace_nom", j_dw_trace_nom.empty()));
-    valuesEmpty += j_dw_trace_nom.empty();
-    for (uint i = 0; i <  j_dw_trace_nom.size(); ++i) {
-      this->dw_trace_nom->data[i] = j_dw_trace_nom[i].asDouble();
+    const Json::Value j_dwfix = obj["dwfix_nom"];
+    listOfJosonsEmpty.insert(std::make_pair("dwfix_nom", j_dwfix.empty()));
+    valuesEmpty += j_dwfix.empty();
+    for (uint i = 0; i <  j_dwfix.size(); ++i) {
+      this->dwfix->data[i] = j_dwfix[i].asDouble();
     }
     const Json::Value j_r_PS1_nom = obj["r_PS1_nom"];
     listOfJosonsEmpty.insert(std::make_pair("r_PS1_nom", j_r_PS1_nom.empty()));
@@ -242,11 +286,11 @@ void AAnalysis::getParameters(std::string jsonfilename)
       this->tau_m[i] = t[i];
       this->K_m[i] = k[i];
       this->X0[i] = x[i];
-      this->Sigma_nom[i] = s[i];
+      this->Sigma_nom_UKF[i] = s[i];
       this->MeasNoiseVar[i] = m[i];
     }
-    this->r_mean_nom[0]=0.0027705769790225682;
-    this->r_mean_nom[1]= -1 * 0.0020281930252110526;
+    this->r_mean_nom_UKF[0]=0.0027705769790225682;
+    this->r_mean_nom_UKF[1]= -1 * 0.0020281930252110526;
     for ( uint x = 0; x < 6; ++x ) {
       for ( uint y = 0; y < 6; ++y ) {
         if (x==y) {
@@ -270,9 +314,9 @@ void AAnalysis::print_Parameters()
   std::cout << "tau: " << this->tau_m[0] << " " << this->tau_m[1]<< " " << this->tau_m[2]<< " " << this->tau_m[3]<< "\n";
   std::cout << "K_m: " << this->K_m[0]   << " " << this->K_m[1]  << " " << this->K_m[2]  << " " << this->K_m[3]  << "\n";
   std::cout << "X0: "  << this->X0[0]    << " " << this->X0[1]   << " " << this->X0[2]   << " " << this->X0[3]   << "\n";
-  std::cout << "r_mean_nom: "  << this->r_mean_nom[0]    << " " << this->r_mean_nom[1] << "\n";
+  std::cout << "r_mean_nom_UKF: "  << this->r_mean_nom_UKF[0]    << " " << this->r_mean_nom_UKF[1] << "\n";
   for ( uint i = 0; i < 4; ++i ) {
-    std::cout << " Sigma_nom[" << i << "]: " << Sigma_nom[i] << "\n";
+    std::cout << " Sigma_nom_UKF[" << i << "]: " << Sigma_nom_UKF[i] << "\n";
     std::cout << " MeasNoiseVar[" << i << "]: " << MeasNoiseVar[i] << "\n";
   }
   std::cout << "ProcessVar: ";
@@ -389,7 +433,7 @@ void AAnalysis::get_res()
     std::cout << "FLAG! cavity "<< this->NAME <<" at pid " << this->PID << " could be off.";
   } else {
     this->FLAG=false;
-    f_generate_and_eval_multi_residuals(
+    f_generate_and_eval_multi_residuals_dwfix(
 //          f_generate_and_eval_residual(
           this->Probe_Ampl,
           this->Probe_Phase,
@@ -400,31 +444,61 @@ void AAnalysis::get_res()
           this->FS,
           this->F0,
           this->calCoeff,
+          this->dwfix,
           this->tau_m,
           this->K_m,
           this->X0,
           this->QL_nom,
-          this->dw_trace_nom, //new
+          //this->dw_trace_nom, //new
           this->DELAY,
           this->FILLING,
           this->FLATTOP,
-          this->Sigma_nom,
-          this->r_mean_nom,
+          this->Sigma_nom_UKF,
+          this->Sigma_nom_UKF_dwfix,
+          this->r_mean_nom_UKF_dwfix,
+          this->r_mean_nom_UKF,
           this->MeasNoiseVar,
-          this->ProcessVar,
+          this->ProcessVar, 
+          this->alpha,
           this->Sigma_nom_dw,
           this->r_PS1_nom,
           this->Sigma_nom_PS1,
-          this->s_max,
+          this->s_max_UKF,
+          this->s_max_UKF_dwfix,
           this->s_max_dw,
           this->s_max_PS1,
           this->res_PS2,
-          this->classis,
+          this->classis_UKF,
+          this->classis_dwfix,
           this->classis_ps,
           this->classis_dw,
-          this->strengthis,
+          this->strengthis_UKF,
+          this->strengthis_dwfix,
           this->strengthis_ps,
           this->strengthis_dw,
+          this->max_UKF,
+          this->max_dwfix,
+          this->max_PS,
+          this->max_dw,
+          this->median_UKF,
+          this->median_dwfix,
+          this->median_PS,
+          this->median_dw,
+          this->mode_UKF,
+          this->mode_dwfix,
+          this->mode_PS,
+          this->mode_dw,
+          this->var_UKF,
+          this->var_dwfix,
+          this->var_PS,
+          this->var_dw,
+          this->rm_I,
+          this->rm_Q,
+          this->rm_I_dwfix,
+          this->rm_Q_dwfix,
+          this->rvar_1,
+          this->rvar_2,
+          this->rvar_3,
 //          this->strengtVar,//old
 //          this->maxis,//old
 //          this->minis,//old
@@ -434,7 +508,8 @@ void AAnalysis::get_res()
           this->SP_P,
           this->PC,
           this->calib_check,
-          this->dec_hq
+          this->dec_hq,
+          this->zpth
           );
   }
   
@@ -477,9 +552,9 @@ void AAnalysis::print_res()
             << "\n";
 
   std::cout << "\n";
-  std::cout << " smax[" << s_max->size[0U] << "]: ";
-  for (int idx0 = 0; idx0 < s_max->size[0U]; idx0++) {
-    std::cout << s_max->data[idx0] << " ";
+  std::cout << " smax[" << s_max_UKF->size[0U] << "]: ";
+  for (int idx0 = 0; idx0 < s_max_UKF->size[0U]; idx0++) {
+    std::cout << s_max_UKF->data[idx0] << " ";
   }
   std::cout << "\n";
 }
@@ -586,25 +661,48 @@ void AAnalysis::write_res_dat(std::string filename)
         << "NAME"  << " "
         << "TIME"  << " "
         << "FLAG"  << " "
-        << "classis"  << " "
-        << "classis_ps"  << " "
-        << "classis_dw"  << " "
-        << "strengthis"  << " "
-        << "strengthis_ps"  << " "
-        << "strengthis_dw"  << " "
-//        << "strengtVar"  << " "
-//        << "maxis"  << " "
-//        << "minis"  << " "
-        << "QL"  << " "
-        << "dw_stat"  << " "
-        << "SP_F"  << " "
-        << "SP_P"  << " "
-        << "PC"  << " "
-        << "calib_check"  << " "
-        << "dec_hq"  << " "
-           //		<< "r_cmplx.re[]"  << " "
-           //		<< "r_cmplx.im[]"  << " "
-           //		<< "smax[]"  << " "
+        << "classis_UKF"                  << " "
+        << "classis_dwfix"                   << " "
+        << "classis_ps"                   << " "
+        << "classis_dw"                   << " "
+        << "strengthis_UKF"                   << " "
+        << "strengthis_dwfix"                   << " "
+        << "strengthis_ps"                   << " "
+        << "strengthis_dw"                   << " "
+        << "max_UKF"                   << " "
+        << "max_dwfix"                   << " "
+        << "max_PS"                   << " "
+        << "max_dw"                   << " "
+        << "median_UKF"                   << " "
+        << "median_dwfix"                   << " "
+        << "median_PS"                   << " "
+        << "median_dw"                   << " "
+        << "mode_UKF"                   << " "
+        << "mode_dwfix"                   << " "
+        << "mode_PS"                   << " "
+        << "mode_dw"                   << " "
+        << "var_UKF"                   << " "
+        << "var_dwfix"                   << " "
+        << "var_PS"                   << " "
+        << "var_dw"                   << " "
+        << "rm_I"                   << " "
+        << "rm_Q"                   << " "
+        << "rm_I_dwfix"                   << " "
+        << "rm_Q_dwfix"                   << " "
+        << "rvar_1"                   << " "
+        << "rvar_2"                   << " "
+        << "rvar_3"                   << " "
+//          this->strengtVar,//old
+//          this->maxis,//old
+//          this->minis,//old
+        << "QL"                   << " "
+          << "dw_stat"                   << " "
+          << "SP_F"                   << " "
+          << "SP_P"                   << " "
+          << "PC"                   << " "
+          << "calib_check"                   << " "
+          << "dec_hq"                   << " "
+          << "zpth"                     << " " 
         << std::endl;
   }
 
@@ -613,25 +711,53 @@ void AAnalysis::write_res_dat(std::string filename)
            << this->NAME                       << " "
            << this->TIME                       << " "
            << this->FLAG                       << " "
+//##############################################################
+          << *this->classis_UKF                   << " "
+          << *this->classis_dwfix                   << " "
+          << *this->classis_ps                   << " "
+          << *this->classis_dw                   << " "
+          << *this->strengthis_UKF                   << " "
+          << *this->strengthis_dwfix                   << " "
+          << *this->strengthis_ps                   << " "
+          << *this->strengthis_dw                   << " "
+          << *this->max_UKF                   << " "
+          << *this->max_dwfix                   << " "
+          << *this->max_PS                   << " "
+          << *this->max_dw                   << " "
+          << *this->median_UKF                   << " "
+          << *this->median_dwfix                   << " "
+          << *this->median_PS                   << " "
+          << *this->median_dw                   << " "
+          << *this->mode_UKF                   << " "
+          << *this->mode_dwfix                   << " "
+          << *this->mode_PS                   << " "
+          << *this->mode_dw                   << " "
+          << *this->var_UKF                   << " "
+          << *this->var_dwfix                   << " "
+          << *this->var_PS                   << " "
+          << *this->var_dw                   << " "
+          << *this->rm_I                   << " "
+          << *this->rm_Q                   << " "
+          << *this->rm_I_dwfix                   << " "
+          << *this->rm_Q_dwfix                   << " "
+          << *this->rvar_1                   << " "
+          << *this->rvar_2                   << " "
+          << *this->rvar_3                   << " "
+//          this->strengtVar,//old
+//          this->maxis,//old
+//          this->minis,//old
+          << *this->QL                   << " "
+          << *this->dw_stat                   << " "
+          << *this->SP_F                   << " "
+          << *this->SP_P                   << " "
+          << *this->PC                   << " "
+          << *this->calib_check                   << " "
+          << *this->dec_hq                   << " "
+          << *this->zpth                     << " " 
+             ;
+              
 
-           << *this->classis                   << " "
-           << *this->classis_ps                   << " "
-           << *this->classis_dw                   << " "
-           << *this->strengthis                << " "
-           << *this->strengthis_ps                << " "
-           << *this->strengthis_dw                << " "
-
-//           << *this->strengtVar                << " "
-//           << *this->maxis                << " "
-//           << *this->minis                << " "
-           << *this->QL                        << " "
-           << *this->dw_stat                    << " "
-           << *this->SP_F                    << " "
-           << *this->SP_P                    << " "
-           << *this->PC                    << " "
-           << *this->calib_check               << " "
-           << *this->dec_hq               << " "
-              ;
+                           
   // << "[ ";
   //    for (int idx0 = 0; idx0 < r_cmplx->size[0U]; idx0++) {
   //      file_out << r_cmplx->data[idx0].re << " ";
