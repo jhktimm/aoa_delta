@@ -14,6 +14,7 @@
 #include <chrono>
 #include <dirent.h>
 #include <cmath>
+#include <stdexcept>
 
 bool dummy = false;
 
@@ -80,7 +81,14 @@ std::pair<std::string,std::pair<long,std::string>> parseFileName(std::string ful
 void merge(std::string outFileName, std::vector<std::string> files) {
  std::cout << " merge  "<< files.size() << " fiels into file: "  << outFileName << std::endl;
  if(!dummy) {
-  std::ofstream outFile(outFileName);
+  std::ofstream outFile;
+  outFile.exceptions ( std::ifstream::failbit | std::ifstream::badbit );
+  try {
+   outFile.open(outFileName);
+  } catch (const std::exception& e) {
+   std::cerr << "Exception open file for writing: " << outFileName << std::endl;
+   throw std::runtime_error(e.what());
+  }
   std::string line;
   bool first = true;
   for (auto f : files) {
