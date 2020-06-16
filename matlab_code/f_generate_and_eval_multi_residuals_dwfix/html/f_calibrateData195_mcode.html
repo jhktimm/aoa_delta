@@ -26,9 +26,9 @@
 <span class="srcline"><span class="lineno"><a href="57,22" id="srcline22">22</a></span><span class="line"><span class="keyword">end</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,23" id="srcline23">23</a></span><span class="line"><span class="comment">% ------------Plot Before and After Calibration-----------------------------</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,24" id="srcline24">24</a></span><span class="line"><span class="comment">% if plt == 1</span></span></span>
-<span class="srcline"><span class="lineno"><a href="57,25" id="srcline25">25</a></span><span class="line"><span class="comment">% % %%</span></span></span>
+<span class="srcline"><span class="lineno"><a href="57,25" id="srcline25">25</a></span><span class="line"><span class="comment">%%</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,26" id="srcline26">26</a></span><span class="line"><span class="comment">% figsize = f_fig_sizes();</span></span></span>
-<span class="srcline"><span class="lineno"><a href="57,27" id="srcline27">27</a></span><span class="line"><span class="comment">% figure('Renderer', 'painters', 'Position', [2000 100 figsize.wLong figsize.hBig], 'Name', 'Calibration Basic Plot')</span></span></span>
+<span class="srcline"><span class="lineno"><a href="57,27" id="srcline27">27</a></span><span class="line"><span class="comment">% figure('Renderer', 'painters', 'Position', [1500 100 2*figsize.wLong 2*figsize.hBig], 'Name', 'Calibration Basic Plot')</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,28" id="srcline28">28</a></span><span class="line"><span class="comment">% subplot(2,1,1); set(gca, 'ColorOrder',  cbrewer('qual', 'Set1', 5))</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,29" id="srcline29">29</a></span><span class="line"><span class="comment">% hold on</span></span></span>
 <span class="srcline"><span class="lineno"><a href="57,30" id="srcline30">30</a></span><span class="line"><span class="comment">% plot(abs(Forw(:,1)))</span></span></span>

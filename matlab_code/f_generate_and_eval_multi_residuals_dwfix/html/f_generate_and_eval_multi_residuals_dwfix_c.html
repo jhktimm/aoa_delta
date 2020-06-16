@@ -17,7 +17,7 @@
 <a name="5"><font color="#888888 "><i>    5   </i></font></a><font color="#117755"><I> * File: f_generate_and_eval_multi_residuals_dwfix.c</i></font>
 <a name="6"><font color="#888888 "><i>    6   </i></font></a><font color="#117755"><I> *</i></font>
 <a name="7"><font color="#888888 "><i>    7   </i></font></a><font color="#117755"><I> * MATLAB Coder version            : 3.3</i></font>
-<a name="8"><font color="#888888 "><i>    8   </i></font></a><font color="#117755"><I> * C/C++ source code generated on  : 11-Jun-2020 08:14:38</i></font>
+<a name="8"><font color="#888888 "><i>    8   </i></font></a><font color="#117755"><I> * C/C++ source code generated on  : 16-Jun-2020 10:46:40</i></font>
 <a name="9"><font color="#888888 "><i>    9   </i></font></a><font color="#117755"><I> */</i></font>
 <a name="10"><font color="#888888 "><i>   10   </i></font></a>
 <a name="11"><font color="#888888 "><i>   11   </i></font></a><font color="#117755"><i>/* Include Files */</i></font>
@@ -1122,7 +1122,7 @@
 <a name="1110"><font color="#888888 "><i> 1110   </i></font></a>      <b>}</b>
 <a name="1111"><font color="#888888 "><i> 1111   </i></font></a>
 <a name="1112"><font color="#888888 "><i> 1112   </i></font></a>      s++;
-<a name="1113"><font color="#888888 "><i> 1113   </i></font></a>      <font color="#112266"><b>if</b></font> (s &gt; 1820) <b>{</b>
+<a name="1113"><font color="#888888 "><i> 1113   </i></font></a>      <font color="#112266"><b>if</b></font> (s &gt; 500) <b>{</b>
 <a name="1114"><font color="#888888 "><i> 1114   </i></font></a>        exitg1 = 1;
 <a name="1115"><font color="#888888 "><i> 1115   </i></font></a>      <b>}</b>
 <a name="1116"><font color="#888888 "><i> 1116   </i></font></a>    <b>}</b>
@@ -1190,7 +1190,7 @@
 <a name="1178"><font color="#888888 "><i> 1178   </i></font></a>      c_PA-&gt;data[i0] = PA-&gt;data[(<font color="#112266"><b>int</b></font>)Flattop-&gt;data[Flattop-&gt;size[0] * i0] - 1];
 <a name="1179"><font color="#888888 "><i> 1179   </i></font></a>    <b>}</b>
 <a name="1180"><font color="#888888 "><i> 1180   </i></font></a>
-<a name="1181"><font color="#888888 "><i> 1181   </i></font></a>    <font color="#112266"><b>if</b></font> ((<a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(c_PA) &gt; 3.0) &amp;&amp; (!(s &gt; 1820))) <b>{</b>
+<a name="1181"><font color="#888888 "><i> 1181   </i></font></a>    <font color="#112266"><b>if</b></font> (<a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(c_PA) &gt; 3.0) <b>{</b>
 <a name="1182"><font color="#888888 "><i> 1182   </i></font></a>      <font color="#117755"><i>/*     %% Unscented Kalman Filter Residual Generation + GLRT Evaluation */</i></font>
 <a name="1183"><font color="#888888 "><i> 1183   </i></font></a>      <a href="f_generate_online_UKF_residual_full_c.html#fcn_c_f_generate_online_UKF_residua" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_c_f_generate_online_UKF_residua');" target="_self"><font color="#1122aa">c_f_generate_online_UKF_residua</font></a>(PA, PP, FA, FP, RA, RP, FS, cal_coeff,
 <a name="1184"><font color="#888888 "><i> 1184   </i></font></a>        tau_m, K_m, X0, QL_nom, MeasNoiseVar, ProcessVar, res_full_mean,
@@ -1464,24 +1464,24 @@
 <a name="1452"><font color="#888888 "><i> 1452   </i></font></a>
 <a name="1453"><font color="#888888 "><i> 1453   </i></font></a>      b_strengthis_PS = <a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(d_s_max_PS1);
 <a name="1454"><font color="#888888 "><i> 1454   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_PS1-&gt;size[0]) <b>{</b>
-<a name="1455"><font color="#888888 "><i> 1455   </i></font></a>        i0 = 0;
-<a name="1456"><font color="#888888 "><i> 1456   </i></font></a>        i1 = 0;
+<a name="1455"><font color="#888888 "><i> 1455   </i></font></a>        i0 = 1;
+<a name="1456"><font color="#888888 "><i> 1456   </i></font></a>        i1 = 1;
 <a name="1457"><font color="#888888 "><i> 1457   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1458"><font color="#888888 "><i> 1458   </i></font></a>        i0 = 59;
-<a name="1459"><font color="#888888 "><i> 1459   </i></font></a>        i1 = s_max_PS1-&gt;size[0];
+<a name="1458"><font color="#888888 "><i> 1458   </i></font></a>        i0 = 60;
+<a name="1459"><font color="#888888 "><i> 1459   </i></font></a>        i1 = s_max_PS1-&gt;size[0] + 1;
 <a name="1460"><font color="#888888 "><i> 1460   </i></font></a>      <b>}</b>
 <a name="1461"><font color="#888888 "><i> 1461   </i></font></a>
 <a name="1462"><font color="#888888 "><i> 1462   </i></font></a>      nm1d2 = 1;
 <a name="1463"><font color="#888888 "><i> 1463   </i></font></a>      s = i1 - i0;
-<a name="1464"><font color="#888888 "><i> 1464   </i></font></a>      c_mtmp = s_max_PS1-&gt;data[i0];
+<a name="1464"><font color="#888888 "><i> 1464   </i></font></a>      c_mtmp = s_max_PS1-&gt;data[i0 - 1];
 <a name="1465"><font color="#888888 "><i> 1465   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 &gt; 1) <b>{</b>
 <a name="1466"><font color="#888888 "><i> 1466   </i></font></a>        <font color="#112266"><b>if</b></font> (<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(c_mtmp)) <b>{</b>
 <a name="1467"><font color="#888888 "><i> 1467   </i></font></a>          idx = 2;
 <a name="1468"><font color="#888888 "><i> 1468   </i></font></a>          exitg2 = false;
 <a name="1469"><font color="#888888 "><i> 1469   </i></font></a>          <font color="#112266"><b>while</b></font> ((!exitg2) &amp;&amp; (idx &lt;= s)) <b>{</b>
 <a name="1470"><font color="#888888 "><i> 1470   </i></font></a>            nm1d2 = idx;
-<a name="1471"><font color="#888888 "><i> 1471   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_PS1-&gt;data[(i0 + idx) - 1])) <b>{</b>
-<a name="1472"><font color="#888888 "><i> 1472   </i></font></a>              c_mtmp = s_max_PS1-&gt;data[(i0 + idx) - 1];
+<a name="1471"><font color="#888888 "><i> 1471   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_PS1-&gt;data[(i0 + idx) - 2])) <b>{</b>
+<a name="1472"><font color="#888888 "><i> 1472   </i></font></a>              c_mtmp = s_max_PS1-&gt;data[(i0 + idx) - 2];
 <a name="1473"><font color="#888888 "><i> 1473   </i></font></a>              exitg2 = true;
 <a name="1474"><font color="#888888 "><i> 1474   </i></font></a>            <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
 <a name="1475"><font color="#888888 "><i> 1475   </i></font></a>              idx++;
@@ -1491,8 +1491,8 @@
 <a name="1479"><font color="#888888 "><i> 1479   </i></font></a>
 <a name="1480"><font color="#888888 "><i> 1480   </i></font></a>        <font color="#112266"><b>if</b></font> (nm1d2 &lt; i1 - i0) <b>{</b>
 <a name="1481"><font color="#888888 "><i> 1481   </i></font></a>          <font color="#112266"><b>for</b></font> (idx = nm1d2 - 1; idx + 2 &lt;= s; idx++) <b>{</b>
-<a name="1482"><font color="#888888 "><i> 1482   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_PS1-&gt;data[(i0 + idx) + 1] &gt; c_mtmp) <b>{</b>
-<a name="1483"><font color="#888888 "><i> 1483   </i></font></a>              c_mtmp = s_max_PS1-&gt;data[(i0 + idx) + 1];
+<a name="1482"><font color="#888888 "><i> 1482   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_PS1-&gt;data[i0 + idx] &gt; c_mtmp) <b>{</b>
+<a name="1483"><font color="#888888 "><i> 1483   </i></font></a>              c_mtmp = s_max_PS1-&gt;data[i0 + idx];
 <a name="1484"><font color="#888888 "><i> 1484   </i></font></a>            <b>}</b>
 <a name="1485"><font color="#888888 "><i> 1485   </i></font></a>          <b>}</b>
 <a name="1486"><font color="#888888 "><i> 1486   </i></font></a>        <b>}</b>
@@ -1516,11 +1516,11 @@
 <a name="1504"><font color="#888888 "><i> 1504   </i></font></a>
 <a name="1505"><font color="#888888 "><i> 1505   </i></font></a>      b_median_PS = <a href="median_c.html#fcn_median" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_median');" target="_self"><font color="#1122aa">median</font></a>(c_s_max_PS1);
 <a name="1506"><font color="#888888 "><i> 1506   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_PS1-&gt;size[0]) <b>{</b>
-<a name="1507"><font color="#888888 "><i> 1507   </i></font></a>        i0 = 0;
-<a name="1508"><font color="#888888 "><i> 1508   </i></font></a>        i1 = 0;
+<a name="1507"><font color="#888888 "><i> 1507   </i></font></a>        i0 = 1;
+<a name="1508"><font color="#888888 "><i> 1508   </i></font></a>        i1 = 1;
 <a name="1509"><font color="#888888 "><i> 1509   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1510"><font color="#888888 "><i> 1510   </i></font></a>        i0 = 59;
-<a name="1511"><font color="#888888 "><i> 1511   </i></font></a>        i1 = s_max_PS1-&gt;size[0];
+<a name="1510"><font color="#888888 "><i> 1510   </i></font></a>        i0 = 60;
+<a name="1511"><font color="#888888 "><i> 1511   </i></font></a>        i1 = s_max_PS1-&gt;size[0] + 1;
 <a name="1512"><font color="#888888 "><i> 1512   </i></font></a>      <b>}</b>
 <a name="1513"><font color="#888888 "><i> 1513   </i></font></a>
 <a name="1514"><font color="#888888 "><i> 1514   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 == 0) <b>{</b>
@@ -1531,7 +1531,7 @@
 <a name="1519"><font color="#888888 "><i> 1519   </i></font></a>        <a href="f_generate_and_eval_multi_residuals_dwfix_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="f_generate_and_eval_multi_residuals_dwfix_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)idxP, idx, <font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
 <a name="1520"><font color="#888888 "><i> 1520   </i></font></a>        k = i1 - i0;
 <a name="1521"><font color="#888888 "><i> 1521   </i></font></a>        <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; k; i1++) <b>{</b>
-<a name="1522"><font color="#888888 "><i> 1522   </i></font></a>          idxP-&gt;data[i1] = s_max_PS1-&gt;data[i0 + i1];
+<a name="1522"><font color="#888888 "><i> 1522   </i></font></a>          idxP-&gt;data[i1] = s_max_PS1-&gt;data[(i0 + i1) - 1];
 <a name="1523"><font color="#888888 "><i> 1523   </i></font></a>        <b>}</b>
 <a name="1524"><font color="#888888 "><i> 1524   </i></font></a>
 <a name="1525"><font color="#888888 "><i> 1525   </i></font></a>        <a href="sort1_c.html#fcn_sort" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_sort');" target="_self"><font color="#1122aa">sort</font></a>(idxP);
@@ -1612,24 +1612,24 @@
 <a name="1600"><font color="#888888 "><i> 1600   </i></font></a>
 <a name="1601"><font color="#888888 "><i> 1601   </i></font></a>      b_strengthis_UKF = <a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(d_s_max_UKF);
 <a name="1602"><font color="#888888 "><i> 1602   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_UKF-&gt;size[0]) <b>{</b>
-<a name="1603"><font color="#888888 "><i> 1603   </i></font></a>        i0 = 0;
-<a name="1604"><font color="#888888 "><i> 1604   </i></font></a>        i1 = 0;
+<a name="1603"><font color="#888888 "><i> 1603   </i></font></a>        i0 = 1;
+<a name="1604"><font color="#888888 "><i> 1604   </i></font></a>        i1 = 1;
 <a name="1605"><font color="#888888 "><i> 1605   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1606"><font color="#888888 "><i> 1606   </i></font></a>        i0 = 59;
-<a name="1607"><font color="#888888 "><i> 1607   </i></font></a>        i1 = s_max_UKF-&gt;size[0];
+<a name="1606"><font color="#888888 "><i> 1606   </i></font></a>        i0 = 60;
+<a name="1607"><font color="#888888 "><i> 1607   </i></font></a>        i1 = s_max_UKF-&gt;size[0] + 1;
 <a name="1608"><font color="#888888 "><i> 1608   </i></font></a>      <b>}</b>
 <a name="1609"><font color="#888888 "><i> 1609   </i></font></a>
 <a name="1610"><font color="#888888 "><i> 1610   </i></font></a>      nm1d2 = 1;
 <a name="1611"><font color="#888888 "><i> 1611   </i></font></a>      s = i1 - i0;
-<a name="1612"><font color="#888888 "><i> 1612   </i></font></a>      b_mtmp = s_max_UKF-&gt;data[i0];
+<a name="1612"><font color="#888888 "><i> 1612   </i></font></a>      b_mtmp = s_max_UKF-&gt;data[i0 - 1];
 <a name="1613"><font color="#888888 "><i> 1613   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 &gt; 1) <b>{</b>
 <a name="1614"><font color="#888888 "><i> 1614   </i></font></a>        <font color="#112266"><b>if</b></font> (<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(b_mtmp)) <b>{</b>
 <a name="1615"><font color="#888888 "><i> 1615   </i></font></a>          idx = 2;
 <a name="1616"><font color="#888888 "><i> 1616   </i></font></a>          exitg2 = false;
 <a name="1617"><font color="#888888 "><i> 1617   </i></font></a>          <font color="#112266"><b>while</b></font> ((!exitg2) &amp;&amp; (idx &lt;= s)) <b>{</b>
 <a name="1618"><font color="#888888 "><i> 1618   </i></font></a>            nm1d2 = idx;
-<a name="1619"><font color="#888888 "><i> 1619   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_UKF-&gt;data[(i0 + idx) - 1])) <b>{</b>
-<a name="1620"><font color="#888888 "><i> 1620   </i></font></a>              b_mtmp = s_max_UKF-&gt;data[(i0 + idx) - 1];
+<a name="1619"><font color="#888888 "><i> 1619   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_UKF-&gt;data[(i0 + idx) - 2])) <b>{</b>
+<a name="1620"><font color="#888888 "><i> 1620   </i></font></a>              b_mtmp = s_max_UKF-&gt;data[(i0 + idx) - 2];
 <a name="1621"><font color="#888888 "><i> 1621   </i></font></a>              exitg2 = true;
 <a name="1622"><font color="#888888 "><i> 1622   </i></font></a>            <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
 <a name="1623"><font color="#888888 "><i> 1623   </i></font></a>              idx++;
@@ -1639,8 +1639,8 @@
 <a name="1627"><font color="#888888 "><i> 1627   </i></font></a>
 <a name="1628"><font color="#888888 "><i> 1628   </i></font></a>        <font color="#112266"><b>if</b></font> (nm1d2 &lt; i1 - i0) <b>{</b>
 <a name="1629"><font color="#888888 "><i> 1629   </i></font></a>          <font color="#112266"><b>for</b></font> (idx = nm1d2 - 1; idx + 2 &lt;= s; idx++) <b>{</b>
-<a name="1630"><font color="#888888 "><i> 1630   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_UKF-&gt;data[(i0 + idx) + 1] &gt; b_mtmp) <b>{</b>
-<a name="1631"><font color="#888888 "><i> 1631   </i></font></a>              b_mtmp = s_max_UKF-&gt;data[(i0 + idx) + 1];
+<a name="1630"><font color="#888888 "><i> 1630   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_UKF-&gt;data[i0 + idx] &gt; b_mtmp) <b>{</b>
+<a name="1631"><font color="#888888 "><i> 1631   </i></font></a>              b_mtmp = s_max_UKF-&gt;data[i0 + idx];
 <a name="1632"><font color="#888888 "><i> 1632   </i></font></a>            <b>}</b>
 <a name="1633"><font color="#888888 "><i> 1633   </i></font></a>          <b>}</b>
 <a name="1634"><font color="#888888 "><i> 1634   </i></font></a>        <b>}</b>
@@ -1664,11 +1664,11 @@
 <a name="1652"><font color="#888888 "><i> 1652   </i></font></a>
 <a name="1653"><font color="#888888 "><i> 1653   </i></font></a>      b_median_UKF = <a href="median_c.html#fcn_median" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_median');" target="_self"><font color="#1122aa">median</font></a>(c_s_max_UKF);
 <a name="1654"><font color="#888888 "><i> 1654   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_UKF-&gt;size[0]) <b>{</b>
-<a name="1655"><font color="#888888 "><i> 1655   </i></font></a>        i0 = 0;
-<a name="1656"><font color="#888888 "><i> 1656   </i></font></a>        i1 = 0;
+<a name="1655"><font color="#888888 "><i> 1655   </i></font></a>        i0 = 1;
+<a name="1656"><font color="#888888 "><i> 1656   </i></font></a>        i1 = 1;
 <a name="1657"><font color="#888888 "><i> 1657   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1658"><font color="#888888 "><i> 1658   </i></font></a>        i0 = 59;
-<a name="1659"><font color="#888888 "><i> 1659   </i></font></a>        i1 = s_max_UKF-&gt;size[0];
+<a name="1658"><font color="#888888 "><i> 1658   </i></font></a>        i0 = 60;
+<a name="1659"><font color="#888888 "><i> 1659   </i></font></a>        i1 = s_max_UKF-&gt;size[0] + 1;
 <a name="1660"><font color="#888888 "><i> 1660   </i></font></a>      <b>}</b>
 <a name="1661"><font color="#888888 "><i> 1661   </i></font></a>
 <a name="1662"><font color="#888888 "><i> 1662   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 == 0) <b>{</b>
@@ -1679,7 +1679,7 @@
 <a name="1667"><font color="#888888 "><i> 1667   </i></font></a>        <a href="f_generate_and_eval_multi_residuals_dwfix_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="f_generate_and_eval_multi_residuals_dwfix_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)idxP, idx, <font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
 <a name="1668"><font color="#888888 "><i> 1668   </i></font></a>        k = i1 - i0;
 <a name="1669"><font color="#888888 "><i> 1669   </i></font></a>        <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; k; i1++) <b>{</b>
-<a name="1670"><font color="#888888 "><i> 1670   </i></font></a>          idxP-&gt;data[i1] = s_max_UKF-&gt;data[i0 + i1];
+<a name="1670"><font color="#888888 "><i> 1670   </i></font></a>          idxP-&gt;data[i1] = s_max_UKF-&gt;data[(i0 + i1) - 1];
 <a name="1671"><font color="#888888 "><i> 1671   </i></font></a>        <b>}</b>
 <a name="1672"><font color="#888888 "><i> 1672   </i></font></a>
 <a name="1673"><font color="#888888 "><i> 1673   </i></font></a>        <a href="sort1_c.html#fcn_sort" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_sort');" target="_self"><font color="#1122aa">sort</font></a>(idxP);
@@ -1760,24 +1760,24 @@
 <a name="1748"><font color="#888888 "><i> 1748   </i></font></a>
 <a name="1749"><font color="#888888 "><i> 1749   </i></font></a>      b_strengthis_dwfix = <a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(d_s_max_UKF_dwfix);
 <a name="1750"><font color="#888888 "><i> 1750   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_UKF_dwfix-&gt;size[0]) <b>{</b>
-<a name="1751"><font color="#888888 "><i> 1751   </i></font></a>        i0 = 0;
-<a name="1752"><font color="#888888 "><i> 1752   </i></font></a>        i1 = 0;
+<a name="1751"><font color="#888888 "><i> 1751   </i></font></a>        i0 = 1;
+<a name="1752"><font color="#888888 "><i> 1752   </i></font></a>        i1 = 1;
 <a name="1753"><font color="#888888 "><i> 1753   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1754"><font color="#888888 "><i> 1754   </i></font></a>        i0 = 59;
-<a name="1755"><font color="#888888 "><i> 1755   </i></font></a>        i1 = s_max_UKF_dwfix-&gt;size[0];
+<a name="1754"><font color="#888888 "><i> 1754   </i></font></a>        i0 = 60;
+<a name="1755"><font color="#888888 "><i> 1755   </i></font></a>        i1 = s_max_UKF_dwfix-&gt;size[0] + 1;
 <a name="1756"><font color="#888888 "><i> 1756   </i></font></a>      <b>}</b>
 <a name="1757"><font color="#888888 "><i> 1757   </i></font></a>
 <a name="1758"><font color="#888888 "><i> 1758   </i></font></a>      nm1d2 = 1;
 <a name="1759"><font color="#888888 "><i> 1759   </i></font></a>      s = i1 - i0;
-<a name="1760"><font color="#888888 "><i> 1760   </i></font></a>      e_mtmp = s_max_UKF_dwfix-&gt;data[i0];
+<a name="1760"><font color="#888888 "><i> 1760   </i></font></a>      e_mtmp = s_max_UKF_dwfix-&gt;data[i0 - 1];
 <a name="1761"><font color="#888888 "><i> 1761   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 &gt; 1) <b>{</b>
 <a name="1762"><font color="#888888 "><i> 1762   </i></font></a>        <font color="#112266"><b>if</b></font> (<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(e_mtmp)) <b>{</b>
 <a name="1763"><font color="#888888 "><i> 1763   </i></font></a>          idx = 2;
 <a name="1764"><font color="#888888 "><i> 1764   </i></font></a>          exitg2 = false;
 <a name="1765"><font color="#888888 "><i> 1765   </i></font></a>          <font color="#112266"><b>while</b></font> ((!exitg2) &amp;&amp; (idx &lt;= s)) <b>{</b>
 <a name="1766"><font color="#888888 "><i> 1766   </i></font></a>            nm1d2 = idx;
-<a name="1767"><font color="#888888 "><i> 1767   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_UKF_dwfix-&gt;data[(i0 + idx) - 1])) <b>{</b>
-<a name="1768"><font color="#888888 "><i> 1768   </i></font></a>              e_mtmp = s_max_UKF_dwfix-&gt;data[(i0 + idx) - 1];
+<a name="1767"><font color="#888888 "><i> 1767   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_UKF_dwfix-&gt;data[(i0 + idx) - 2])) <b>{</b>
+<a name="1768"><font color="#888888 "><i> 1768   </i></font></a>              e_mtmp = s_max_UKF_dwfix-&gt;data[(i0 + idx) - 2];
 <a name="1769"><font color="#888888 "><i> 1769   </i></font></a>              exitg2 = true;
 <a name="1770"><font color="#888888 "><i> 1770   </i></font></a>            <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
 <a name="1771"><font color="#888888 "><i> 1771   </i></font></a>              idx++;
@@ -1787,8 +1787,8 @@
 <a name="1775"><font color="#888888 "><i> 1775   </i></font></a>
 <a name="1776"><font color="#888888 "><i> 1776   </i></font></a>        <font color="#112266"><b>if</b></font> (nm1d2 &lt; i1 - i0) <b>{</b>
 <a name="1777"><font color="#888888 "><i> 1777   </i></font></a>          <font color="#112266"><b>for</b></font> (idx = nm1d2 - 1; idx + 2 &lt;= s; idx++) <b>{</b>
-<a name="1778"><font color="#888888 "><i> 1778   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_UKF_dwfix-&gt;data[(i0 + idx) + 1] &gt; e_mtmp) <b>{</b>
-<a name="1779"><font color="#888888 "><i> 1779   </i></font></a>              e_mtmp = s_max_UKF_dwfix-&gt;data[(i0 + idx) + 1];
+<a name="1778"><font color="#888888 "><i> 1778   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_UKF_dwfix-&gt;data[i0 + idx] &gt; e_mtmp) <b>{</b>
+<a name="1779"><font color="#888888 "><i> 1779   </i></font></a>              e_mtmp = s_max_UKF_dwfix-&gt;data[i0 + idx];
 <a name="1780"><font color="#888888 "><i> 1780   </i></font></a>            <b>}</b>
 <a name="1781"><font color="#888888 "><i> 1781   </i></font></a>          <b>}</b>
 <a name="1782"><font color="#888888 "><i> 1782   </i></font></a>        <b>}</b>
@@ -1813,11 +1813,11 @@
 <a name="1801"><font color="#888888 "><i> 1801   </i></font></a>
 <a name="1802"><font color="#888888 "><i> 1802   </i></font></a>      b_median_dwfix = <a href="median_c.html#fcn_median" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_median');" target="_self"><font color="#1122aa">median</font></a>(c_s_max_UKF_dwfix);
 <a name="1803"><font color="#888888 "><i> 1803   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_UKF_dwfix-&gt;size[0]) <b>{</b>
-<a name="1804"><font color="#888888 "><i> 1804   </i></font></a>        i0 = 0;
-<a name="1805"><font color="#888888 "><i> 1805   </i></font></a>        i1 = 0;
+<a name="1804"><font color="#888888 "><i> 1804   </i></font></a>        i0 = 1;
+<a name="1805"><font color="#888888 "><i> 1805   </i></font></a>        i1 = 1;
 <a name="1806"><font color="#888888 "><i> 1806   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="1807"><font color="#888888 "><i> 1807   </i></font></a>        i0 = 59;
-<a name="1808"><font color="#888888 "><i> 1808   </i></font></a>        i1 = s_max_UKF_dwfix-&gt;size[0];
+<a name="1807"><font color="#888888 "><i> 1807   </i></font></a>        i0 = 60;
+<a name="1808"><font color="#888888 "><i> 1808   </i></font></a>        i1 = s_max_UKF_dwfix-&gt;size[0] + 1;
 <a name="1809"><font color="#888888 "><i> 1809   </i></font></a>      <b>}</b>
 <a name="1810"><font color="#888888 "><i> 1810   </i></font></a>
 <a name="1811"><font color="#888888 "><i> 1811   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 == 0) <b>{</b>
@@ -1828,7 +1828,7 @@
 <a name="1816"><font color="#888888 "><i> 1816   </i></font></a>        <a href="f_generate_and_eval_multi_residuals_dwfix_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="f_generate_and_eval_multi_residuals_dwfix_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)idxP, idx, <font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
 <a name="1817"><font color="#888888 "><i> 1817   </i></font></a>        k = i1 - i0;
 <a name="1818"><font color="#888888 "><i> 1818   </i></font></a>        <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; k; i1++) <b>{</b>
-<a name="1819"><font color="#888888 "><i> 1819   </i></font></a>          idxP-&gt;data[i1] = s_max_UKF_dwfix-&gt;data[i0 + i1];
+<a name="1819"><font color="#888888 "><i> 1819   </i></font></a>          idxP-&gt;data[i1] = s_max_UKF_dwfix-&gt;data[(i0 + i1) - 1];
 <a name="1820"><font color="#888888 "><i> 1820   </i></font></a>        <b>}</b>
 <a name="1821"><font color="#888888 "><i> 1821   </i></font></a>
 <a name="1822"><font color="#888888 "><i> 1822   </i></font></a>        <a href="sort1_c.html#fcn_sort" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_sort');" target="_self"><font color="#1122aa">sort</font></a>(idxP);
@@ -2093,24 +2093,24 @@
 <a name="2081"><font color="#888888 "><i> 2081   </i></font></a>
 <a name="2082"><font color="#888888 "><i> 2082   </i></font></a>      b_strengthis_dw = <a href="mean_c.html#fcn_mean" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_mean');" target="_self"><font color="#1122aa">mean</font></a>(d_s_max_dw);
 <a name="2083"><font color="#888888 "><i> 2083   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_dw-&gt;size[0]) <b>{</b>
-<a name="2084"><font color="#888888 "><i> 2084   </i></font></a>        i0 = 0;
-<a name="2085"><font color="#888888 "><i> 2085   </i></font></a>        i1 = 0;
+<a name="2084"><font color="#888888 "><i> 2084   </i></font></a>        i0 = 1;
+<a name="2085"><font color="#888888 "><i> 2085   </i></font></a>        i1 = 1;
 <a name="2086"><font color="#888888 "><i> 2086   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="2087"><font color="#888888 "><i> 2087   </i></font></a>        i0 = 59;
-<a name="2088"><font color="#888888 "><i> 2088   </i></font></a>        i1 = s_max_dw-&gt;size[0];
+<a name="2087"><font color="#888888 "><i> 2087   </i></font></a>        i0 = 60;
+<a name="2088"><font color="#888888 "><i> 2088   </i></font></a>        i1 = s_max_dw-&gt;size[0] + 1;
 <a name="2089"><font color="#888888 "><i> 2089   </i></font></a>      <b>}</b>
 <a name="2090"><font color="#888888 "><i> 2090   </i></font></a>
 <a name="2091"><font color="#888888 "><i> 2091   </i></font></a>      nm1d2 = 1;
 <a name="2092"><font color="#888888 "><i> 2092   </i></font></a>      s = i1 - i0;
-<a name="2093"><font color="#888888 "><i> 2093   </i></font></a>      d_mtmp = s_max_dw-&gt;data[i0];
+<a name="2093"><font color="#888888 "><i> 2093   </i></font></a>      d_mtmp = s_max_dw-&gt;data[i0 - 1];
 <a name="2094"><font color="#888888 "><i> 2094   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 &gt; 1) <b>{</b>
 <a name="2095"><font color="#888888 "><i> 2095   </i></font></a>        <font color="#112266"><b>if</b></font> (<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(d_mtmp)) <b>{</b>
 <a name="2096"><font color="#888888 "><i> 2096   </i></font></a>          idx = 2;
 <a name="2097"><font color="#888888 "><i> 2097   </i></font></a>          exitg2 = false;
 <a name="2098"><font color="#888888 "><i> 2098   </i></font></a>          <font color="#112266"><b>while</b></font> ((!exitg2) &amp;&amp; (idx &lt;= s)) <b>{</b>
 <a name="2099"><font color="#888888 "><i> 2099   </i></font></a>            nm1d2 = idx;
-<a name="2100"><font color="#888888 "><i> 2100   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_dw-&gt;data[(i0 + idx) - 1])) <b>{</b>
-<a name="2101"><font color="#888888 "><i> 2101   </i></font></a>              d_mtmp = s_max_dw-&gt;data[(i0 + idx) - 1];
+<a name="2100"><font color="#888888 "><i> 2100   </i></font></a>            <font color="#112266"><b>if</b></font> (!<a href="rt_nonfinite_c.html#fcn_rtIsNaN" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_rtIsNaN');" target="_self"><font color="#1122aa">rtIsNaN</font></a>(s_max_dw-&gt;data[(i0 + idx) - 2])) <b>{</b>
+<a name="2101"><font color="#888888 "><i> 2101   </i></font></a>              d_mtmp = s_max_dw-&gt;data[(i0 + idx) - 2];
 <a name="2102"><font color="#888888 "><i> 2102   </i></font></a>              exitg2 = true;
 <a name="2103"><font color="#888888 "><i> 2103   </i></font></a>            <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
 <a name="2104"><font color="#888888 "><i> 2104   </i></font></a>              idx++;
@@ -2120,8 +2120,8 @@
 <a name="2108"><font color="#888888 "><i> 2108   </i></font></a>
 <a name="2109"><font color="#888888 "><i> 2109   </i></font></a>        <font color="#112266"><b>if</b></font> (nm1d2 &lt; i1 - i0) <b>{</b>
 <a name="2110"><font color="#888888 "><i> 2110   </i></font></a>          <font color="#112266"><b>for</b></font> (idx = nm1d2 - 1; idx + 2 &lt;= s; idx++) <b>{</b>
-<a name="2111"><font color="#888888 "><i> 2111   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_dw-&gt;data[(i0 + idx) + 1] &gt; d_mtmp) <b>{</b>
-<a name="2112"><font color="#888888 "><i> 2112   </i></font></a>              d_mtmp = s_max_dw-&gt;data[(i0 + idx) + 1];
+<a name="2111"><font color="#888888 "><i> 2111   </i></font></a>            <font color="#112266"><b>if</b></font> (s_max_dw-&gt;data[i0 + idx] &gt; d_mtmp) <b>{</b>
+<a name="2112"><font color="#888888 "><i> 2112   </i></font></a>              d_mtmp = s_max_dw-&gt;data[i0 + idx];
 <a name="2113"><font color="#888888 "><i> 2113   </i></font></a>            <b>}</b>
 <a name="2114"><font color="#888888 "><i> 2114   </i></font></a>          <b>}</b>
 <a name="2115"><font color="#888888 "><i> 2115   </i></font></a>        <b>}</b>
@@ -2145,11 +2145,11 @@
 <a name="2133"><font color="#888888 "><i> 2133   </i></font></a>
 <a name="2134"><font color="#888888 "><i> 2134   </i></font></a>      b_median_dw = <a href="median_c.html#fcn_median" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_median');" target="_self"><font color="#1122aa">median</font></a>(c_s_max_dw);
 <a name="2135"><font color="#888888 "><i> 2135   </i></font></a>      <font color="#112266"><b>if</b></font> (60 &gt; s_max_dw-&gt;size[0]) <b>{</b>
-<a name="2136"><font color="#888888 "><i> 2136   </i></font></a>        i0 = 0;
-<a name="2137"><font color="#888888 "><i> 2137   </i></font></a>        i1 = 0;
+<a name="2136"><font color="#888888 "><i> 2136   </i></font></a>        i0 = 1;
+<a name="2137"><font color="#888888 "><i> 2137   </i></font></a>        i1 = 1;
 <a name="2138"><font color="#888888 "><i> 2138   </i></font></a>      <b>}</b> <font color="#112266"><b>else</b></font> <b>{</b>
-<a name="2139"><font color="#888888 "><i> 2139   </i></font></a>        i0 = 59;
-<a name="2140"><font color="#888888 "><i> 2140   </i></font></a>        i1 = s_max_dw-&gt;size[0];
+<a name="2139"><font color="#888888 "><i> 2139   </i></font></a>        i0 = 60;
+<a name="2140"><font color="#888888 "><i> 2140   </i></font></a>        i1 = s_max_dw-&gt;size[0] + 1;
 <a name="2141"><font color="#888888 "><i> 2141   </i></font></a>      <b>}</b>
 <a name="2142"><font color="#888888 "><i> 2142   </i></font></a>
 <a name="2143"><font color="#888888 "><i> 2143   </i></font></a>      <font color="#112266"><b>if</b></font> (i1 - i0 == 0) <b>{</b>
@@ -2160,7 +2160,7 @@
 <a name="2148"><font color="#888888 "><i> 2148   </i></font></a>        <a href="f_generate_and_eval_multi_residuals_dwfix_emxutil_c.html#fcn_emxEnsureCapacity" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_emxEnsureCapacity');" target="_self"><font color="#1122aa">emxEnsureCapacity</font></a>((<a href="f_generate_and_eval_multi_residuals_dwfix_types_h.html#type_emxArray__common" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'type_emxArray__common');" target="_self"><font color="#1122aa">emxArray__common</font></a> *)idxP, idx, <font color="#112266"><b>sizeof</b></font>(<font color="#112266"><b>double</b></font>));
 <a name="2149"><font color="#888888 "><i> 2149   </i></font></a>        k = i1 - i0;
 <a name="2150"><font color="#888888 "><i> 2150   </i></font></a>        <font color="#112266"><b>for</b></font> (i1 = 0; i1 &lt; k; i1++) <b>{</b>
-<a name="2151"><font color="#888888 "><i> 2151   </i></font></a>          idxP-&gt;data[i1] = s_max_dw-&gt;data[i0 + i1];
+<a name="2151"><font color="#888888 "><i> 2151   </i></font></a>          idxP-&gt;data[i1] = s_max_dw-&gt;data[(i0 + i1) - 1];
 <a name="2152"><font color="#888888 "><i> 2152   </i></font></a>        <b>}</b>
 <a name="2153"><font color="#888888 "><i> 2153   </i></font></a>
 <a name="2154"><font color="#888888 "><i> 2154   </i></font></a>        <a href="sort1_c.html#fcn_sort" onclick="if (top) if (top.docHiliteMe) top.docHiliteMe(window, 'fcn_sort');" target="_self"><font color="#1122aa">sort</font></a>(idxP);

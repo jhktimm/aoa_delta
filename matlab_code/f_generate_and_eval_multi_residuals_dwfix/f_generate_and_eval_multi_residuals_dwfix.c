@@ -5,7 +5,7 @@
  * File: f_generate_and_eval_multi_residuals_dwfix.c
  *
  * MATLAB Coder version            : 3.3
- * C/C++ source code generated on  : 11-Jun-2020 08:14:38
+ * C/C++ source code generated on  : 16-Jun-2020 10:46:40
  */
 
 /* Include Files */
@@ -1110,7 +1110,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
       }
 
       s++;
-      if (s > 1820) {
+      if (s > 500) {
         exitg1 = 1;
       }
     }
@@ -1178,7 +1178,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
       c_PA->data[i0] = PA->data[(int)Flattop->data[Flattop->size[0] * i0] - 1];
     }
 
-    if ((mean(c_PA) > 3.0) && (!(s > 1820))) {
+    if (mean(c_PA) > 3.0) {
       /*     %% Unscented Kalman Filter Residual Generation + GLRT Evaluation */
       c_f_generate_online_UKF_residua(PA, PP, FA, FP, RA, RP, FS, cal_coeff,
         tau_m, K_m, X0, QL_nom, MeasNoiseVar, ProcessVar, res_full_mean,
@@ -1452,24 +1452,24 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_strengthis_PS = mean(d_s_max_PS1);
       if (60 > s_max_PS1->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_PS1->size[0];
+        i0 = 60;
+        i1 = s_max_PS1->size[0] + 1;
       }
 
       nm1d2 = 1;
       s = i1 - i0;
-      c_mtmp = s_max_PS1->data[i0];
+      c_mtmp = s_max_PS1->data[i0 - 1];
       if (i1 - i0 > 1) {
         if (rtIsNaN(c_mtmp)) {
           idx = 2;
           exitg2 = false;
           while ((!exitg2) && (idx <= s)) {
             nm1d2 = idx;
-            if (!rtIsNaN(s_max_PS1->data[(i0 + idx) - 1])) {
-              c_mtmp = s_max_PS1->data[(i0 + idx) - 1];
+            if (!rtIsNaN(s_max_PS1->data[(i0 + idx) - 2])) {
+              c_mtmp = s_max_PS1->data[(i0 + idx) - 2];
               exitg2 = true;
             } else {
               idx++;
@@ -1479,8 +1479,8 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
         if (nm1d2 < i1 - i0) {
           for (idx = nm1d2 - 1; idx + 2 <= s; idx++) {
-            if (s_max_PS1->data[(i0 + idx) + 1] > c_mtmp) {
-              c_mtmp = s_max_PS1->data[(i0 + idx) + 1];
+            if (s_max_PS1->data[i0 + idx] > c_mtmp) {
+              c_mtmp = s_max_PS1->data[i0 + idx];
             }
           }
         }
@@ -1504,11 +1504,11 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_median_PS = median(c_s_max_PS1);
       if (60 > s_max_PS1->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_PS1->size[0];
+        i0 = 60;
+        i1 = s_max_PS1->size[0] + 1;
       }
 
       if (i1 - i0 == 0) {
@@ -1519,7 +1519,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
         emxEnsureCapacity((emxArray__common *)idxP, idx, sizeof(double));
         k = i1 - i0;
         for (i1 = 0; i1 < k; i1++) {
-          idxP->data[i1] = s_max_PS1->data[i0 + i1];
+          idxP->data[i1] = s_max_PS1->data[(i0 + i1) - 1];
         }
 
         sort(idxP);
@@ -1600,24 +1600,24 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_strengthis_UKF = mean(d_s_max_UKF);
       if (60 > s_max_UKF->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_UKF->size[0];
+        i0 = 60;
+        i1 = s_max_UKF->size[0] + 1;
       }
 
       nm1d2 = 1;
       s = i1 - i0;
-      b_mtmp = s_max_UKF->data[i0];
+      b_mtmp = s_max_UKF->data[i0 - 1];
       if (i1 - i0 > 1) {
         if (rtIsNaN(b_mtmp)) {
           idx = 2;
           exitg2 = false;
           while ((!exitg2) && (idx <= s)) {
             nm1d2 = idx;
-            if (!rtIsNaN(s_max_UKF->data[(i0 + idx) - 1])) {
-              b_mtmp = s_max_UKF->data[(i0 + idx) - 1];
+            if (!rtIsNaN(s_max_UKF->data[(i0 + idx) - 2])) {
+              b_mtmp = s_max_UKF->data[(i0 + idx) - 2];
               exitg2 = true;
             } else {
               idx++;
@@ -1627,8 +1627,8 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
         if (nm1d2 < i1 - i0) {
           for (idx = nm1d2 - 1; idx + 2 <= s; idx++) {
-            if (s_max_UKF->data[(i0 + idx) + 1] > b_mtmp) {
-              b_mtmp = s_max_UKF->data[(i0 + idx) + 1];
+            if (s_max_UKF->data[i0 + idx] > b_mtmp) {
+              b_mtmp = s_max_UKF->data[i0 + idx];
             }
           }
         }
@@ -1652,11 +1652,11 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_median_UKF = median(c_s_max_UKF);
       if (60 > s_max_UKF->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_UKF->size[0];
+        i0 = 60;
+        i1 = s_max_UKF->size[0] + 1;
       }
 
       if (i1 - i0 == 0) {
@@ -1667,7 +1667,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
         emxEnsureCapacity((emxArray__common *)idxP, idx, sizeof(double));
         k = i1 - i0;
         for (i1 = 0; i1 < k; i1++) {
-          idxP->data[i1] = s_max_UKF->data[i0 + i1];
+          idxP->data[i1] = s_max_UKF->data[(i0 + i1) - 1];
         }
 
         sort(idxP);
@@ -1748,24 +1748,24 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_strengthis_dwfix = mean(d_s_max_UKF_dwfix);
       if (60 > s_max_UKF_dwfix->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_UKF_dwfix->size[0];
+        i0 = 60;
+        i1 = s_max_UKF_dwfix->size[0] + 1;
       }
 
       nm1d2 = 1;
       s = i1 - i0;
-      e_mtmp = s_max_UKF_dwfix->data[i0];
+      e_mtmp = s_max_UKF_dwfix->data[i0 - 1];
       if (i1 - i0 > 1) {
         if (rtIsNaN(e_mtmp)) {
           idx = 2;
           exitg2 = false;
           while ((!exitg2) && (idx <= s)) {
             nm1d2 = idx;
-            if (!rtIsNaN(s_max_UKF_dwfix->data[(i0 + idx) - 1])) {
-              e_mtmp = s_max_UKF_dwfix->data[(i0 + idx) - 1];
+            if (!rtIsNaN(s_max_UKF_dwfix->data[(i0 + idx) - 2])) {
+              e_mtmp = s_max_UKF_dwfix->data[(i0 + idx) - 2];
               exitg2 = true;
             } else {
               idx++;
@@ -1775,8 +1775,8 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
         if (nm1d2 < i1 - i0) {
           for (idx = nm1d2 - 1; idx + 2 <= s; idx++) {
-            if (s_max_UKF_dwfix->data[(i0 + idx) + 1] > e_mtmp) {
-              e_mtmp = s_max_UKF_dwfix->data[(i0 + idx) + 1];
+            if (s_max_UKF_dwfix->data[i0 + idx] > e_mtmp) {
+              e_mtmp = s_max_UKF_dwfix->data[i0 + idx];
             }
           }
         }
@@ -1801,11 +1801,11 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_median_dwfix = median(c_s_max_UKF_dwfix);
       if (60 > s_max_UKF_dwfix->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_UKF_dwfix->size[0];
+        i0 = 60;
+        i1 = s_max_UKF_dwfix->size[0] + 1;
       }
 
       if (i1 - i0 == 0) {
@@ -1816,7 +1816,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
         emxEnsureCapacity((emxArray__common *)idxP, idx, sizeof(double));
         k = i1 - i0;
         for (i1 = 0; i1 < k; i1++) {
-          idxP->data[i1] = s_max_UKF_dwfix->data[i0 + i1];
+          idxP->data[i1] = s_max_UKF_dwfix->data[(i0 + i1) - 1];
         }
 
         sort(idxP);
@@ -2081,24 +2081,24 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_strengthis_dw = mean(d_s_max_dw);
       if (60 > s_max_dw->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_dw->size[0];
+        i0 = 60;
+        i1 = s_max_dw->size[0] + 1;
       }
 
       nm1d2 = 1;
       s = i1 - i0;
-      d_mtmp = s_max_dw->data[i0];
+      d_mtmp = s_max_dw->data[i0 - 1];
       if (i1 - i0 > 1) {
         if (rtIsNaN(d_mtmp)) {
           idx = 2;
           exitg2 = false;
           while ((!exitg2) && (idx <= s)) {
             nm1d2 = idx;
-            if (!rtIsNaN(s_max_dw->data[(i0 + idx) - 1])) {
-              d_mtmp = s_max_dw->data[(i0 + idx) - 1];
+            if (!rtIsNaN(s_max_dw->data[(i0 + idx) - 2])) {
+              d_mtmp = s_max_dw->data[(i0 + idx) - 2];
               exitg2 = true;
             } else {
               idx++;
@@ -2108,8 +2108,8 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
         if (nm1d2 < i1 - i0) {
           for (idx = nm1d2 - 1; idx + 2 <= s; idx++) {
-            if (s_max_dw->data[(i0 + idx) + 1] > d_mtmp) {
-              d_mtmp = s_max_dw->data[(i0 + idx) + 1];
+            if (s_max_dw->data[i0 + idx] > d_mtmp) {
+              d_mtmp = s_max_dw->data[i0 + idx];
             }
           }
         }
@@ -2133,11 +2133,11 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
 
       b_median_dw = median(c_s_max_dw);
       if (60 > s_max_dw->size[0]) {
-        i0 = 0;
-        i1 = 0;
+        i0 = 1;
+        i1 = 1;
       } else {
-        i0 = 59;
-        i1 = s_max_dw->size[0];
+        i0 = 60;
+        i1 = s_max_dw->size[0] + 1;
       }
 
       if (i1 - i0 == 0) {
@@ -2148,7 +2148,7 @@ void f_generate_and_eval_multi_residuals_dwfix(const emxArray_real_T *PA,
         emxEnsureCapacity((emxArray__common *)idxP, idx, sizeof(double));
         k = i1 - i0;
         for (i1 = 0; i1 < k; i1++) {
-          idxP->data[i1] = s_max_dw->data[i0 + i1];
+          idxP->data[i1] = s_max_dw->data[(i0 + i1) - 1];
         }
 
         sort(idxP);

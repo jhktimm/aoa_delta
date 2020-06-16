@@ -5,7 +5,7 @@
  * File: f_generate_online_UKF_residual_full.c
  *
  * MATLAB Coder version            : 3.3
- * C/C++ source code generated on  : 11-Jun-2020 08:14:38
+ * C/C++ source code generated on  : 16-Jun-2020 10:46:40
  */
 
 /* Include Files */
@@ -190,6 +190,9 @@ void c_f_generate_online_UKF_residua(const emxArray_real_T *Probe_Ampl, const
   }
 
   f_calibrateData(b_Forw_Ampl, b_Refl_Ampl, cal_coeff, u_mCal, unusedU0);
+
+  /* sys_hat.tau */
+  /* sys_FIT = f_cavitySystemSimulatior(mean(y_mC,2), mean(u_mCal,2),f0, fs, sys_hat, QL, 1); */
   dv0[0] = 0.0;
   dv0[1] = 0.0;
   emxFree_creal_T(&b_Refl_Ampl);

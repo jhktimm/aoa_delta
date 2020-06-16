@@ -5,7 +5,7 @@
  * File: f_compute_parity_Res2_full.h
  *
  * MATLAB Coder version            : 3.3
- * C/C++ source code generated on  : 11-Jun-2020 08:14:38
+ * C/C++ source code generated on  : 16-Jun-2020 10:46:40
  */
 
 #ifndef F_COMPUTE_PARITY_RES2_FULL_H

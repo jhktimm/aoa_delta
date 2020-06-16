@@ -5,7 +5,7 @@
  * File: f_calibrateData.c
  *
  * MATLAB Coder version            : 3.3
- * C/C++ source code generated on  : 11-Jun-2020 08:14:38
+ * C/C++ source code generated on  : 16-Jun-2020 10:46:40
  */
 
 /* Include Files */
@@ -125,9 +125,9 @@ void f_calibrateData(const emxArray_creal_T *Forw, const emxArray_creal_T *Refl,
   /*          Refl*cof22(4); */
   /*  ------------Plot Before and After Calibration----------------------------- */
   /*  if plt == 1 */
-  /*  % %% */
+  /*  */
   /*  figsize = f_fig_sizes(); */
-  /*  figure('Renderer', 'painters', 'Position', [2000 100 figsize.wLong figsize.hBig], 'Name', 'Calibration Basic Plot') */
+  /*  figure('Renderer', 'painters', 'Position', [1500 100 2*figsize.wLong 2*figsize.hBig], 'Name', 'Calibration Basic Plot') */
   /*  subplot(2,1,1); set(gca, 'ColorOrder',  cbrewer('qual', 'Set1', 5)) */
   /*  hold on */
   /*  plot(abs(Forw(:,1))) */
