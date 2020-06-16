@@ -49,6 +49,7 @@ bool TTF2Looper::getData() {
   data.Clean();
   data.SetRes(&res);
   numberOfChannels = reader_2010.get_number_of_channels();
+  totalNumber += static_cast<unsigned long long>(numberOfChannels);
 //  numberOfChannelsOk = ( res.size() == (uint) numberOfChannels );
 //  if (!numberOfChannelsOk) std::cerr << "Number of channels not ok. res != get" << std::endl;
   std::cout << "Operating event number: " << reader_2010.get_number_of_events() << std::endl;

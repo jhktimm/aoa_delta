@@ -97,6 +97,7 @@ struct TTF2Looper {
  ttf2_daq_getdata data;
  int numberOfChannels;
 
+ unsigned long totalNumber{0};
 };
 
 #endif // TTF2LOOPER_H

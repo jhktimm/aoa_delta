@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <map>
+#include <chrono>
 
 #include "DAQAnalysis.h"
 #include "DAQMyAna.h"
@@ -44,8 +46,14 @@ void justDoIt(DAQAnalysis * oa, ttf2_daq_getdata* data, std::string parameterDir
  for  (auto channelToSkip: channelsToSkip) {
    if( channelToSkip.compare(fullChannelName) == 0) calculateThisChannel = false ;
  }
+ std::vector<std::string> channelsToSkipWithPIDCut;
+ bool calculateThisChannelWithPIDCut = true;
+ for  (auto channelToSkip: channelsToSkipWithPIDCut) {
+   if( ( channelToSkip.compare(fullChannelName) == 0) and (oa->PID > 0 ) ) calculateThisChannelWithPIDCut = false ;
+ }
+
  /// do calculations
- if (calculateThisChannel) oa->get_res();
+ if (calculateThisChannel and calculateThisChannelWithPIDCut) oa->get_res();
  /// write results
  oa->write_res_dat( fileNameToSave );
 }
@@ -92,6 +100,8 @@ int main(int argc, char *argv[])
  for ( auto file : fileList ) std::cout << " " << file;
  std::cout << std::endl;
 
+ std::chrono::time_point<std::chrono::system_clock> start, end;
+ start = std::chrono::system_clock::now();
  double samples = 1820, div = 9;
  DAQAnalysis * oa = new DAQAnalysis(samples,div);
 
@@ -107,6 +117,12 @@ int main(int argc, char *argv[])
    justDoIt(oa,&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
   }
  }
+ end = std::chrono::system_clock::now();
+ auto elapsed_seconds = std::chrono::duration_cast<std::chrono::seconds>
+   (end-start).count();
+ std::cout << "totalNumber: " << looper.totalNumber << "\n";
+ std::cout << "elapsed time: " << elapsed_seconds << "s\n";
+ std::cout << "elapsed time per channel: " << static_cast<double>(1000.*elapsed_seconds/looper.totalNumber) << "ms\n";
  std::cout << "ladybug: fino" << std::endl;
  return 0;
 }
