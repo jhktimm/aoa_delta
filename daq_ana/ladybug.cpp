@@ -141,12 +141,16 @@ int main(int argc, char *argv[])
  TTF2Looper looper(fileList);
  while(looper.getData()) {
   std::cout << "  numberOfChannels: " << looper.numberOfChannels << " " << std::endl;
-  for (int i = 0; i < looper.numberOfChannels; i++) {
-   ///this also set set this channel to the data, not only getting the name
-   auto channelName = looper.getChannel(i);
-   std::cout << "   channel name: " << channelName.shortName << " " << std::endl;
-   auto fileNameToSave = resultDirectory + channelName.shortName + '_' + prefix + ".dat" ;
-   justDoIt(oa,&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
+  if(looper.res.size() == (uint) looper.reader_2010.get_number_of_channels()) {
+    for (int i = 0; i < looper.numberOfChannels; i++) {
+     ///this also set set this channel to the data, not only getting the name
+     auto channelName = looper.getChannel(i);
+     std::cout << "   channel name: " << channelName.shortName << " " << std::endl;
+     auto fileNameToSave = resultDirectory + channelName.shortName + '_' + prefix + ".dat" ;
+     justDoIt(oa,&looper.data,parameterDirector,fileNameToSave,channelName.fullName);
+    }
+  } else {
+    std::cout << "res.size(): "<< looper.res.size() <<" != (uint) reader_2010.get_number_of_channels(): "<< (uint) looper.reader_2010.get_number_of_channels() << std::endl;
   }
  }
  end = std::chrono::system_clock::now();
