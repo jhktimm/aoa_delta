@@ -47,9 +47,41 @@ void justDoIt(DAQAnalysis * oa, ttf2_daq_getdata* data, std::string parameterDir
    if( channelToSkip.compare(fullChannelName) == 0) calculateThisChannel = false ;
  }
  std::vector<std::string> channelsToSkipWithPIDCut;
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M1.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M2.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M3.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C2.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C3.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C4.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C5.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C6.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C7.M4.A17.L3");
+ channelsToSkipWithPIDCut.push_back("XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M4.A17.L3");
  bool calculateThisChannelWithPIDCut = true;
  for  (auto channelToSkip: channelsToSkipWithPIDCut) {
-   if( ( channelToSkip.compare(fullChannelName) == 0) and (oa->PID > 0 ) ) calculateThisChannelWithPIDCut = false ;
+   if( ( channelToSkip.compare(fullChannelName) == 0) and (oa->TIME >=  1569999397.912552 ) and (oa->TIME < 1572999397.0  ) ) calculateThisChannelWithPIDCut = false ;
  }
 
  /// do calculations

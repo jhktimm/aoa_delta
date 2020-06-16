@@ -44,18 +44,18 @@ AddressHelper TTF2Looper::getChannel(int i) {
 
 bool TTF2Looper::getData() {
  bool readerOk = ((reader_2010.get_data(NULL, &res)) == TTF2_DAQ_READER_OK);
-// bool numberOfChannelsOk = false;
+ bool numberOfChannelsOk = false;
  if (readerOk) {
   data.Clean();
   data.SetRes(&res);
   numberOfChannels = reader_2010.get_number_of_channels();
   totalNumber += static_cast<unsigned long long>(numberOfChannels);
-//  numberOfChannelsOk = ( res.size() == (uint) numberOfChannels );
-//  if (!numberOfChannelsOk) std::cerr << "Number of channels not ok. res != get" << std::endl;
+  numberOfChannelsOk = ( res.size() == (uint) numberOfChannels );
+  if (!numberOfChannelsOk) std::cerr << "Number of channels not ok. res != get" << std::endl;
   std::cout << "Operating event number: " << reader_2010.get_number_of_events() << std::endl;
  } else {  std::cerr << "TTF2_DAQ_READER_OK not ok or finish." << std::endl;}
- return readerOk;
-// return readerOk && numberOfChannelsOk;
+// return readerOk;
+ return readerOk && numberOfChannelsOk;
 }
 
 /////////////////////////////////////////////////////////////////////////
