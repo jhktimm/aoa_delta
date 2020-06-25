@@ -4,3 +4,5 @@ parameterDirectory=../tau_k_x/Hypatia_para/
 dataDirectory=/beegfs/desy/user/jhktimm/rawdata/testDir/
 #you can override the directories from setFixedParameter.sh
 #resultDirectory=/beegfs/desy/user/jhktimm/results/
+#you can additional define singleFileOrSearchPattern, to loop over search pattern or single file
+#singleFileOrSearchPattern=*run1338_file1000*
