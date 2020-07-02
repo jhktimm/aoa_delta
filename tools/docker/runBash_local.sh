@@ -6,6 +6,7 @@ docker run \
    -v ${dataDirectory}:/data/ \
    -v ${resultDirectory}:/results \
    -v ${logDirectory}:/logs \
+   -u $(id -u):$(id -g) \
    -w /space/aoa_delta/build \
    -it jhktimm/aoa bash
 # getent passwd $USER > passwd_x

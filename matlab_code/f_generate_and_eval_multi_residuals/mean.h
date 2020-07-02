@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: mean.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * mean.h
+ *
+ * Code generation for function 'mean'
+ *
  */
 
 #ifndef MEAN_H
 #define MEAN_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern double mean(const emxArray_real_T *x);
 
 #endif
 
-/*
- * File trailer for mean.h
- *
- * [EOF]
- */
+/* End of code generation (mean.h) */

@@ -2,25 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xswap.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xswap.c
+ *
+ * Code generation for function 'xswap'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xswap.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : double x[16]
- *                int ix0
- *                int iy0
- * Return Type  : void
- */
 void b_xswap(double x[16], int ix0, int iy0)
 {
   int ix;
@@ -38,12 +32,6 @@ void b_xswap(double x[16], int ix0, int iy0)
   }
 }
 
-/*
- * Arguments    : double x[25]
- *                int ix0
- *                int iy0
- * Return Type  : void
- */
 void xswap(double x[25], int ix0, int iy0)
 {
   int ix;
@@ -61,8 +49,4 @@ void xswap(double x[25], int ix0, int iy0)
   }
 }
 
-/*
- * File trailer for xswap.c
- *
- * [EOF]
- */
+/* End of code generation (xswap.c) */

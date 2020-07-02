@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzlarfg.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzlarfg.h
+ *
+ * Code generation for function 'xzlarfg'
+ *
  */
 
 #ifndef XZLARFG_H
 #define XZLARFG_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern double xzlarfg(int n, double *alpha1, double x[3]);
 
 #endif
 
-/*
- * File trailer for xzlarfg.h
- *
- * [EOF]
- */
+/* End of code generation (xzlarfg.h) */

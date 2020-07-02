@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzhgeqz.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzhgeqz.c
+ *
+ * Code generation for function 'xzhgeqz'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xzhgeqz.h"
@@ -16,16 +17,6 @@
 #include "sqrt.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const creal_T A[36]
- *                int ilo
- *                int ihi
- *                int *info
- *                creal_T alpha1[6]
- *                creal_T beta1[6]
- * Return Type  : void
- */
 void b_xzhgeqz(const creal_T A[36], int ilo, int ihi, int *info, creal_T alpha1
                [6], creal_T beta1[6])
 {
@@ -297,7 +288,7 @@ void b_xzhgeqz(const creal_T A[36], int ilo, int ihi, int *info, creal_T alpha1
                 imAij * anorm)) - (shift.re * ad22_re - shift.im * ad22_im);
               shift.im = ((temp2 * t1_im + t1_im * temp2) + (sumsq * anorm +
                 imAij * scale)) - reAij;
-              c_sqrt(&shift);
+              b_sqrt(&shift);
               if ((temp2 - ad22_re) * shift.re + (t1_im - ad22_im) * shift.im <=
                   0.0) {
                 shift.re += temp2;
@@ -456,15 +447,6 @@ void b_xzhgeqz(const creal_T A[36], int ilo, int ihi, int *info, creal_T alpha1
   }
 }
 
-/*
- * Arguments    : const creal_T A[4]
- *                int ilo
- *                int ihi
- *                int *info
- *                creal_T alpha1[2]
- *                creal_T beta1[2]
- * Return Type  : void
- */
 void xzhgeqz(const creal_T A[4], int ilo, int ihi, int *info, creal_T alpha1[2],
              creal_T beta1[2])
 {
@@ -736,7 +718,7 @@ void xzhgeqz(const creal_T A[4], int ilo, int ihi, int *info, creal_T alpha1[2],
                 imAij * anorm)) - (shift.re * ad22_re - shift.im * ad22_im);
               shift.im = ((temp2 * t1_im + t1_im * temp2) + (sumsq * anorm +
                 imAij * scale)) - reAij;
-              c_sqrt(&shift);
+              b_sqrt(&shift);
               if ((temp2 - ad22_re) * shift.re + (t1_im - ad22_im) * shift.im <=
                   0.0) {
                 shift.re += temp2;
@@ -812,54 +794,54 @@ void xzhgeqz(const creal_T A[4], int ilo, int ihi, int *info, creal_T alpha1[2],
             b_ascale.re = ascale * b_A[istart + ((istart - 1) << 1)].re;
             b_ascale.im = ascale * b_A[istart + ((istart - 1) << 1)].im;
             b_xzlartg(ctemp, b_ascale, &anorm, &shift);
-            j = istart;
+            j = istart - 1;
             jp1 = istart - 2;
-            while (j < ilast + 1) {
-              if (j > istart) {
-                xzlartg(b_A[1 + (jp1 << 1)], b_A[j + (jp1 << 1)], &anorm, &shift,
+            while (j + 1 < ilast + 1) {
+              if (j + 1 > istart) {
+                xzlartg(b_A[1 + (jp1 << 1)], b_A[2 + (jp1 << 1)], &anorm, &shift,
                         &b_A[1 + (jp1 << 1)]);
-                b_A[j + (jp1 << 1)].re = 0.0;
-                b_A[j + (jp1 << 1)].im = 0.0;
+                b_A[2 + (jp1 << 1)].re = 0.0;
+                b_A[2 + (jp1 << 1)].im = 0.0;
               }
 
-              for (jp1 = j - 1; jp1 + 1 <= ilastm; jp1++) {
-                ad22_re = anorm * b_A[(j + (jp1 << 1)) - 1].re + (shift.re *
-                  b_A[j + (jp1 << 1)].re - shift.im * b_A[j + (jp1 << 1)].im);
-                ad22_im = anorm * b_A[(j + (jp1 << 1)) - 1].im + (shift.re *
-                  b_A[j + (jp1 << 1)].im + shift.im * b_A[j + (jp1 << 1)].re);
-                reAij = b_A[(j + (jp1 << 1)) - 1].re;
-                b_A[j + (jp1 << 1)].re = anorm * b_A[j + (jp1 << 1)].re -
-                  (shift.re * b_A[(j + (jp1 << 1)) - 1].re + shift.im * b_A[(j +
-                    (jp1 << 1)) - 1].im);
-                b_A[j + (jp1 << 1)].im = anorm * b_A[j + (jp1 << 1)].im -
-                  (shift.re * b_A[(j + (jp1 << 1)) - 1].im - shift.im * reAij);
-                b_A[(j + (jp1 << 1)) - 1].re = ad22_re;
-                b_A[(j + (jp1 << 1)) - 1].im = ad22_im;
+              for (jp1 = j; jp1 + 1 <= ilastm; jp1++) {
+                ad22_re = anorm * b_A[j + (jp1 << 1)].re + (shift.re * b_A[1 +
+                  (jp1 << 1)].re - shift.im * b_A[1 + (jp1 << 1)].im);
+                ad22_im = anorm * b_A[j + (jp1 << 1)].im + (shift.re * b_A[1 +
+                  (jp1 << 1)].im + shift.im * b_A[1 + (jp1 << 1)].re);
+                reAij = b_A[j + (jp1 << 1)].re;
+                b_A[(j + (jp1 << 1)) + 1].re = anorm * b_A[(j + (jp1 << 1)) + 1]
+                  .re - (shift.re * b_A[j + (jp1 << 1)].re + shift.im * b_A[j +
+                         (jp1 << 1)].im);
+                b_A[(j + (jp1 << 1)) + 1].im = anorm * b_A[(j + (jp1 << 1)) + 1]
+                  .im - (shift.re * b_A[j + (jp1 << 1)].im - shift.im * reAij);
+                b_A[j + (jp1 << 1)].re = ad22_re;
+                b_A[j + (jp1 << 1)].im = ad22_im;
               }
 
               shift.re = -shift.re;
               shift.im = -shift.im;
               jp1 = j;
-              if (ilast + 1 < j + 2) {
-                jp1 = ilast - 1;
+              if (ilast + 1 < j + 3) {
+                jp1 = ilast - 2;
               }
 
-              for (i = ifrstm - 1; i + 1 <= jp1 + 2; i++) {
-                ad22_re = anorm * b_A[i + (j << 1)].re + (shift.re * b_A[i + ((j
-                  - 1) << 1)].re - shift.im * b_A[i + ((j - 1) << 1)].im);
-                ad22_im = anorm * b_A[i + (j << 1)].im + (shift.re * b_A[i + ((j
-                  - 1) << 1)].im + shift.im * b_A[i + ((j - 1) << 1)].re);
-                reAij = b_A[i + (j << 1)].re;
-                b_A[i + ((j - 1) << 1)].re = anorm * b_A[i + ((j - 1) << 1)].re
-                  - (shift.re * b_A[i + (j << 1)].re + shift.im * b_A[i + (j <<
-                      1)].im);
-                b_A[i + ((j - 1) << 1)].im = anorm * b_A[i + ((j - 1) << 1)].im
-                  - (shift.re * b_A[i + (j << 1)].im - shift.im * reAij);
-                b_A[i + (j << 1)].re = ad22_re;
-                b_A[i + (j << 1)].im = ad22_im;
+              for (i = ifrstm - 1; i + 1 <= jp1 + 3; i++) {
+                ad22_re = anorm * b_A[i + ((j + 1) << 1)].re + (shift.re * b_A[i
+                  + (j << 1)].re - shift.im * b_A[i + (j << 1)].im);
+                ad22_im = anorm * b_A[i + ((j + 1) << 1)].im + (shift.re * b_A[i
+                  + (j << 1)].im + shift.im * b_A[i + (j << 1)].re);
+                reAij = b_A[i + ((j + 1) << 1)].re;
+                b_A[i + (j << 1)].re = anorm * b_A[i + (j << 1)].re - (shift.re *
+                  b_A[i + ((j + 1) << 1)].re + shift.im * b_A[i + ((j + 1) << 1)]
+                  .im);
+                b_A[i + (j << 1)].im = anorm * b_A[i + (j << 1)].im - (shift.re *
+                  b_A[i + ((j + 1) << 1)].im - shift.im * reAij);
+                b_A[i + ((j + 1) << 1)].re = ad22_re;
+                b_A[i + ((j + 1) << 1)].im = ad22_im;
               }
 
-              jp1 = j - 1;
+              jp1 = j;
               j++;
             }
           }
@@ -896,8 +878,4 @@ void xzhgeqz(const creal_T A[4], int ilo, int ihi, int *info, creal_T alpha1[2],
   }
 }
 
-/*
- * File trailer for xzhgeqz.c
- *
- * [EOF]
- */
+/* End of code generation (xzhgeqz.c) */

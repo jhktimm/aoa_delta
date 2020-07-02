@@ -4,7 +4,7 @@ echo "usage: ./run <runParameters.run>"
 source $1
 echo "Indexing data director: ${dataDirectory}"
 echo "Please wait..."
-ls ${dataDirectory} > ${runName}.index
+ls ${dataDirectory}${singleFileOrSearchPattern} | xargs -n 1 basename > ${runName}.index
 ((numberOfFiles=$((`cat ${runName}.index | wc -l`))))
 ((numberOfArrays=numberOfFiles/(40*100)))
 echo "Found ${numberOfFiles} files."

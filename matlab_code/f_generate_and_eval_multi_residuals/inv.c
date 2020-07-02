@@ -2,24 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: inv.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * inv.c
+ *
+ * Code generation for function 'inv'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "inv.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : const double x[16]
- *                double y[16]
- * Return Type  : void
- */
 void invNxN(const double x[16], double y[16])
 {
   int i8;
@@ -27,13 +22,13 @@ void invNxN(const double x[16], double y[16])
   int j;
   signed char ipiv[4];
   int c;
-  int iy;
+  int jBcol;
   int k;
   signed char p[4];
   int ix;
   double smax;
   double s;
-  int jy;
+  int kAcol;
   int i;
   for (i8 = 0; i8 < 16; i8++) {
     y[i8] = 0.0;
@@ -46,29 +41,29 @@ void invNxN(const double x[16], double y[16])
 
   for (j = 0; j < 3; j++) {
     c = j * 5;
-    iy = 0;
+    jBcol = 0;
     ix = c;
     smax = fabs(b_x[c]);
     for (k = 2; k <= 4 - j; k++) {
       ix++;
       s = fabs(b_x[ix]);
       if (s > smax) {
-        iy = k - 1;
+        jBcol = k - 1;
         smax = s;
       }
     }
 
-    if (b_x[c + iy] != 0.0) {
-      if (iy != 0) {
-        ipiv[j] = (signed char)((j + iy) + 1);
+    if (b_x[c + jBcol] != 0.0) {
+      if (jBcol != 0) {
+        ipiv[j] = (signed char)((j + jBcol) + 1);
         ix = j;
-        iy += j;
+        jBcol += j;
         for (k = 0; k < 4; k++) {
           smax = b_x[ix];
-          b_x[ix] = b_x[iy];
-          b_x[iy] = smax;
+          b_x[ix] = b_x[jBcol];
+          b_x[jBcol] = smax;
           ix += 4;
-          iy += 4;
+          jBcol += 4;
         }
       }
 
@@ -78,21 +73,21 @@ void invNxN(const double x[16], double y[16])
       }
     }
 
-    iy = c;
-    jy = c + 4;
+    jBcol = c;
+    kAcol = c + 4;
     for (i = 1; i <= 3 - j; i++) {
-      smax = b_x[jy];
-      if (b_x[jy] != 0.0) {
+      smax = b_x[kAcol];
+      if (b_x[kAcol] != 0.0) {
         ix = c + 1;
-        i8 = (iy - j) + 8;
-        for (k = 5 + iy; k + 1 <= i8; k++) {
+        i8 = (jBcol - j) + 8;
+        for (k = 5 + jBcol; k + 1 <= i8; k++) {
           b_x[k] += b_x[ix] * -smax;
           ix++;
         }
       }
 
-      jy += 4;
-      iy += 4;
+      kAcol += 4;
+      jBcol += 4;
     }
   }
 
@@ -102,9 +97,9 @@ void invNxN(const double x[16], double y[16])
 
   for (k = 0; k < 3; k++) {
     if (ipiv[k] > 1 + k) {
-      iy = p[ipiv[k] - 1];
+      jBcol = p[ipiv[k] - 1];
       p[ipiv[k] - 1] = p[k];
-      p[k] = (signed char)iy;
+      p[k] = (signed char)jBcol;
     }
   }
 
@@ -121,21 +116,17 @@ void invNxN(const double x[16], double y[16])
   }
 
   for (j = 0; j < 4; j++) {
-    iy = j << 2;
-    for (k = 3; k >= 0; k--) {
-      jy = k << 2;
-      if (y[k + iy] != 0.0) {
-        y[k + iy] /= b_x[k + jy];
+    jBcol = j << 2;
+    for (k = 3; k >= 0; k += -1) {
+      kAcol = k << 2;
+      if (y[k + jBcol] != 0.0) {
+        y[k + jBcol] /= b_x[k + kAcol];
         for (i = 0; i + 1 <= k; i++) {
-          y[i + iy] -= y[k + iy] * b_x[i + jy];
+          y[i + jBcol] -= y[k + jBcol] * b_x[i + kAcol];
         }
       }
     }
   }
 }
 
-/*
- * File trailer for inv.c
- *
- * [EOF]
- */
+/* End of code generation (inv.c) */

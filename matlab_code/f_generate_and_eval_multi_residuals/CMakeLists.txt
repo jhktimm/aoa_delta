@@ -1,7 +1,6 @@
 add_library(f_generate_and_eval_multi_residuals  SHARED
 abs.c
 calcSigmaPoints.c
-calcUTParameters.c
 conv.c
 diff.c
 eps.c
@@ -14,7 +13,6 @@ f_compute_parity_Res2_full.c
 f_computeQL.c
 f_compute_ukf_residual_not_pers.c
 f_generate_and_eval_multi_residuals.c
-f_generate_and_eval_multi_residuals_data.c
 f_generate_and_eval_multi_residuals_emxAPI.c
 f_generate_and_eval_multi_residuals_emxutil.c
 f_generate_and_eval_multi_residuals_initialize.c

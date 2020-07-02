@@ -2,28 +2,19 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xaxpy.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xaxpy.c
+ *
+ * Code generation for function 'xaxpy'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xaxpy.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : int n
- *                double a
- *                const double x[20]
- *                int ix0
- *                double y[4]
- *                int iy0
- * Return Type  : void
- */
 void b_xaxpy(int n, double a, const double x[20], int ix0, double y[4], int iy0)
 {
   int ix;
@@ -40,15 +31,6 @@ void b_xaxpy(int n, double a, const double x[20], int ix0, double y[4], int iy0)
   }
 }
 
-/*
- * Arguments    : int n
- *                double a
- *                const double x[4]
- *                int ix0
- *                double y[20]
- *                int iy0
- * Return Type  : void
- */
 void c_xaxpy(int n, double a, const double x[4], int ix0, double y[20], int iy0)
 {
   int ix;
@@ -65,14 +47,6 @@ void c_xaxpy(int n, double a, const double x[4], int ix0, double y[20], int iy0)
   }
 }
 
-/*
- * Arguments    : int n
- *                double a
- *                int ix0
- *                double y[16]
- *                int iy0
- * Return Type  : void
- */
 void d_xaxpy(int n, double a, int ix0, double y[16], int iy0)
 {
   int ix;
@@ -89,14 +63,6 @@ void d_xaxpy(int n, double a, int ix0, double y[16], int iy0)
   }
 }
 
-/*
- * Arguments    : int n
- *                double a
- *                int ix0
- *                double y[25]
- *                int iy0
- * Return Type  : void
- */
 void e_xaxpy(int n, double a, int ix0, double y[25], int iy0)
 {
   int ix;
@@ -114,14 +80,6 @@ void e_xaxpy(int n, double a, int ix0, double y[25], int iy0)
   }
 }
 
-/*
- * Arguments    : int n
- *                double a
- *                int ix0
- *                double y[20]
- *                int iy0
- * Return Type  : void
- */
 void xaxpy(int n, double a, int ix0, double y[20], int iy0)
 {
   int ix;
@@ -138,8 +96,4 @@ void xaxpy(int n, double a, int ix0, double y[20], int iy0)
   }
 }
 
-/*
- * File trailer for xaxpy.c
- *
- * [EOF]
- */
+/* End of code generation (xaxpy.c) */

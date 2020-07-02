@@ -30,4 +30,11 @@ set_target_properties(doocsRawOpenExample PROPERTIES LINK_FLAGS "${DOOCS_LINKER_
 target_link_libraries(doocsRawOpenExample	AAnalysis ${DOOCS_LIBRARIES} )
 
 
+add_executable(ladybug ladybug.cpp ttf2Looper.cc)
+
+set_target_properties(ladybug PROPERTIES COMPILE_FLAGS "${DOOCS_CXX_FLAGS}")
+set_target_properties(ladybug PROPERTIES LINK_FLAGS "${DOOCS_LINKER_FLAGS}")
+target_link_libraries(ladybug	AAnalysis ${DOOCS_LIBRARIES} )
+
+
 

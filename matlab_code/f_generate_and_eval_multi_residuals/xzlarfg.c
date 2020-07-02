@@ -2,13 +2,14 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: xzlarfg.c
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * xzlarfg.c
+ *
+ * Code generation for function 'xzlarfg'
+ *
  */
 
-/* Include Files */
+/* Include files */
 #include "rt_nonfinite.h"
 #include "f_generate_and_eval_multi_residuals.h"
 #include "xzlarfg.h"
@@ -17,13 +18,6 @@
 #include "f_generate_and_eval_multi_residuals_rtwutil.h"
 
 /* Function Definitions */
-
-/*
- * Arguments    : int n
- *                double *alpha1
- *                double x[3]
- * Return Type  : double
- */
 double xzlarfg(int n, double *alpha1, double x[3])
 {
   double tau;
@@ -82,8 +76,4 @@ double xzlarfg(int n, double *alpha1, double x[3])
   return tau;
 }
 
-/*
- * File trailer for xzlarfg.c
- *
- * [EOF]
- */
+/* End of code generation (xzlarfg.c) */

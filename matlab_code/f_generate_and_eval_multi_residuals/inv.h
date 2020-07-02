@@ -2,16 +2,17 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: inv.h
  *
- * MATLAB Coder version            : 3.4
- * C/C++ source code generated on  : 17-Nov-2019 17:33:56
+ * inv.h
+ *
+ * Code generation for function 'inv'
+ *
  */
 
 #ifndef INV_H
 #define INV_H
 
-/* Include Files */
+/* Include files */
 #include <math.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -25,8 +26,4 @@ extern void invNxN(const double x[16], double y[16]);
 
 #endif
 
-/*
- * File trailer for inv.h
- *
- * [EOF]
- */
+/* End of code generation (inv.h) */

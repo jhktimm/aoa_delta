@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(getStartAndArraySizeForRuns)
 
 #set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lpthread -O3")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -lpthread -pthread -O3")
 
 add_executable(getStartAndArraySizeForRuns getStartAndArraySizeForRuns.cc )
 
@@ -23,10 +23,10 @@ message("   ---   copy setFixedParameter and adapt it in the tools/ dir  ---")
 message("         cp setFixedParameter_template.sh setFixedParameter.sh")
 
 
-EXECUTE_PROCESS(COMMAND sh ${CMAKE_SOURCE_DIR}/docker/compile_onMax.sh
- WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/
- RESULT_VARIABLE variable_RESULT
- OUTPUT_VARIABLE variable_OUTPUT
- )
-message(STATUS ${variable_RESULT})
-message(STATUS ${variable_OUTPUT})
+#EXECUTE_PROCESS(COMMAND sbatch ${CMAKE_SOURCE_DIR}/docker/compile_onMax.sh
+# WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docker/
+# RESULT_VARIABLE variable_RESULT
+# OUTPUT_VARIABLE variable_OUTPUT
+# )
+#message(STATUS ${variable_RESULT})
+#message(STATUS ${variable_OUTPUT})

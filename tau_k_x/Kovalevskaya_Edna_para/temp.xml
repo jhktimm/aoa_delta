@@ -1,0 +1,9 @@
+<!--C8.M4.A11.L3-2019-10-07-06-07-00.mat-->
+<DAQREQ> 
+<TStart time='2019-10-07T06:07:00'/> 
+<TStop time='2019-10-07T06:08:00'/> 
+<Exp  name='linac_test'/> 
+<DDir name='/daq_data/xfel/USR2/llrf'/> 
+<CDir name='/daq/xfel/admtemp/'/> 
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C8.M4.A11.L3' dtype='52'/> 
+</DAQREQ> 
