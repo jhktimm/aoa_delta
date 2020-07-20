@@ -37,3 +37,5 @@ workdir/
 *.user*
 setFixedParameter.sh
 tools/build/
+tools/docker/*.err
+tools/docker/*.out
