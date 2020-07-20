@@ -42,6 +42,7 @@ extern "C" {
 #include "f_generate_and_eval_multi_residuals_dwql/sort.h"
 #include "f_generate_and_eval_multi_residuals_dwql/sortIdx.h"
 #include "f_generate_and_eval_multi_residuals_dwql/svd.h"
+#include "f_generate_and_eval_multi_residuals_dwql/tmwtypes.h"
 #include "f_generate_and_eval_multi_residuals_dwql/UnscentedKalmanFilter.h"
 #include "f_generate_and_eval_multi_residuals_dwql/var.h"
 #include "f_generate_and_eval_multi_residuals_dwql/xaxpy.h"
