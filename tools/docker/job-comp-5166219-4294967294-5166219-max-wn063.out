@@ -1,0 +1,28 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /space/aoa_delta/build
+[  2%] Built target MyAna
+[ 84%] Built target f_generate_and_eval_multi_residuals_dwql
+Scanning dependencies of target AAnalysis
+[ 85%] Building CXX object matlab_code/CMakeFiles/AAnalysis.dir/__/src/AAnalysis.cc.o
+[ 86%] Linking CXX shared library libAAnalysis.so
+[ 86%] Built target AAnalysis
+Scanning dependencies of target doocsRawOpenExample
+Scanning dependencies of target daqanalysis
+Scanning dependencies of target data_test
+[ 87%] Linking CXX executable doocsRawOpenExample
+[ 89%] Building CXX object daq_ana/CMakeFiles/daqanalysis.dir/daqanalysis.cpp.o
+Scanning dependencies of target aoa_app
+[ 90%] Building CXX object data_test/CMakeFiles/data_test.dir/data_test.cpp.o
+Scanning dependencies of target ladybug
+[ 91%] Building CXX object CMakeFiles/aoa_app.dir/src/aoa.cc.o
+[ 92%] Building CXX object daq_ana/CMakeFiles/ladybug.dir/ladybug.cpp.o
+[ 93%] Built target doocsRawOpenExample
+[ 95%] Linking CXX executable data_test
+[ 95%] Built target data_test
+[ 96%] Linking CXX executable ladybug
+[ 97%] Linking CXX executable daqanalysis
+[ 97%] Built target daqanalysis
+[ 98%] Built target ladybug
+[100%] Linking CXX executable aoa_app
+[100%] Built target aoa_app

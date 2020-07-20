@@ -12,7 +12,7 @@
 #include <thread>
 #include <sstream>
 
-#include "../matlab_code/f_generate_and_eval_multi_residuals_dwfix.h"
+#include "../matlab_code/f_generate_and_eval_multi_residuals_dwql.h"
 //#include "../matlab_code/f_generate_and_eval_residual6.h"
 
 #include "../include/aoa_daq_datasclass.h"
@@ -94,11 +94,13 @@ public:
  emxArray_real_T *dw_trace_nom; //new
  emxArray_real_T *r_PS1_nom; //new
  emxArray_real_T *dwfix; //dwfix
-
+ emxArray_real_T *w12fix; //dwfix
 
  double Sigma_nom_PS1;//new
- double Sigma_nom_dw;//new
-
+ 
+ double Sigma_nom_dwql[4];//new
+ double r_mean_nom_dwql[2]; //dwfix
+ 
  creal_T calCoeff[4];
 
  double QL_nom;
@@ -114,35 +116,35 @@ public:
  //outputs not to be saved
  emxArray_real_T *s_max_UKF; //dwfix
  emxArray_real_T *s_max_UKF_dwfix; //dwfix
- emxArray_real_T *s_max_dw; //new
+ emxArray_real_T *s_max_dwql; //new
  emxArray_real_T *s_max_PS1; //new
- emxArray_real_T *res_PS2; //new
+ //emxArray_real_T *res_PS2; //new
 
  double *classis_UKF; //dwfix
  double *classis_dwfix; //dwfix
  double *classis_ps;//new
- double *classis_dw;//new
+ double *classis_dwql;//new
  double *strengthis_UKF; //dwfix
  double *strengthis_dwfix; //dwfix
  double *strengthis_ps;//new
- double *strengthis_dw;//new
+ double *strengthis_dwql;//new
  
  double *max_UKF;//dwfix
  double *max_dwfix;//dwfix
  double *max_PS;//dwfix
- double *max_dw;//dwfix
+ double *max_dwql;//dwfix
  double *median_UKF;//dwfix
  double *median_dwfix;//dwfix
  double *median_PS;//dwfix
- double *median_dw;//dwfix
+ double *median_dwql;//dwfix
  double *mode_UKF;//dwfix
  double *mode_dwfix;//dwfix
  double *mode_PS;//dwfix
- double *mode_dw;//dwfix
+ double *mode_dwql;//dwfix
  double *var_UKF;//dwfix
  double *var_dwfix;//dwfix
  double *var_PS;//dwfix
- double *var_dw;//dwfix
+ double *var_dwql;//dwfix
  double *rm_I;//dwfix
  double *rm_Q;//dwfix
  double *rm_I_dwfix;//dwfix

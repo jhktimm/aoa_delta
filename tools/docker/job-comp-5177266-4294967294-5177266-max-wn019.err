@@ -1,0 +1,158 @@
+Unable to find image 'jhktimm/aoa:latest' locally
+latest: Pulling from jhktimm/aoa
+9ff7e2e5f967: Pulling fs layer
+59856638ac9f: Pulling fs layer
+6f317d6d954b: Pulling fs layer
+a9dde5e2a643: Pulling fs layer
+e5b868da2d3a: Pulling fs layer
+0ced27174547: Pulling fs layer
+5619663895e0: Pulling fs layer
+75ca5685e77f: Pulling fs layer
+343b3fea9576: Pulling fs layer
+e5b868da2d3a: Waiting
+a9dde5e2a643: Waiting
+0ced27174547: Waiting
+241197f4bd89: Pulling fs layer
+7ca64b488ae7: Pulling fs layer
+5ebe799ffe99: Pulling fs layer
+75ca5685e77f: Waiting
+d600901d9b24: Pulling fs layer
+7ca64b488ae7: Waiting
+28a39d82f7f8: Pulling fs layer
+5ebe799ffe99: Waiting
+343b3fea9576: Waiting
+d600901d9b24: Waiting
+156987d48fac: Pulling fs layer
+28a39d82f7f8: Waiting
+49d43cbd015d: Pulling fs layer
+ef8601e0f796: Pulling fs layer
+156987d48fac: Waiting
+bc7452331382: Pulling fs layer
+af30f3242c31: Pulling fs layer
+bc7452331382: Waiting
+55a4a82bbb7d: Pulling fs layer
+af30f3242c31: Waiting
+55a4a82bbb7d: Waiting
+59856638ac9f: Verifying Checksum
+59856638ac9f: Download complete
+6f317d6d954b: Verifying Checksum
+6f317d6d954b: Download complete
+9ff7e2e5f967: Verifying Checksum
+9ff7e2e5f967: Download complete
+a9dde5e2a643: Verifying Checksum
+a9dde5e2a643: Download complete
+5619663895e0: Verifying Checksum
+5619663895e0: Download complete
+0ced27174547: Verifying Checksum
+0ced27174547: Download complete
+9ff7e2e5f967: Pull complete
+59856638ac9f: Pull complete
+6f317d6d954b: Pull complete
+a9dde5e2a643: Pull complete
+343b3fea9576: Download complete
+e5b868da2d3a: Verifying Checksum
+e5b868da2d3a: Download complete
+75ca5685e77f: Verifying Checksum
+75ca5685e77f: Download complete
+241197f4bd89: Verifying Checksum
+241197f4bd89: Download complete
+5ebe799ffe99: Verifying Checksum
+5ebe799ffe99: Download complete
+7ca64b488ae7: Verifying Checksum
+7ca64b488ae7: Download complete
+156987d48fac: Verifying Checksum
+156987d48fac: Download complete
+49d43cbd015d: Verifying Checksum
+49d43cbd015d: Download complete
+ef8601e0f796: Verifying Checksum
+ef8601e0f796: Download complete
+28a39d82f7f8: Verifying Checksum
+28a39d82f7f8: Download complete
+bc7452331382: Download complete
+af30f3242c31: Verifying Checksum
+af30f3242c31: Download complete
+d600901d9b24: Verifying Checksum
+d600901d9b24: Download complete
+55a4a82bbb7d: Verifying Checksum
+55a4a82bbb7d: Download complete
+e5b868da2d3a: Pull complete
+0ced27174547: Pull complete
+5619663895e0: Pull complete
+75ca5685e77f: Pull complete
+343b3fea9576: Pull complete
+241197f4bd89: Pull complete
+7ca64b488ae7: Pull complete
+5ebe799ffe99: Pull complete
+d600901d9b24: Pull complete
+28a39d82f7f8: Pull complete
+156987d48fac: Pull complete
+49d43cbd015d: Pull complete
+ef8601e0f796: Pull complete
+bc7452331382: Pull complete
+af30f3242c31: Pull complete
+55a4a82bbb7d: Pull complete
+Digest: sha256:b40c952d566d8152174ea0937768c8702d4748b682243051dd210a5de51ccdeb
+Status: Downloaded newer image for jhktimm/aoa:latest
+mkdir: cannot create directory '/space/aoa_delta/workdir': File exists
+ln: failed to create symbolic link '/space/aoa_delta/workdir/aoa_app': File exists
+ln: failed to create symbolic link '/space/aoa_delta/workdir/daqanalysis': File exists
+ln: failed to create symbolic link '/space/aoa_delta/workdir/ladybug': File exists
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/calcSigmaPoints.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/calcSigmaPoints.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/calcSigmaPoints.c.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_cavitySystem.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_cavitySystem.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/diff.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/diff.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/cov.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/cov.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/f_cavitySystem.c.o] Error 1
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/diff.c.o] Error 1
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_comp_dw_ql_Rybaniec.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_comp_dw_ql_Rybaniec.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/cov.c.o] Error 1
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/colon.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/colon.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_calibrateData.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/f_calibrateData.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/f_comp_dw_ql_Rybaniec.c.o] Error 1
+In file included from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/exp.h:18:0,
+                 from /space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/exp.c:13:
+/space/aoa_delta/matlab_code/f_generate_and_eval_multi_residuals_dwql/rtwtypes.h:40:22: fatal error: tmwtypes.h: No such file or directory
+ #include "tmwtypes.h"
+                      ^
+compilation terminated.
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/colon.c.o] Error 1
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/f_calibrateData.c.o] Error 1
+make[2]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/exp.c.o] Error 1
+make[1]: *** [matlab_code/f_generate_and_eval_multi_residuals_dwql/CMakeFiles/f_generate_and_eval_multi_residuals_dwql.dir/all] Error 2
+make: *** [all] Error 2
