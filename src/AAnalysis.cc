@@ -281,7 +281,7 @@ void AAnalysis::getParameters(std::string jsonfilename)
     listOfJosonsEmpty.insert(std::make_pair("w12fix_nom", j_w12fix.empty()));
     valuesEmpty += j_w12fix.empty();
     for (uint i = 0; i <  j_w12fix.size(); ++i) {
-      this->dwfix->data[i] = j_w12fix[i].asDouble();
+      this->w12fix->data[i] = j_w12fix[i].asDouble();
     }
     
     

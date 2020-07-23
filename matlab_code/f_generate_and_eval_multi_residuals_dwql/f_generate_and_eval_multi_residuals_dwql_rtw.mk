@@ -2,12 +2,12 @@
 ## Makefile generated for MATLAB file/project 'f_generate_and_eval_multi_residuals_dwql'. 
 ## 
 ## Makefile     : f_generate_and_eval_multi_residuals_dwql_rtw.mk
-## Generated on : Fri Jul 17 09:45:01 2020
+## Generated on : Mon Jul 20 17:32:23 2020
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
 ## 
-## Final product: ./f_generate_and_eval_multi_residuals_dwql.a
+## Final product: ./f_generate_and_eval_multi_residuals_dwql.lib
 ## Product type : static-library
 ## 
 ###########################################################################
@@ -19,48 +19,47 @@
 # Macro Descriptions:
 # PRODUCT_NAME            Name of the system to build
 # MAKEFILE                Name of this makefile
+# CMD_FILE                Command file
 # MODELLIB                Static library target
 
 PRODUCT_NAME              = f_generate_and_eval_multi_residuals_dwql
 MAKEFILE                  = f_generate_and_eval_multi_residuals_dwql_rtw.mk
-MATLAB_ROOT               = /usr/local/software/matlab2020a
-MATLAB_BIN                = /usr/local/software/matlab2020a/bin
-MATLAB_ARCH_BIN           = $(MATLAB_BIN)/glnxa64
+MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2020a
+MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2020a/bin
+MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
 MASTER_ANCHOR_DIR         = 
-START_DIR                 = /home/nawaz/Documents/MATLAB/Cavity_Fault_Detection/CavityFaultDetection/Skripts_for_codegen/codegen/lib/f_generate_and_eval_multi_residuals_dwql
-TGT_FCN_LIB               = ISO_C
+START_DIR                 = C:/Users/anawaz/Documents/MATLAB/Cavity_Fault_Detection_windows/CavityFaultDetection/Skripts_for_codegen/codegen/lib/f_generate_and_eval_multi_residuals_dwql
+TGT_FCN_LIB               = None
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
 RELATIVE_PATH_TO_ANCHOR   = .
-C_STANDARD_OPTS           = -fwrapv -std=c99 -pedantic
-CPP_STANDARD_OPTS         = -fwrapv -std=c++98 -pedantic -Wno-long-long
-MODELLIB                  = f_generate_and_eval_multi_residuals_dwql.a
+CMD_FILE                  = f_generate_and_eval_multi_residuals_dwql_rtw.rsp
+C_STANDARD_OPTS           = 
+CPP_STANDARD_OPTS         = 
+MODELLIB                  = f_generate_and_eval_multi_residuals_dwql.lib
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          GNU gcc/g++ | gmake (64-bit Linux)
-# Supported Version(s):    
+# Toolchain Name:          LCC-win64 v2.4.1 | gmake (64-bit Windows)
+# Supported Version(s):    2.4.1
 # ToolchainInfo Version:   2020a
 # Specification Revision:  1.0
 # 
-#-------------------------------------------
-# Macros assumed to be defined elsewhere
-#-------------------------------------------
-
-# C_STANDARD_OPTS
-# CPP_STANDARD_OPTS
 
 #-----------
 # MACROS
 #-----------
 
-WARN_FLAGS         = -Wall -W -Wwrite-strings -Winline -Wstrict-prototypes -Wnested-externs -Wpointer-arith -Wcast-align
-WARN_FLAGS_MAX     = $(WARN_FLAGS) -Wcast-qual -Wshadow
-CPP_WARN_FLAGS     = -Wall -W -Wwrite-strings -Winline -Wpointer-arith -Wcast-align
-CPP_WARN_FLAGS_MAX = $(CPP_WARN_FLAGS) -Wcast-qual -Wshadow
+SHELL              = cmd
+LCC_ROOT           = $(MATLAB_ROOT)/sys/lcc64/lcc64
+LCC_BUILDLIB       = $(LCC_ROOT)/bin/buildlib
+LCC_LIB            = $(LCC_ROOT)/lib64
+MW_EXTERNLIB_DIR   = $(MATLAB_ROOT)/extern/lib/win64/microsoft
+MW_LIB_DIR         = $(MATLAB_ROOT)/lib/win64
+TOOLCHAIN_INCLUDES = -I$(LCC_ROOT)/include64
 
 TOOLCHAIN_SRCS = 
 TOOLCHAIN_INCS = 
@@ -70,20 +69,17 @@ TOOLCHAIN_LIBS =
 # BUILD TOOL COMMANDS
 #------------------------
 
-# C Compiler: GNU C Compiler
-CC = gcc
+# C Compiler: Lcc-win64 C Compiler
+CC_PATH = $(LCC_ROOT)/bin
+CC = "$(CC_PATH)/lcc64"
 
-# Linker: GNU Linker
-LD = g++
+# Linker: Lcc-win64 Linker
+LD_PATH = $(LCC_ROOT)/bin
+LD = "$(LD_PATH)/lcclnk64"
 
-# C++ Compiler: GNU C++ Compiler
-CPP = g++
-
-# C++ Linker: GNU C++ Linker
-CPP_LD = g++
-
-# Archiver: GNU Archiver
-AR = ar
+# Archiver: Lcc-win64 Archiver
+AR_PATH = $(LCC_ROOT)/bin
+AR = "$(AR_PATH)/lcclib64"
 
 # MEX Tool: MEX Tool
 MEX_PATH = $(MATLAB_ARCH_BIN)
@@ -96,7 +92,7 @@ DOWNLOAD =
 EXECUTE = $(PRODUCT)
 
 # Builder: GMAKE Utility
-MAKE_PATH = %MATLAB%/bin/glnxa64
+MAKE_PATH = %MATLAB%\bin\win64
 MAKE = "$(MAKE_PATH)/gmake"
 
 
@@ -105,41 +101,32 @@ MAKE = "$(MAKE_PATH)/gmake"
 #-------------------------
 
 CDEBUG              = -g
-C_OUTPUT_FLAG       = -o
-LDDEBUG             = -g
-OUTPUT_FLAG         = -o
-CPPDEBUG            = -g
-CPP_OUTPUT_FLAG     = -o
-CPPLDDEBUG          = -g
+C_OUTPUT_FLAG       = -Fo
+LDDEBUG             =
 OUTPUT_FLAG         = -o
 ARDEBUG             =
-STATICLIB_OUTPUT_FLAG =
+STATICLIB_OUTPUT_FLAG = /out:
 MEX_DEBUG           = -g
-RM                  = @rm -f
+RM                  = @del /F
 ECHO                = @echo
-MV                  = @mv
+MV                  = @move
 RUN                 =
 
 #--------------------------------------
 # "Faster Runs" Build Configuration
 #--------------------------------------
 
-ARFLAGS              = ruvs
-CFLAGS               = -c $(C_STANDARD_OPTS) -fPIC \
-                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
-CPPFLAGS             = -c $(CPP_STANDARD_OPTS) -fPIC \
-                       -O3 -fno-loop-optimize -fno-aggressive-loop-optimizations
-CPP_LDFLAGS          = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
-CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
+ARFLAGS              =
+CFLAGS               = -c -w -noregistrylookup -nodeclspec -I$(LCC_ROOT)/include64
 DOWNLOAD_FLAGS       =
 EXECUTE_FLAGS        =
-LDFLAGS              = -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)"
+LDFLAGS              = -s -L$(LCC_LIB) $(LDFLAGS_ADDITIONAL)
 MEX_CPPFLAGS         =
 MEX_CPPLDFLAGS       =
 MEX_CFLAGS           =
 MEX_LDFLAGS          =
 MAKE_FLAGS           = -f $(MAKEFILE)
-SHAREDLIB_LDFLAGS    = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_BIN)" -Wl,--no-undefined
+SHAREDLIB_LDFLAGS    = -dll -entry LibMain -s -L$(LCC_LIB) $(LDFLAGS_ADDITIONAL) $(DEF_FILE)
 
 
 
@@ -147,7 +134,7 @@ SHAREDLIB_LDFLAGS    = -shared -Wl,-rpath,"$(MATLAB_ARCH_BIN)",-L"$(MATLAB_ARCH_
 ## OUTPUT INFO
 ###########################################################################
 
-PRODUCT = ./f_generate_and_eval_multi_residuals_dwql.a
+PRODUCT = ./f_generate_and_eval_multi_residuals_dwql.lib
 PRODUCT_TYPE = "static-library"
 BUILD_TYPE = "Static Library"
 
@@ -155,7 +142,7 @@ BUILD_TYPE = "Static Library"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR) -I/home/nawaz/Documents/MATLAB/Cavity_Fault_Detection/CavityFaultDetection/Skripts_for_codegen -I$(MATLAB_ROOT)/extern/include
+INCLUDES_BUILDINFO = -I$(START_DIR) -IC:/Users/anawaz/DOCUME~1/MATLAB/CAVITY~2/CAVITY~1/SKRIPT~1 -I$(MATLAB_ROOT)/extern/include
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -180,7 +167,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = rt_nonfinite.o rtGetNaN.o rtGetInf.o f_generate_and_eval_multi_residuals_dwql_rtwutil.o f_generate_and_eval_multi_residuals_dwql_data.o f_generate_and_eval_multi_residuals_dwql_initialize.o f_generate_and_eval_multi_residuals_dwql_terminate.o f_generate_and_eval_multi_residuals_dwql.o colon.o find.o mean.o f_generate_online_UKF_residual_full.o exp.o f_calibrateData.o f_compute_ukf_residual_not_pers.o f_cavitySystem.o UnscentedKalmanFilter.o isSymmetricPositiveSemiDefinite.o minOrMax.o xnrm2.o xrot.o calcSigmaPoints.o xdotc.o inv.o xswap.o f_GLT.o cov.o f_generate_online_UKF_residual_full_dwfix.o f_compute_ukf_residual_fixdw.o f_generate_online_parityRes1_full.o f_generate_online_parityRes2_full.o f_compute_parity_Res2_full.o svd.o xaxpy.o xrotg.o median.o quickselect.o mode.o sort.o sortIdx.o var.o f_computeQL.o f_comp_dw_ql_Rybaniec.o filter.o diff.o smoothdata.o repmat.o f_generate_and_eval_multi_residuals_dwql_emxutil.o f_generate_and_eval_multi_residuals_dwql_emxAPI.o
+OBJS = rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj f_generate_and_eval_multi_residuals_dwql_rtwutil.obj f_generate_and_eval_multi_residuals_dwql_data.obj f_generate_and_eval_multi_residuals_dwql_initialize.obj f_generate_and_eval_multi_residuals_dwql_terminate.obj f_generate_and_eval_multi_residuals_dwql.obj colon.obj find.obj mean.obj f_generate_online_UKF_residual_full.obj exp.obj f_calibrateData.obj f_compute_ukf_residual_not_pers.obj f_cavitySystem.obj UnscentedKalmanFilter.obj isSymmetricPositiveSemiDefinite.obj minOrMax.obj xnrm2.obj xrot.obj calcSigmaPoints.obj xdotc.obj inv.obj xswap.obj f_GLT.obj cov.obj f_generate_online_UKF_residual_full_dwfix.obj f_compute_ukf_residual_fixdw.obj f_generate_online_parityRes1_full.obj f_generate_online_parityRes2_full.obj f_compute_parity_Res2_full.obj svd.obj xaxpy.obj xrotg.obj median.obj quickselect.obj mode.obj sort.obj sortIdx.obj var.obj f_computeQL.obj f_comp_dw_ql_Rybaniec.obj filter.obj diff.obj smoothdata.obj repmat.obj f_generate_and_eval_multi_residuals_dwql_emxutil.obj f_generate_and_eval_multi_residuals_dwql_emxAPI.obj
 
 ALL_OBJS = $(OBJS)
 
@@ -200,7 +187,7 @@ LIBS =
 ## SYSTEM LIBRARIES
 ###########################################################################
 
-SYSTEM_LIBS =  -lm
+SYSTEM_LIBS = 
 
 ###########################################################################
 ## ADDITIONAL TOOLCHAIN FLAGS
@@ -213,14 +200,6 @@ SYSTEM_LIBS =  -lm
 CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
 CFLAGS += $(CFLAGS_BASIC)
-
-#-----------------
-# C++ Compiler
-#-----------------
-
-CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
-
-CPPFLAGS += $(CPPFLAGS_BASIC)
 
 ###########################################################################
 ## INLINED COMMANDS
@@ -259,7 +238,7 @@ execute : download
 
 $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	@echo "### Creating static library "$(PRODUCT)" ..."
-	$(AR) $(ARFLAGS)  $(PRODUCT) $(OBJS)
+	$(AR) $(ARFLAGS) /out:$(PRODUCT) @$(CMD_FILE)
 	@echo "### Created: $(PRODUCT)"
 
 
@@ -271,232 +250,216 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 # SOURCE-TO-OBJECT
 #---------------------
 
-%.o : %.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+%.obj : %.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : %.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+%.obj : $(RELATIVE_PATH_TO_ANCHOR)/%.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+%.obj : $(START_DIR)/%.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+%.obj : C:/Users/anawaz/Documents/MATLAB/Cavity_Fault_Detection_windows/CavityFaultDetection/Skripts_for_codegen/%.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : $(START_DIR)/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+rt_nonfinite.obj : $(START_DIR)/rt_nonfinite.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : $(START_DIR)/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+rtGetNaN.obj : $(START_DIR)/rtGetNaN.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : /home/nawaz/Documents/MATLAB/Cavity_Fault_Detection/CavityFaultDetection/Skripts_for_codegen/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+rtGetInf.obj : $(START_DIR)/rtGetInf.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-%.o : /home/nawaz/Documents/MATLAB/Cavity_Fault_Detection/CavityFaultDetection/Skripts_for_codegen/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_rtwutil.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_rtwutil.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-rt_nonfinite.o : $(START_DIR)/rt_nonfinite.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_data.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_data.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-rtGetNaN.o : $(START_DIR)/rtGetNaN.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_initialize.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_initialize.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-rtGetInf.o : $(START_DIR)/rtGetInf.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_terminate.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_terminate.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_and_eval_multi_residuals_dwql_rtwutil.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_rtwutil.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_and_eval_multi_residuals_dwql_data.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_data.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+colon.obj : $(START_DIR)/colon.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_and_eval_multi_residuals_dwql_initialize.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_initialize.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+find.obj : $(START_DIR)/find.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_and_eval_multi_residuals_dwql_terminate.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_terminate.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+mean.obj : $(START_DIR)/mean.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_and_eval_multi_residuals_dwql.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_online_UKF_residual_full.obj : $(START_DIR)/f_generate_online_UKF_residual_full.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-colon.o : $(START_DIR)/colon.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+exp.obj : $(START_DIR)/exp.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-find.o : $(START_DIR)/find.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_calibrateData.obj : $(START_DIR)/f_calibrateData.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-mean.o : $(START_DIR)/mean.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_compute_ukf_residual_not_pers.obj : $(START_DIR)/f_compute_ukf_residual_not_pers.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_online_UKF_residual_full.o : $(START_DIR)/f_generate_online_UKF_residual_full.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_cavitySystem.obj : $(START_DIR)/f_cavitySystem.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-exp.o : $(START_DIR)/exp.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+UnscentedKalmanFilter.obj : $(START_DIR)/UnscentedKalmanFilter.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_calibrateData.o : $(START_DIR)/f_calibrateData.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+isSymmetricPositiveSemiDefinite.obj : $(START_DIR)/isSymmetricPositiveSemiDefinite.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_compute_ukf_residual_not_pers.o : $(START_DIR)/f_compute_ukf_residual_not_pers.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+minOrMax.obj : $(START_DIR)/minOrMax.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_cavitySystem.o : $(START_DIR)/f_cavitySystem.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xnrm2.obj : $(START_DIR)/xnrm2.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-UnscentedKalmanFilter.o : $(START_DIR)/UnscentedKalmanFilter.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xrot.obj : $(START_DIR)/xrot.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-isSymmetricPositiveSemiDefinite.o : $(START_DIR)/isSymmetricPositiveSemiDefinite.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+calcSigmaPoints.obj : $(START_DIR)/calcSigmaPoints.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-minOrMax.o : $(START_DIR)/minOrMax.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xdotc.obj : $(START_DIR)/xdotc.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xnrm2.o : $(START_DIR)/xnrm2.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+inv.obj : $(START_DIR)/inv.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xrot.o : $(START_DIR)/xrot.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xswap.obj : $(START_DIR)/xswap.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-calcSigmaPoints.o : $(START_DIR)/calcSigmaPoints.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_GLT.obj : $(START_DIR)/f_GLT.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xdotc.o : $(START_DIR)/xdotc.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+cov.obj : $(START_DIR)/cov.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-inv.o : $(START_DIR)/inv.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_online_UKF_residual_full_dwfix.obj : $(START_DIR)/f_generate_online_UKF_residual_full_dwfix.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xswap.o : $(START_DIR)/xswap.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_compute_ukf_residual_fixdw.obj : $(START_DIR)/f_compute_ukf_residual_fixdw.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_GLT.o : $(START_DIR)/f_GLT.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_online_parityRes1_full.obj : $(START_DIR)/f_generate_online_parityRes1_full.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-cov.o : $(START_DIR)/cov.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_online_parityRes2_full.obj : $(START_DIR)/f_generate_online_parityRes2_full.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_online_UKF_residual_full_dwfix.o : $(START_DIR)/f_generate_online_UKF_residual_full_dwfix.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_compute_parity_Res2_full.obj : $(START_DIR)/f_compute_parity_Res2_full.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_compute_ukf_residual_fixdw.o : $(START_DIR)/f_compute_ukf_residual_fixdw.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+svd.obj : $(START_DIR)/svd.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_online_parityRes1_full.o : $(START_DIR)/f_generate_online_parityRes1_full.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xaxpy.obj : $(START_DIR)/xaxpy.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_generate_online_parityRes2_full.o : $(START_DIR)/f_generate_online_parityRes2_full.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+xrotg.obj : $(START_DIR)/xrotg.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_compute_parity_Res2_full.o : $(START_DIR)/f_compute_parity_Res2_full.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+median.obj : $(START_DIR)/median.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-svd.o : $(START_DIR)/svd.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+quickselect.obj : $(START_DIR)/quickselect.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xaxpy.o : $(START_DIR)/xaxpy.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+mode.obj : $(START_DIR)/mode.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-xrotg.o : $(START_DIR)/xrotg.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+sort.obj : $(START_DIR)/sort.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-median.o : $(START_DIR)/median.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+sortIdx.obj : $(START_DIR)/sortIdx.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-quickselect.o : $(START_DIR)/quickselect.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+var.obj : $(START_DIR)/var.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-mode.o : $(START_DIR)/mode.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_computeQL.obj : $(START_DIR)/f_computeQL.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-sort.o : $(START_DIR)/sort.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_comp_dw_ql_Rybaniec.obj : $(START_DIR)/f_comp_dw_ql_Rybaniec.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-sortIdx.o : $(START_DIR)/sortIdx.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+filter.obj : $(START_DIR)/filter.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-var.o : $(START_DIR)/var.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+diff.obj : $(START_DIR)/diff.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_computeQL.o : $(START_DIR)/f_computeQL.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+smoothdata.obj : $(START_DIR)/smoothdata.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-f_comp_dw_ql_Rybaniec.o : $(START_DIR)/f_comp_dw_ql_Rybaniec.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+repmat.obj : $(START_DIR)/repmat.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-filter.o : $(START_DIR)/filter.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_emxutil.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxutil.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-diff.o : $(START_DIR)/diff.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-smoothdata.o : $(START_DIR)/smoothdata.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-repmat.o : $(START_DIR)/repmat.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-f_generate_and_eval_multi_residuals_dwql_emxutil.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxutil.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-f_generate_and_eval_multi_residuals_dwql_emxAPI.o : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxAPI.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
+f_generate_and_eval_multi_residuals_dwql_emxAPI.obj : $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxAPI.c
+	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
 ###########################################################################
@@ -525,9 +488,6 @@ info :
 	@echo "### CFLAGS = $(CFLAGS)"
 	@echo "### LDFLAGS = $(LDFLAGS)"
 	@echo "### SHAREDLIB_LDFLAGS = $(SHAREDLIB_LDFLAGS)"
-	@echo "### CPPFLAGS = $(CPPFLAGS)"
-	@echo "### CPP_LDFLAGS = $(CPP_LDFLAGS)"
-	@echo "### CPP_SHAREDLIB_LDFLAGS = $(CPP_SHAREDLIB_LDFLAGS)"
 	@echo "### ARFLAGS = $(ARFLAGS)"
 	@echo "### MEX_CFLAGS = $(MEX_CFLAGS)"
 	@echo "### MEX_CPPFLAGS = $(MEX_CPPFLAGS)"
@@ -540,8 +500,8 @@ info :
 
 clean : 
 	$(ECHO) "### Deleting all derived files..."
-	$(RM) $(PRODUCT)
-	$(RM) $(ALL_OBJS)
+	$(RM) $(subst /,\,$(PRODUCT))
+	$(RM) $(subst /,\,$(ALL_OBJS))
 	$(ECHO) "### Deleted all derived files."
 
 

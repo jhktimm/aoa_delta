@@ -2,10 +2,11 @@
  * Academic License - for use in teaching, academic research, and meeting
  * course requirements at degree granting institutions only.  Not for
  * government, commercial, or other organizational use.
- * File: main.h
  *
- * MATLAB Coder version            : 5.0
- * C/C++ source code generated on  : 17-Jul-2020 09:44:29
+ * main.h
+ *
+ * Code generation for function 'main'
+ *
  */
 
 /*************************************************************************/
@@ -35,7 +36,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/* Include Files */
+/* Include files */
 #include <stddef.h>
 #include <stdlib.h>
 #include "rtwtypes.h"
@@ -46,8 +47,4 @@ extern int main(int argc, const char * const argv[]);
 
 #endif
 
-/*
- * File trailer for main.h
- *
- * [EOF]
- */
+/* End of code generation (main.h) */
