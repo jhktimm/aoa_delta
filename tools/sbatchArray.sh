@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --mail-type ALL                           # Type of email notification- BEGIN,END,FAIL,ALL
-#SBATCH --time    0-20:00:00
+#SBATCH --time    0-03:59:00
 #SBATCH --nodes            1
 #SBATCH --partition maxwell
 #SBATCH --no-requeue
@@ -68,7 +68,7 @@ pwd
 
 while [  $COUNTER -lt $nprocs ]; do
   echo The counter is $COUNTER
-  postfix="${runName}_`./getFileList -coreNumber=${COUNTER} -arrayNumber=${arrayRun} -indexFile=${runName}.index -outputFile=${number}_fileList.txt`"
+  postfix="${runName}_`./getFileList -size=20 -coreNumber=${COUNTER} -arrayNumber=${arrayRun} -indexFile=${runName}.index -outputFile=${number}_fileList.txt`"
   echo " postfix: ${postfix}"
 
   for f in `cat ${number}_fileList.txt`; do
