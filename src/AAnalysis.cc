@@ -374,7 +374,7 @@ void AAnalysis::getAutoParameters(std::string tauKXdir){
   getline(strstream_name, A_str, '.');
   getline(strstream_name, L_str, '.');
 
-  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara_multi_best" + ".json";//XFEL.RF.A20.L3.M1.C1.json
+  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + ".json";//XFEL.RF.A20.L3.M1.C1.json
 //  std::string jsonfilename = tauKXdir + "XFEL.RF." + A_str + '.' + L_str + '.' + M_str + '.' + C_str + "_nomPara" + ".json";//XFEL.RF.A20.L3.M1.C1.json
   //~ std::cout << "AAnalysis::getAutoParameters: " << jsonfilename << "\n";
   this->getParameters(jsonfilename);
