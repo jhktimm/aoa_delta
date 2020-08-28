@@ -4,10 +4,12 @@ for dir in `ls -d */`
 do 
   echo Enter dir: ${dir}
   cd $dir
+  [ $# -eq 1 ]  && [ $1 = "-rm" ] && { rm -rf json/ ; cd .. ; continue ; }
   for fileName in `ls *.json`
-  do 
-    echo new name: ${fileName:0:20}.json   rest: ${fileName:20}
-    [ $# -eq 1 ]  && [ $1 = "-f" ] && mv ${fileName} ${fileName:0:20}.json 
+    do    
+    newFolder=`basename -s .json ${fileName:21}`
+    echo ${fileName} new name: ${fileName:0:20}.json and move to folder: $newFolder
+    [ $# -eq 1 ]  && [ $1 = "-f" ] && { mkdir -p $newFolder ; mv ${fileName} ${newFolder}/${fileName:0:20}.json ; }
   done 
   cd .. 
 done
