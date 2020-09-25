@@ -463,7 +463,7 @@ void AAnalysis::get_res()
 {
 
   //~ this->print_data();
-  if (this->Forw_Ampl->data[1000] < 5) {
+  if ( (this->Forw_Ampl->data[1000] < 5) |  (this->Probe_Ampl->data[1000] < 5) ) {
     this->FLAG=true;
     std::cout << "FLAG! cavity "<< this->NAME <<" at pid " << this->PID << " could be off.";
   } else {
