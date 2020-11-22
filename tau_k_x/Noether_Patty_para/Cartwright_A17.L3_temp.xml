@@ -1,0 +1,9 @@
+<!--C1.M1.A17.L3-2019-11-05-15-00-00.mat-->
+<DAQREQ> 
+<TStart time='2019-11-05T15:00:00'/> 
+<TStop time='2019-11-05T18:00:00'/> 
+<Exp  name='linac_test'/> 
+<DDir name='/net/xfeldaq4/space/POOL/SYNC1/LLRF_A12_A17_TORA.1495/ALL'/> 
+<CDir name='/daq/xfel/admtemp/'/> 
+<Chan name='XFEL.RF/LLRF.CONTROLLER.DAQ/C1.M1.A17.L3' dtype='52'/> 
+</DAQREQ> 
