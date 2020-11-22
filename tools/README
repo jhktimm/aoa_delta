@@ -1,8 +1,8 @@
-### get started
+### get started (in tools)
   mkdir build
   cd build
   cmake ..
-  make
+  make (kompiliert das mergeFiles)
 This will compile the getFileList and will creat links
 in the workdir.
 
@@ -15,7 +15,10 @@ Copy this file and modify it with ypur needs. Than you can start it like that.
 
 
 ### merge files
-sbatch maxMergeFiles.sh Mona_Noether
+Go to workdir
+	sbatch maxMergeFiles.sh "SETNAME_RUNNAME"
+(SETNAME = Name des Datensatzes)
+(RUNNAME = Name des Runs der mit bestimmten paramtern un matlab files verbunden ist)
 
 ### OLD
 Open setFixedParameter.sh and set default directories and your e mail.
