@@ -31,12 +31,12 @@ mean.obj
 median.obj
 minOrMax.obj
 mode.obj
+movmean.obj
 quickselect.obj
 repmat.obj
 rtGetInf.obj
 rtGetNaN.obj
 rt_nonfinite.obj
-smoothdata.obj
 sort.obj
 sortIdx.obj
 svd.obj

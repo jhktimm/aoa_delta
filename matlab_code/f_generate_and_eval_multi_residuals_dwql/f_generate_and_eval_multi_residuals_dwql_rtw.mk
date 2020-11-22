@@ -2,7 +2,7 @@
 ## Makefile generated for MATLAB file/project 'f_generate_and_eval_multi_residuals_dwql'. 
 ## 
 ## Makefile     : f_generate_and_eval_multi_residuals_dwql_rtw.mk
-## Generated on : Mon Jul 20 17:32:23 2020
+## Generated on : Sun Nov 22 19:58:59 2020
 ## MATLAB Coder version: 5.0 (R2020a)
 ## 
 ## Build Info:
@@ -159,7 +159,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/rt_nonfinite.c $(START_DIR)/rtGetNaN.c $(START_DIR)/rtGetInf.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_rtwutil.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_data.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_initialize.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_terminate.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql.c $(START_DIR)/colon.c $(START_DIR)/find.c $(START_DIR)/mean.c $(START_DIR)/f_generate_online_UKF_residual_full.c $(START_DIR)/exp.c $(START_DIR)/f_calibrateData.c $(START_DIR)/f_compute_ukf_residual_not_pers.c $(START_DIR)/f_cavitySystem.c $(START_DIR)/UnscentedKalmanFilter.c $(START_DIR)/isSymmetricPositiveSemiDefinite.c $(START_DIR)/minOrMax.c $(START_DIR)/xnrm2.c $(START_DIR)/xrot.c $(START_DIR)/calcSigmaPoints.c $(START_DIR)/xdotc.c $(START_DIR)/inv.c $(START_DIR)/xswap.c $(START_DIR)/f_GLT.c $(START_DIR)/cov.c $(START_DIR)/f_generate_online_UKF_residual_full_dwfix.c $(START_DIR)/f_compute_ukf_residual_fixdw.c $(START_DIR)/f_generate_online_parityRes1_full.c $(START_DIR)/f_generate_online_parityRes2_full.c $(START_DIR)/f_compute_parity_Res2_full.c $(START_DIR)/svd.c $(START_DIR)/xaxpy.c $(START_DIR)/xrotg.c $(START_DIR)/median.c $(START_DIR)/quickselect.c $(START_DIR)/mode.c $(START_DIR)/sort.c $(START_DIR)/sortIdx.c $(START_DIR)/var.c $(START_DIR)/f_computeQL.c $(START_DIR)/f_comp_dw_ql_Rybaniec.c $(START_DIR)/filter.c $(START_DIR)/diff.c $(START_DIR)/smoothdata.c $(START_DIR)/repmat.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxutil.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxAPI.c
+SRCS = $(START_DIR)/rt_nonfinite.c $(START_DIR)/rtGetNaN.c $(START_DIR)/rtGetInf.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_rtwutil.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_data.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_initialize.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_terminate.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql.c $(START_DIR)/colon.c $(START_DIR)/find.c $(START_DIR)/mean.c $(START_DIR)/f_generate_online_UKF_residual_full.c $(START_DIR)/exp.c $(START_DIR)/f_calibrateData.c $(START_DIR)/f_compute_ukf_residual_not_pers.c $(START_DIR)/f_cavitySystem.c $(START_DIR)/UnscentedKalmanFilter.c $(START_DIR)/isSymmetricPositiveSemiDefinite.c $(START_DIR)/minOrMax.c $(START_DIR)/xnrm2.c $(START_DIR)/xrot.c $(START_DIR)/calcSigmaPoints.c $(START_DIR)/xdotc.c $(START_DIR)/inv.c $(START_DIR)/xswap.c $(START_DIR)/f_GLT.c $(START_DIR)/cov.c $(START_DIR)/f_generate_online_UKF_residual_full_dwfix.c $(START_DIR)/f_compute_ukf_residual_fixdw.c $(START_DIR)/f_generate_online_parityRes1_full.c $(START_DIR)/f_generate_online_parityRes2_full.c $(START_DIR)/f_compute_parity_Res2_full.c $(START_DIR)/svd.c $(START_DIR)/xaxpy.c $(START_DIR)/xrotg.c $(START_DIR)/median.c $(START_DIR)/quickselect.c $(START_DIR)/mode.c $(START_DIR)/sort.c $(START_DIR)/sortIdx.c $(START_DIR)/var.c $(START_DIR)/f_computeQL.c $(START_DIR)/f_comp_dw_ql_Rybaniec.c $(START_DIR)/filter.c $(START_DIR)/diff.c $(START_DIR)/movmean.c $(START_DIR)/repmat.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxutil.c $(START_DIR)/f_generate_and_eval_multi_residuals_dwql_emxAPI.c
 
 ALL_SRCS = $(SRCS)
 
@@ -167,7 +167,7 @@ ALL_SRCS = $(SRCS)
 ## OBJECTS
 ###########################################################################
 
-OBJS = rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj f_generate_and_eval_multi_residuals_dwql_rtwutil.obj f_generate_and_eval_multi_residuals_dwql_data.obj f_generate_and_eval_multi_residuals_dwql_initialize.obj f_generate_and_eval_multi_residuals_dwql_terminate.obj f_generate_and_eval_multi_residuals_dwql.obj colon.obj find.obj mean.obj f_generate_online_UKF_residual_full.obj exp.obj f_calibrateData.obj f_compute_ukf_residual_not_pers.obj f_cavitySystem.obj UnscentedKalmanFilter.obj isSymmetricPositiveSemiDefinite.obj minOrMax.obj xnrm2.obj xrot.obj calcSigmaPoints.obj xdotc.obj inv.obj xswap.obj f_GLT.obj cov.obj f_generate_online_UKF_residual_full_dwfix.obj f_compute_ukf_residual_fixdw.obj f_generate_online_parityRes1_full.obj f_generate_online_parityRes2_full.obj f_compute_parity_Res2_full.obj svd.obj xaxpy.obj xrotg.obj median.obj quickselect.obj mode.obj sort.obj sortIdx.obj var.obj f_computeQL.obj f_comp_dw_ql_Rybaniec.obj filter.obj diff.obj smoothdata.obj repmat.obj f_generate_and_eval_multi_residuals_dwql_emxutil.obj f_generate_and_eval_multi_residuals_dwql_emxAPI.obj
+OBJS = rt_nonfinite.obj rtGetNaN.obj rtGetInf.obj f_generate_and_eval_multi_residuals_dwql_rtwutil.obj f_generate_and_eval_multi_residuals_dwql_data.obj f_generate_and_eval_multi_residuals_dwql_initialize.obj f_generate_and_eval_multi_residuals_dwql_terminate.obj f_generate_and_eval_multi_residuals_dwql.obj colon.obj find.obj mean.obj f_generate_online_UKF_residual_full.obj exp.obj f_calibrateData.obj f_compute_ukf_residual_not_pers.obj f_cavitySystem.obj UnscentedKalmanFilter.obj isSymmetricPositiveSemiDefinite.obj minOrMax.obj xnrm2.obj xrot.obj calcSigmaPoints.obj xdotc.obj inv.obj xswap.obj f_GLT.obj cov.obj f_generate_online_UKF_residual_full_dwfix.obj f_compute_ukf_residual_fixdw.obj f_generate_online_parityRes1_full.obj f_generate_online_parityRes2_full.obj f_compute_parity_Res2_full.obj svd.obj xaxpy.obj xrotg.obj median.obj quickselect.obj mode.obj sort.obj sortIdx.obj var.obj f_computeQL.obj f_comp_dw_ql_Rybaniec.obj filter.obj diff.obj movmean.obj repmat.obj f_generate_and_eval_multi_residuals_dwql_emxutil.obj f_generate_and_eval_multi_residuals_dwql_emxAPI.obj
 
 ALL_OBJS = $(OBJS)
 
@@ -446,7 +446,7 @@ diff.obj : $(START_DIR)/diff.c
 	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 
-smoothdata.obj : $(START_DIR)/smoothdata.c
+movmean.obj : $(START_DIR)/movmean.c
 	$(CC) $(CFLAGS) -Fo"$@" $(subst /,\,"$<")
 
 

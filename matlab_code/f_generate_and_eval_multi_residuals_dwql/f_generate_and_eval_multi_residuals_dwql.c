@@ -31,9 +31,9 @@
 #include "median.h"
 #include "minOrMax.h"
 #include "mode.h"
+#include "movmean.h"
 #include "repmat.h"
 #include "rt_nonfinite.h"
-#include "smoothdata.h"
 #include "var.h"
 #include <math.h>
 #include <string.h>
@@ -107,6 +107,7 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
   emxArray_creal_T *y_mC;
   emxArray_real_T *res_full_mean;
   emxArray_real_T *res_full_variance;
+  emxArray_real_T *res_full_variance_dwfix;
   emxArray_creal_T *u_mCal;
   emxArray_creal_T *r_mCal;
   emxArray_real_T *dw;
@@ -546,6 +547,7 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
   emxInit_creal_T(&y_mC, 1);
   emxInit_real_T(&res_full_mean, 2);
   emxInit_real_T(&res_full_variance, 3);
+  emxInit_real_T(&res_full_variance_dwfix, 3);
   emxInit_creal_T(&u_mCal, 1);
   emxInit_creal_T(&r_mCal, 1);
   emxInit_real_T(&dw, 1);
@@ -688,7 +690,7 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       res_var_data[3] = ProcessVar[7] * alpha;
       d_f_generate_online_UKF_residua(PA, PP, FA, FP, RA, RP, FS, cal_coeff,
         dwfix, QL_nom, MeasNoiseVar, res_var_data, res_full_mean,
-        res_full_variance);
+        res_full_variance_dwfix);
       vlen = res_full_mean->size[1];
       if (2 > vlen) {
         vlen = 2;
@@ -1293,7 +1295,10 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       /*     %% Detuning/Bandwidth Heuristic + GLRT Evaluation */
       f_comp_dw_ql_Rybaniec(y_mC, u_mCal, fs, 6.2831853071795862 * f0 / (2.0 *
         QL_nom), dw, idxP);
-      smoothdata(dw, r1);
+
+      /*    theVersion = ver; */
+      /*     if strcmp(theVersion(12).Release(5:6), '16') */
+      movmean(dw, r1);
       i = dw_res->size[0];
       dw_res->size[0] = r1->size[0];
       emxEnsureCapacity_real_T(dw_res, i);
@@ -1302,8 +1307,12 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
         dw_res->data[i] = r1->data[i] - dwfix->data[i];
       }
 
-      smoothdata(idxP, r1);
+      movmean(idxP, r1);
 
+      /*   else */
+      /*    dw_res = smoothdata(dw, 'movmean', 100) - dwfix; */
+      /*     w12_res = smoothdata(w12, 'movmean', 100) - w12fix;    */
+      /* end */
       /* [s_max_UKF_dwfix] = f_GLT(Sigma_nom_UKF_dwfix, y, N).'; */
       repmat(r_mean_nom_dwql, dw_res->size[0], res_full_mean);
       i = y->size[0] * y->size[1];
@@ -1330,11 +1339,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
         s_max_dwql->data[i] = b_res_full_mean->data[i];
       }
 
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1357,11 +1366,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       }
 
       *classis_dwql = loop_ub;
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1374,11 +1383,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       }
 
       *strengthis_dwql = mean(dw_res);
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1391,11 +1400,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       }
 
       *max_dwql = maximum(dw_res);
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1408,11 +1417,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       }
 
       *median_dwql = median(dw_res);
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1425,11 +1434,11 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
       }
 
       *mode_dwql = arraymode(dw_res);
-      if (170 > s_max_dwql->size[0]) {
+      if (200 > s_max_dwql->size[0]) {
         i = 0;
         k = 0;
       } else {
-        i = 169;
+        i = 199;
         k = s_max_dwql->size[0];
       }
 
@@ -1656,6 +1665,7 @@ void f_generate_and_eval_multi_residuals_dwql(const emxArray_real_T *PA,
   emxFree_real_T(&dw);
   emxFree_creal_T(&r_mCal);
   emxFree_creal_T(&u_mCal);
+  emxFree_real_T(&res_full_variance_dwfix);
   emxFree_real_T(&res_full_variance);
   emxFree_real_T(&res_full_mean);
   emxFree_real_T(&dw_res);

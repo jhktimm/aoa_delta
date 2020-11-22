@@ -43,17 +43,16 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
   int i2;
   double b_d[6];
   double PCorrected[36];
-  double y_tmp[4];
-  double b_y_tmp[12];
   double A[4];
-  static const signed char b_iv[12] = { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 };
-
   double a22_tmp;
+  double y_tmp[12];
   double a22;
   static const signed char B[4] = { 1, 0, 0, 1 };
 
-  double c;
-  double a_idx_0;
+  static const signed char b_iv[12] = { 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 };
+
+  double Y_idx_1;
+  double Y_idx_0;
   double a_idx_1;
   double X2state[72];
   double Y2[72];
@@ -143,14 +142,14 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
 
   b_i = residual_Variance->size[0] * residual_Variance->size[1] *
     residual_Variance->size[2];
-  residual_Variance->size[0] = y_Meas->size[1];
+  residual_Variance->size[0] = 2;
   residual_Variance->size[1] = 2;
-  residual_Variance->size[2] = 2;
+  residual_Variance->size[2] = y_Meas->size[1];
   emxEnsureCapacity_real_T(residual_Variance, b_i);
   b_i = residual_Info->size[0] * residual_Info->size[1] * residual_Info->size[2];
-  residual_Info->size[0] = y_Meas->size[1];
+  residual_Info->size[0] = 2;
   residual_Info->size[1] = 2;
-  residual_Info->size[2] = 2;
+  residual_Info->size[2] = y_Meas->size[1];
   emxEnsureCapacity_real_T(residual_Info, b_i);
   b_i = residual_xi->size[0] * residual_xi->size[1];
   residual_xi->size[0] = 2;
@@ -206,34 +205,21 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
           d += (double)iv1[i1 + (i << 1)] * PCorrected[i + 6 * i2];
         }
 
-        b_y_tmp[i1 + (i2 << 1)] = d;
+        y_tmp[i1 + (i2 << 1)] = d;
       }
 
       for (i2 = 0; i2 < 2; i2++) {
         d = 0.0;
+        a21 = 0.0;
         for (i = 0; i < 6; i++) {
-          d += b_y_tmp[i1 + (i << 1)] * (double)b_iv[i + 6 * i2];
+          a22_tmp = y_tmp[i1 + (i << 1)] * (double)b_iv[i + 6 * i2];
+          d += a22_tmp;
+          a21 += a22_tmp;
         }
 
         i = i1 + (i2 << 1);
-        y_tmp[i] = d + MeasNoiseVar[i];
-      }
-    }
-
-    residual_Variance->data[k] = y_tmp[0];
-    residual_Variance->data[k + residual_Variance->size[0]] = y_tmp[1];
-    residual_Variance->data[k + residual_Variance->size[0] * 2] = y_tmp[2];
-    residual_Variance->data[(k + residual_Variance->size[0]) +
-      residual_Variance->size[0] * 2] = y_tmp[3];
-    for (i1 = 0; i1 < 2; i1++) {
-      for (i2 = 0; i2 < 2; i2++) {
-        d = 0.0;
-        for (i = 0; i < 6; i++) {
-          d += b_y_tmp[i1 + (i << 1)] * (double)b_iv[i + 6 * i2];
-        }
-
-        i = i1 + (i2 << 1);
-        A[i] = d + MeasNoiseVar[i];
+        residual_Variance->data[(i1 + 2 * i2) + 4 * k] = d + MeasNoiseVar[i];
+        A[i] = a21 + MeasNoiseVar[i];
       }
     }
 
@@ -249,19 +235,17 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     a22_tmp = A[r1 + 2];
     a22 = A[i + 2] - a21 * a22_tmp;
     d = ((double)B[i] - (double)B[r1] * a21) / a22;
-    residual_Info->data[k] = ((double)B[r1] - d * a22_tmp) / A[r1];
-    residual_Info->data[k + residual_Info->size[0]] = d;
+    residual_Info->data[4 * k + 1] = d;
+    residual_Info->data[4 * k] = ((double)B[r1] - d * a22_tmp) / A[r1];
     i1 = B[r1 + 2];
     d = ((double)B[i + 2] - (double)i1 * a21) / a22;
-    residual_Info->data[k + residual_Info->size[0] * 2] = ((double)i1 - d *
-      a22_tmp) / A[r1];
-    residual_Info->data[(k + residual_Info->size[0]) + residual_Info->size[0] *
-      2] = d;
+    residual_Info->data[4 * k + 3] = d;
+    residual_Info->data[4 * k + 2] = ((double)i1 - d * a22_tmp) / A[r1];
     for (i1 = 0; i1 < 2; i1++) {
       for (i2 = 0; i2 < 2; i2++) {
         d = 0.0;
         for (i = 0; i < 6; i++) {
-          d += b_y_tmp[i1 + (i << 1)] * (double)b_iv[i + 6 * i2];
+          d += y_tmp[i1 + (i << 1)] * (double)b_iv[i + 6 * i2];
         }
 
         i = i1 + (i2 << 1);
@@ -281,14 +265,14 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     a22_tmp = A[r1 + 2];
     a22 = A[i + 2] - a21 * a22_tmp;
     d = ((double)B[i] - (double)B[r1] * a21) / a22;
-    y_tmp[1] = d;
-    y_tmp[0] = ((double)B[r1] - d * a22_tmp) / A[r1];
+    Y_idx_1 = d;
+    Y_idx_0 = ((double)B[r1] - d * a22_tmp) / A[r1];
     i1 = B[r1 + 2];
     d = ((double)B[i + 2] - (double)i1 * a21) / a22;
     i2 = 2 * k + 1;
-    residual_xi->data[2 * k] = y_tmp[0] * residual_mean->data[2 * k] + ((double)
+    residual_xi->data[2 * k] = Y_idx_0 * residual_mean->data[2 * k] + ((double)
       i1 - d * a22_tmp) / A[r1] * residual_mean->data[i2];
-    residual_xi->data[i2] = y_tmp[1] * residual_mean->data[2 * k] + d *
+    residual_xi->data[i2] = Y_idx_1 * residual_mean->data[2 * k] + d *
       residual_mean->data[i2];
     if ((!ukf.pIsSetStateCovariance) || (ukf.pStateCovarianceScalar != -1.0)) {
       for (i1 = 0; i1 < 36; i1++) {
@@ -314,15 +298,15 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     }
 
     a21 = ukf.Alpha * ukf.Alpha;
-    c = a21 * (ukf.Kappa + 6.0);
-    a_idx_0 = 1.0 - 6.0 / c;
-    a_idx_1 = 1.0 / (2.0 * c);
-    a21 = a_idx_0 + ((1.0 - a21) + ukf.Beta);
+    Y_idx_1 = a21 * (ukf.Kappa + 6.0);
+    Y_idx_0 = 1.0 - 6.0 / Y_idx_1;
+    a_idx_1 = 1.0 / (2.0 * Y_idx_1);
+    a21 = Y_idx_0 + ((1.0 - a21) + ukf.Beta);
     a22_tmp = a_idx_1;
-    if (a_idx_0 != 0.0) {
-      a22 = a_idx_0;
-      d = a_idx_0;
-      a_idx_0 /= a_idx_0;
+    if (Y_idx_0 != 0.0) {
+      a22 = Y_idx_0;
+      d = Y_idx_0;
+      Y_idx_0 /= Y_idx_0;
       a21 /= a22;
       a_idx_1 /= d;
       a22_tmp /= a22;
@@ -334,7 +318,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
       b_d[i] = ukf.pState[i];
     }
 
-    calcSigmaPoints(ukf.pStateCovariance, b_d, c, X2state);
+    calcSigmaPoints(ukf.pStateCovariance, b_d, Y_idx_1, X2state);
     for (r1 = 0; r1 < 12; r1++) {
       f_cavitySystem(*(double (*)[6])&X2state[6 * r1], *(double (*)[2])&
                      u_Meas->data[2 * k], fs, tau_m, K_m, QL, *(double (*)[6])&
@@ -344,7 +328,7 @@ void f_compute_ukf_residual_not_pers(const double initialStateGuess[6], const
     f_cavitySystem(b_d, *(double (*)[2])&u_Meas->data[2 * k], fs, tau_m, K_m, QL,
                    tempY);
     for (i = 0; i < 6; i++) {
-      b_d[i] = tempY[i] * a_idx_0;
+      b_d[i] = tempY[i] * Y_idx_0;
     }
 
     for (r1 = 0; r1 < 12; r1++) {

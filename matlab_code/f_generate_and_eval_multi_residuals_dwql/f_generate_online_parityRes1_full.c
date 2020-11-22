@@ -254,14 +254,16 @@ void c_f_generate_online_parityRes1_(const emxArray_real_T *Probe_Ampl, const
 
   i7 = (2 <= u2->size[0] - 1);
   a = 2.0 * r;
+
+  /*  r_1  = (x_d1.* (Ts.*x1(2:end-1,:)) - x_d2.*(Ts .* x2(2:end-1,:))); */
   i8 = (2 <= x1->size[0] - 1);
   i9 = (2 <= x2->size[0] - 1);
   nx = i1 - i;
   for (i1 = 0; i1 < nx; i1++) {
     residual1->data[i1] = ((-x1->data[i + i1] + x1->data[k + i1]) + (-r *
-      x1->data[i2 + i1] + ai * u1->data[i3 + i1] * w12)) * (r * x1->data[i8 + i1])
-      - ((x2->data[i4 + i1] - x2->data[i5 + i1]) + (r * x2->data[i6 + i1] - a *
-          u2->data[i7 + i1]) * w12) * (r * x2->data[i9 + i1]);
+      x1->data[i2 + i1] + ai * u1->data[i3 + i1]) * w12) * x1->data[i8 + i1] -
+      ((x2->data[i4 + i1] - x2->data[i5 + i1]) + (r * x2->data[i6 + i1] - a *
+        u2->data[i7 + i1]) * w12) * x2->data[i9 + i1];
   }
 
   emxFree_real_T(&x2);
