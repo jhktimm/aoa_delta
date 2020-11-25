@@ -1,8 +1,19 @@
 source setFixedParameter.sh
-runName=Lisa_Mona
-parameterDirectory=../tau_k_x/Hypatia_para/
+runName=Noether_Patesty
+parameterDirectory=../tau_k_x/Noether_Patty_para/nomPara_multi_best/
 dataDirectory=/beegfs/desy/user/jhktimm/rawdata/testDir/
-#you can override the directories from setFixedParameter.sh
-#resultDirectory=/beegfs/desy/user/jhktimm/results/
-#you can additional define singleFileOrSearchPattern, to loop over search pattern or single file
+#dataDirectory=/pnfs/desy.de/m/msk/disk/dataSets/Noether/
+
+# you can override the directories from setFixedParameter.sh
+# resultDirectory=/beegfs/desy/user/jhktimm/results/
+# you can additional define singleFileOrSearchPattern,
+# to loop over search pattern or single file
 #singleFileOrSearchPattern=*run1338_file1000*
+#singleFileOrSearchPattern=linac_test_main_run1138_file751_*
+
+# dataVolume needed, due to access rights from docker on dCache
+# this dataVolume will be bind in the docker container
+# where dataDirectory point the data 
+# in non dCache folders you can set dataVolume to the dataDirectory
+dataVolume=dataDirectory
+#dataVolume=/pnfs/desy.de/m/msk/

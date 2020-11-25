@@ -58,7 +58,7 @@ dockerrun \
   -w /space/aoa_delta/workdir \
   -v ${aoaDirectory}:/space/aoa_delta \
   -v ${resultDirectory}:/results \
-  -v ${dataDirectory}:/data \
+  -v ${dataVolume}:${dataVolume} \
   -v ${logDirectory}:/logs \
   --name ${containerName} \
   -dit jhktimm/aoa  bash
@@ -72,7 +72,8 @@ while [  $COUNTER -lt $nprocs ]; do
   echo " postfix: ${postfix}"
 
   for f in `cat ${number}_fileList.txt`; do
-    filepath="${filepath} /data/${f}"
+    #filepath="${filepath} /data/${f}"
+    filepath="${filepath} ${dataDirectory}${f}"
   done
 
   echo "#!/bin/bash" > tmp${number}
