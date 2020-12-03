@@ -31,6 +31,7 @@ mean.c
 median.c
 minOrMax.c
 mode.c
+movmean.c
 quickselect.c
 repmat.c
 rtGetInf.c

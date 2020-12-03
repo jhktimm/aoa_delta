@@ -32,6 +32,7 @@ extern "C" {
 #include "f_generate_and_eval_multi_residuals_dwql/median.h"
 #include "f_generate_and_eval_multi_residuals_dwql/minOrMax.h"
 #include "f_generate_and_eval_multi_residuals_dwql/mode.h"
+#include "f_generate_and_eval_multi_residuals_dwql/movmean.h"
 #include "f_generate_and_eval_multi_residuals_dwql/quickselect.h"
 #include "f_generate_and_eval_multi_residuals_dwql/repmat.h"
 #include "f_generate_and_eval_multi_residuals_dwql/rtGetInf.h"
